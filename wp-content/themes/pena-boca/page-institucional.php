@@ -136,11 +136,39 @@ get_header(); ?>
 
         <!-- Bloque 4: Autoridades -->
         <div class="inst-block">
-            <h2 class="cabj-font">Comisión Directiva y Autoridades</h2>
-            <p>Conocé a los integrantes que llevan adelante la gestión institucional, administrativa y cultural de la Peña.</p>
+            <h2 class="cabj-font">Autoridades</h2>
             <ul>
-                <li><strong>Presidente / Referente:</strong> [Nombre y Apellido]</li>
-                <li><strong>Comisión Directiva:</strong> [Detallar cargos principales]</li>
+                <li><strong>Presidenta:</strong> Florencia Gastaminza</li>
+                <li><strong>Secretaria General:</strong> María Sol Taraborrelli</li>
+                <li><strong>Tesorero:</strong> Juan Marcos González</li>
+            </ul>
+
+            <h3 class="cabj-font" style="color: var(--boca-oro); margin-top: 30px;">Vocales y áreas a cargo</h3>
+            <div class="principios-grid">
+                <div class="principio-card">
+                    <h4>Viajes</h4>
+                    <p>Facundo Mendoza</p>
+                </div>
+                <div class="principio-card">
+                    <h4>Streaming</h4>
+                    <p>Lautaro Iriondo</p>
+                </div>
+                <div class="principio-card">
+                    <h4>Socixs Peña</h4>
+                    <p>Pablo Zeki</p>
+                </div>
+                <div class="principio-card">
+                    <h4>Socixs Boca</h4>
+                    <p>María Victoria Rodríguez</p>
+                </div>
+                <div class="principio-card">
+                    <h4>Acción Social</h4>
+                    <p>Aldana Jauge</p>
+                </div>
+            </div>
+
+            <ul style="margin-top: 30px;">
+                <li><strong>Revisor de cuentas:</strong> Alfonso Gimenez</li>
             </ul>
         </div>
 
