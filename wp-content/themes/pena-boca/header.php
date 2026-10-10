@@ -209,6 +209,7 @@
         <button class="nav-toggle" type="button" aria-label="Abrir menú" onclick="document.querySelector('.navbar-links').classList.toggle('open')">&#9776;</button>
 
         <div class="navbar-links">
+            <a href="<?php echo site_url('/pena-oficial'); ?>">Peña Oficial</a>
             <div class="nav-item">
                 <a href="<?php echo site_url('/institucional'); ?>">Institucional <span class="caret">▾</span></a>
                 <div class="nav-sub">

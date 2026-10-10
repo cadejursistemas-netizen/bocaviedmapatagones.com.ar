@@ -138,6 +138,11 @@ get_header(); ?>
     color: var(--boca-azul-oscuro);
 }
 
+.oficial-banner { background-color: var(--boca-azul-principal); border-top: 4px solid var(--boca-oro); border-bottom: 4px solid var(--boca-oro); padding: 50px 5%; text-align: center; }
+.oficial-inner { max-width: 900px; margin: 0 auto; }
+.oficial-tag { display: inline-block; color: var(--boca-oro); font-family: 'Russo One', sans-serif; font-size: 1.8rem; letter-spacing: 1px; margin-bottom: 15px; }
+.oficial-text { color: var(--boca-texto-claro); font-size: 1.2rem; line-height: 1.8; margin: 0 0 25px 0; }
+
 .banner-cta {
     background: linear-gradient(135deg, var(--boca-oro) 0%, #d49c2a 100%);
     padding: 60px 5%;
@@ -172,6 +177,15 @@ get_header(); ?>
         </div>
     </div>
 </header>
+
+<!-- PEÑA OFICIAL -->
+<section class="oficial-banner">
+    <div class="oficial-inner">
+        <span class="oficial-tag">SOMOS PEÑA OFICIAL</span>
+        <p class="oficial-text">Somos el único espacio de la Comarca con reconocimiento oficial de Boca Juniors. Te ayudamos con las gestiones de forma directa, participamos de la vida institucional del CABJ y de la discusión sobre qué Club necesitamos. <strong>¡Vos podés ser parte de pensar esos proyectos!</strong></p>
+        <a href="<?php echo site_url('/pena-oficial'); ?>" class="btn-mod" style="background:var(--boca-oro); color:var(--boca-azul-oscuro);">¿Qué es ser Peña Oficial?</a>
+    </div>
+</section>
 
 <!-- MÓDULOS DE CONTENIDO -->
 <section class="section-modulos">
