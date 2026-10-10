@@ -178,13 +178,17 @@
             right: 0;
             flex-direction: column;
             align-items: stretch;
-            background-color: rgba(10, 17, 34, 0.98);
+            background-color: #0a1122;
             border-bottom: 3px solid var(--boca-oro);
             padding: 10px 5% 20px 5%;
+            max-height: calc(100vh - 80px);
+            overflow-y: auto;
         }
         .navbar-links.open { display: flex; }
         .navbar-links a { margin: 0; padding: 12px 0; font-size: 1rem; text-align: center; }
         .nav-item { display: block; }
+        .nav-item > a { display: block; }
+        .navbar-links a { padding: 10px 0; }
         .nav-item .caret { display: none; }
         .nav-sub { display: block; position: static; padding-top: 0; min-width: 0; }
         .nav-sub a { background: transparent; border-left: 0; padding: 8px 0; font-size: 0.9rem; opacity: 0.8; }
@@ -227,6 +231,7 @@
                 <a href="<?php echo site_url('/actividades'); ?>">Actividades <span class="caret">▾</span></a>
                 <div class="nav-sub">
                     <a href="<?php echo site_url('/actividades'); ?>">Todas las actividades</a>
+                    <a href="<?php echo site_url('/galeria'); ?>">Galería de fotos</a>
                     <a href="<?php echo site_url('/futbol'); ?>">Fútbol Semanal</a>
                     <a href="<?php echo site_url('/accion-social'); ?>">Acción Social</a>
                     <a href="<?php echo site_url('/bosteras'); ?>">Bosteras</a>

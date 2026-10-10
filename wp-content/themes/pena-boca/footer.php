@@ -153,7 +153,7 @@
 
     <!-- BOTONES FLOTANTES: WhatsApp + Instagram -->
     <style>
-    .flotantes { position: fixed; right: 18px; bottom: 18px; z-index: 999; display: flex; flex-direction: column; gap: 12px; align-items: flex-end; }
+    .flotantes { position: fixed; right: 18px; bottom: 18px; z-index: 90; display: flex; flex-direction: column; gap: 12px; align-items: flex-end; }
     .flotante { display: flex; align-items: center; justify-content: center; width: 56px; height: 56px; border-radius: 50%; color: #fff; box-shadow: 0 6px 18px rgba(0,0,0,0.45); transition: transform 0.2s ease; text-decoration: none; }
     .flotante:hover { transform: scale(1.1); }
     .flotante svg { width: 28px; height: 28px; fill: #fff; }

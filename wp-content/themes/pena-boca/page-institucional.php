@@ -40,6 +40,7 @@ get_header(); ?>
 }
 
 .inst-block { scroll-margin-top: 100px; }
+@media (max-width: 600px) { .inst-block { padding: 24px 20px; } .hitos { padding-left: 15px; } }
 
 .inst-block h2 {
     color: var(--boca-oro);

@@ -133,6 +133,8 @@ get_header(); ?>
     transition: all 0.3s;
 }
 
+.modulo-text a { color: var(--boca-oro); font-weight: 700; }
+
 .btn-mod:hover {
     background-color: var(--boca-oro);
     color: var(--boca-azul-oscuro);
@@ -143,6 +145,13 @@ get_header(); ?>
 .oficial-tag { display: inline-block; color: var(--boca-oro); font-family: 'Russo One', sans-serif; font-size: 1.8rem; letter-spacing: 1px; margin-bottom: 15px; }
 .oficial-text { color: var(--boca-texto-claro); font-size: 1.2rem; line-height: 1.8; margin: 0 0 25px 0; }
 
+.tira-fotos { padding: 60px 0 50px 0; }
+.tira-titulo { text-align: center; color: var(--boca-oro); font-size: 2.2rem; margin: 0 0 25px 0; }
+.tira-scroll { display: flex; gap: 12px; overflow-x: auto; padding: 0 5% 10px 5%; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; }
+.tira-scroll a { flex: 0 0 auto; width: 240px; height: 240px; border-radius: 10px; overflow: hidden; scroll-snap-align: start; border: 2px solid var(--boca-azul-principal); }
+.tira-scroll img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s ease; }
+.tira-scroll a:hover img { transform: scale(1.08); }
+
 .banner-cta {
     background: linear-gradient(135deg, var(--boca-oro) 0%, #d49c2a 100%);
     padding: 60px 5%;
@@ -150,6 +159,10 @@ get_header(); ?>
     color: var(--boca-azul-oscuro);
     border-radius: 12px;
     margin: 0 5% 60px 5%;
+}
+
+@media (max-width: 700px) {
+    .hero-slider { background: linear-gradient(rgba(5, 8, 17, 0.8), rgba(5, 8, 17, 0.8)), url('<?php echo get_template_directory_uri(); ?>/images/mod-pena-oficial.webp') center/cover no-repeat; }
 }
 
 @media (max-width: 900px) {
@@ -277,6 +290,24 @@ get_header(); ?>
         </div>
     </article>
 
+</section>
+
+<!-- TIRA DE FOTOS -->
+<section class="tira-fotos">
+    <h2 class="cabj-font tira-titulo">VIVÍ LA PEÑA</h2>
+    <div class="tira-scroll">
+        <a href="<?php echo site_url('/galeria'); ?>"><img src="<?php echo get_template_directory_uri(); ?>/images/galeria/t02.webp" alt="Foto de la Peña" loading="lazy" width="420" height="420"></a>
+        <a href="<?php echo site_url('/galeria'); ?>"><img src="<?php echo get_template_directory_uri(); ?>/images/galeria/t05.webp" alt="Foto de la Peña" loading="lazy" width="420" height="420"></a>
+        <a href="<?php echo site_url('/galeria'); ?>"><img src="<?php echo get_template_directory_uri(); ?>/images/galeria/t09.webp" alt="Foto de la Peña" loading="lazy" width="420" height="420"></a>
+        <a href="<?php echo site_url('/galeria'); ?>"><img src="<?php echo get_template_directory_uri(); ?>/images/galeria/t15.webp" alt="Foto de la Peña" loading="lazy" width="420" height="420"></a>
+        <a href="<?php echo site_url('/galeria'); ?>"><img src="<?php echo get_template_directory_uri(); ?>/images/galeria/t22.webp" alt="Foto de la Peña" loading="lazy" width="420" height="420"></a>
+        <a href="<?php echo site_url('/galeria'); ?>"><img src="<?php echo get_template_directory_uri(); ?>/images/galeria/t31.webp" alt="Foto de la Peña" loading="lazy" width="420" height="420"></a>
+        <a href="<?php echo site_url('/galeria'); ?>"><img src="<?php echo get_template_directory_uri(); ?>/images/galeria/t36.webp" alt="Foto de la Peña" loading="lazy" width="420" height="420"></a>
+        <a href="<?php echo site_url('/galeria'); ?>"><img src="<?php echo get_template_directory_uri(); ?>/images/galeria/t48.webp" alt="Foto de la Peña" loading="lazy" width="420" height="420"></a>
+    </div>
+    <div style="text-align:center; margin-top:25px;">
+        <a href="<?php echo site_url('/galeria'); ?>" class="btn-mod">Ver todas las fotos</a>
+    </div>
 </section>
 
 <!-- BANNER DE ACCIÓN (CONTACTO Y GESTIONES) -->
