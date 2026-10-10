@@ -95,8 +95,8 @@ get_header(); ?>
                 <figcaption>Llaveros</figcaption>
             </figure>
             <figure class="prod">
-                <img src="<?php echo get_template_directory_uri(); ?>/images/marca-gorro.webp" alt="Gorro de la Peña" loading="lazy">
-                <figcaption>Gorro</figcaption>
+                <img src="<?php echo get_template_directory_uri(); ?>/images/marca-gorro.webp" alt="Piluso de la Peña" loading="lazy">
+                <figcaption>Piluso</figcaption>
             </figure>
             <figure class="prod">
                 <img src="<?php echo get_template_directory_uri(); ?>/images/marca-gorra.webp" alt="Gorra de la Peña" loading="lazy">
