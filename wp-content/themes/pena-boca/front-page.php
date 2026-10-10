@@ -10,7 +10,7 @@ get_header(); ?>
     position: relative;
     height: 75vh;
     min-height: 500px;
-    background: linear-gradient(to right, rgba(5, 8, 17, 0.95) 20%, rgba(5, 8, 17, 0.4)), url('<?php echo get_template_directory_uri(); ?>/fondo.jpg') center/cover no-repeat;
+    background: linear-gradient(to right, rgba(5, 8, 17, 0.92) 25%, rgba(5, 8, 17, 0.15)), url('<?php echo get_template_directory_uri(); ?>/images/mod-pena-oficial.jpg') center/cover no-repeat;
     display: flex;
     align-items: center;
     padding: 0 5%;
