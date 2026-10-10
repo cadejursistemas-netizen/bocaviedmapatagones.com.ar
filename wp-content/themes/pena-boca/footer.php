@@ -118,9 +118,8 @@
             <div class="footer-col footer-links">
                 <h3>Contacto</h3>
                 <p><strong>Gestiones CABJ y Peña:</strong><br>Hacete socio, consultas, cuotas o ideas.</p>
-                <!-- Reemplazá el "5492920000000" por el número real con código de área -->
-                <a href="https://wa.me/5492920000000" target="_blank" style="color: var(--boca-oro); font-weight: bold; font-size: 1.1rem; margin-top: 10px;">
-                    💬 Escribinos al 2920...
+                <a href="https://wa.me/5492920405196" target="_blank" style="color: var(--boca-oro); font-weight: bold; font-size: 1.1rem; margin-top: 10px;">
+                    💬 Escribinos al 2920405196
                 </a>
                 <p style="margin-top: 15px;"><strong>Sede:</strong><br>Viedma - Patagones</p>
             </div>

@@ -130,8 +130,7 @@ get_header(); ?>
                     </div>
                 </div>
 
-                <!-- Reemplazá el número "5492920000000" por tu número real con código de área -->
-                <a href="https://wa.me/5492920000000?text=Hola!%20Quería%20hacer%20una%20consulta%20a%20la%20Peña" target="_blank" class="btn-whatsapp">
+                <a href="https://wa.me/5492920405196?text=Hola!%20Quería%20hacer%20una%20consulta%20a%20la%20Peña" target="_blank" class="btn-whatsapp">
                     💬 Abrir WhatsApp
                 </a>
             </div>
