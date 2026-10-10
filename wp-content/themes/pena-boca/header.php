@@ -176,30 +176,48 @@
 
     @media (max-width: 1100px) {
         .navbar-logo-cabj { display: none; }
-        .nav-toggle { display: block; }
+        /* backdrop-filter haría que el panel "fixed" se mida contra la barra y no contra la pantalla */
+        .navbar-pena { backdrop-filter: none; -webkit-backdrop-filter: none; background-color: #0a1122; }
+        .navbar-logo-pena { z-index: 3; }
+        .nav-toggle { display: block; position: relative; z-index: 3; }
+
+        /* Panel que ocupa la pantalla debajo de la barra */
         .navbar-links {
             display: none;
-            position: absolute;
+            position: fixed;
             top: 80px;
             left: 0;
             right: 0;
+            bottom: 0;
             flex-direction: column;
             align-items: stretch;
+            justify-content: flex-start;
             background-color: #0a1122;
-            border-bottom: 3px solid var(--boca-oro);
-            padding: 10px 5% 20px 5%;
-            max-height: calc(100vh - 80px);
+            border-top: 3px solid var(--boca-oro);
+            padding: 38px 6% 40px 6%;
             overflow-y: auto;
+            overscroll-behavior: contain;
         }
         .navbar-links.open { display: flex; }
-        .navbar-links a { margin: 0; padding: 12px 0; font-size: 1rem; text-align: center; }
+        body.menu-abierto { overflow: hidden; }
+
+        .navbar-links a { margin: 0; padding: 16px 4px; font-size: 1.15rem; font-weight: 600; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.08); }
+        .navbar-links > a:hover, .nav-item > a:hover { color: var(--boca-oro); }
+
+        /* Contacto, el botón principal, primero */
+        .btn-nav-contacto { order: -1; text-align: center !important; margin: 0 0 14px 0 !important; padding: 16px 20px !important; font-size: 1.1rem !important; border-bottom: 0 !important; border-radius: 12px !important; }
+
+        /* Grupos con submenú plegado */
         .nav-item { display: block; }
-        .nav-item > a { display: block; }
-        .navbar-links a { padding: 10px 0; }
-        .nav-item .caret { display: none; }
-        .nav-sub { display: block; position: static; padding-top: 0; min-width: 0; }
-        .nav-sub a { background: transparent; border-left: 0; padding: 8px 0; font-size: 0.9rem; opacity: 0.8; }
-        .btn-nav-contacto { margin-top: 10px !important; }
+        .nav-item > a { display: flex; align-items: center; justify-content: space-between; }
+        .nav-item .caret { display: inline-block; font-size: 0.9rem; transition: transform 0.25s ease; }
+        .nav-item.abierto .caret { transform: rotate(180deg); }
+        .nav-item.abierto > a { color: var(--boca-oro); }
+        .nav-sub { display: none; position: static; padding: 0 0 6px 14px; min-width: 0; border-left: 2px solid var(--boca-oro); margin: 4px 0 8px 4px; }
+        .nav-item.abierto .nav-sub { display: block; }
+        .nav-item:hover .nav-sub, .nav-item:focus-within .nav-sub { display: none; }
+        .nav-item.abierto:hover .nav-sub, .nav-item.abierto:focus-within .nav-sub { display: block; }
+        .nav-sub a { background: transparent; border-left: 0; padding: 13px 4px; font-size: 1rem; font-weight: 500; opacity: 0.9; }
     }
 
     @media (max-width: 900px) {
@@ -219,7 +237,7 @@
             </a>
         </div>
         
-        <button class="nav-toggle" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu-principal" onclick="var m=document.getElementById('menu-principal');var o=m.classList.toggle('open');this.setAttribute('aria-expanded',o);this.setAttribute('aria-label',o?'Cerrar menú':'Abrir menú');">&#9776;</button>
+        <button class="nav-toggle" type="button" id="nav-toggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu-principal">&#9776;</button>
 
         <div class="navbar-links" id="menu-principal">
             <a href="<?php echo site_url('/pena-oficial'); ?>">Peña Oficial</a>
@@ -257,3 +275,41 @@
             <img src="<?php echo get_template_directory_uri(); ?>/cabj-logo.svg"  alt="Escudo Oficial CABJ">
         </div>
     </nav>
+    <script>
+    (function () {
+        var btn = document.getElementById('nav-toggle');
+        var menu = document.getElementById('menu-principal');
+        if (!btn || !menu) return;
+        var movil = window.matchMedia('(max-width: 1100px)');
+
+        function abrirCerrar(abrir) {
+            menu.classList.toggle('open', abrir);
+            document.body.classList.toggle('menu-abierto', abrir);
+            btn.setAttribute('aria-expanded', abrir);
+            btn.setAttribute('aria-label', abrir ? 'Cerrar menú' : 'Abrir menú');
+            btn.innerHTML = abrir ? '&times;' : '&#9776;';
+            if (!abrir) menu.querySelectorAll('.nav-item.abierto').forEach(function (i) { i.classList.remove('abierto'); i.querySelector('a').setAttribute('aria-expanded', 'false'); });
+        }
+        btn.addEventListener('click', function () { abrirCerrar(!menu.classList.contains('open')); });
+
+        // En celular, tocar un grupo despliega sus opciones (y cierra el otro grupo)
+        menu.querySelectorAll('.nav-item > a').forEach(function (a) {
+            a.setAttribute('aria-expanded', 'false');
+            a.addEventListener('click', function (e) {
+                if (!movil.matches) return;
+                e.preventDefault();
+                var item = a.parentNode, abrir = !item.classList.contains('abierto');
+                menu.querySelectorAll('.nav-item.abierto').forEach(function (i) { i.classList.remove('abierto'); i.querySelector('a').setAttribute('aria-expanded', 'false'); });
+                if (abrir) { item.classList.add('abierto'); a.setAttribute('aria-expanded', 'true'); }
+            });
+        });
+
+        // Se cierra al elegir una página, con Esc, o al pasar a pantalla grande
+        menu.addEventListener('click', function (e) {
+            var l = e.target.closest('a');
+            if (l && !l.parentNode.classList.contains('nav-item') || (l && l.closest('.nav-sub'))) abrirCerrar(false);
+        });
+        document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && menu.classList.contains('open')) { abrirCerrar(false); btn.focus(); } });
+        movil.addEventListener('change', function () { if (!movil.matches) abrirCerrar(false); });
+    })();
+    </script>
