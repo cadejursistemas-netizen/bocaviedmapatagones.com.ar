@@ -228,6 +228,7 @@ get_header(); ?>
                     <div>
                         <h4>Interés provincial</h4>
                         <p>La Copa Socios fue declarada de interés provincial por la Legislatura de la Provincia de Río Negro, destacando la relevancia de esta iniciativa en el territorio.</p>
+                        <img class="hito-img" src="<?php echo get_template_directory_uri(); ?>/images/rec-2026.jpg" alt="Reconocimiento 2026: Copa Socios de interés provincial" loading="lazy">
                     </div>
                 </div>
             </div>
