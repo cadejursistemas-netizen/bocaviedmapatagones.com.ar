@@ -160,8 +160,12 @@ get_header(); ?>
 
     <!-- Introducción -->
     <section class="actividades-intro">
-        <p>En la Peña hay propuestas para todos los gustos y edades: torneos de PlayStation y truco, intercambio de figuritas, catas de vino, curso de fotografía, fútbol, karaoke, juntadas nocturnas y mucho más. Si tenés ganas de compartir la pasión por Boca de una manera diferente, ¡seguro encontrás tu lugar! Y si tenés alguna propuesta, también podés acercarla.</p>
+        <p>En la Peña hay propuestas para todos los gustos y edades: torneos de PlayStation y truco, intercambio de figuritas, catas de vino, fútbol, juntadas nocturnas y mucho más. Si tenés ganas de compartir la pasión por Boca de una manera diferente, ¡seguro encontrás tu lugar! Y si tenés alguna propuesta, también podés acercarla.</p>
         <p class="actividades-lema">¡Vamos los xeneizes!</p>
+        <div style="display:flex; gap:15px; justify-content:center; flex-wrap:wrap; margin-top:25px;">
+            <a href="<?php echo site_url('/futbol'); ?>" class="btn-mod">Fútbol semanal</a>
+            <a href="<?php echo site_url('/accion-social'); ?>" class="btn-mod">Acción Social</a>
+        </div>
     </section>
 
     <!-- Sección de Galería -->
