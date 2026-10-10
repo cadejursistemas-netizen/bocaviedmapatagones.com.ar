@@ -1,0 +1,15 @@
+/*
+Theme Name: Peña Boca Viedma-Patagones
+Author: rgauna
+Description: Tema oficial para la Peña de Boca Juniors en la Comarca.
+Version: 1.0
+*/
+
+:root {
+  --boca-azul-principal: #1a3c6c; 
+  --boca-azul-oscuro: #0f2440;    
+  --boca-oro: #f2b705;            
+  --boca-fondo: #050a12;          
+  --boca-texto-claro: #f8f9fa;
+  --boca-gris-texto: #a0aab8;
+}
