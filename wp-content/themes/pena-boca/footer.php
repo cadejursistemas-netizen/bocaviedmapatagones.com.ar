@@ -186,7 +186,7 @@
     <script>
     (function () {
         if (!('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-        var selector = '.modulo-row, .oficial-banner, .banner-cta, .inst-block, .hito, .principio-card, .pg-grid, .faq-item, .prod, .flyer, .autoridad, .gallery-item, .sede-grid, .footer-col';
+        var selector = '.modulo-row, .oficial-banner, .banner-cta, .inst-block, .hito, .principio-card, .pg-grid, .faq-item, .prod, .flyer, .autoridad, .org-foto, .gallery-item, .sede-grid, .footer-col';
         var els = document.querySelectorAll(selector);
         var io = new IntersectionObserver(function (entries) {
             entries.forEach(function (e) {

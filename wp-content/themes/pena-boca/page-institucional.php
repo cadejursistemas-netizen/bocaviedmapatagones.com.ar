@@ -83,6 +83,12 @@ get_header(); ?>
 .autoridad p { margin: 0; font-size: 1rem; color: var(--boca-texto-claro); }
 @media (max-width: 700px) { .autoridades-grid { gap: 12px; } .autoridades-grid .autoridad, .autoridades-grid.autoridades-3 .autoridad, .autoridades-1 .autoridad { flex: 0 0 calc(50% - 8px); padding: 18px 8px; } .autoridad img, .autoridad-ini { width: 96px; height: 96px; } }
 
+.org-fotos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 25px; }
+.org-foto { margin: 0; aspect-ratio: 3 / 4; border-radius: 10px; overflow: hidden; border: 2px solid var(--boca-oro); background: var(--boca-azul-oscuro); }
+.org-foto img { width: 100%; height: 100%; object-fit: cover; object-position: center 60%; display: block; transition: transform 0.4s ease; }
+.org-foto:hover img { transform: scale(1.05); }
+@media (max-width: 700px) { .org-fotos { grid-template-columns: 1fr; } .org-foto { aspect-ratio: 4 / 3; } }
+
 /* Estilo para los Principios Innegociables */
 .principios-grid {
     display: grid;
@@ -289,6 +295,11 @@ get_header(); ?>
         <div class="inst-block" id="organizacion">
             <h2 class="cabj-font">Organización general y participación</h2>
             <p>Además de la Comisión, contamos con un grupo de organización que planifica y coordina el funcionamiento de la Peña. Somos más de 30 socios y socias que participamos activamente en las distintas áreas de trabajo. Este grupo constituye el alma de la Peña: una mesa ampliada de toma de decisiones, donde compartimos ideas, definimos objetivos y construimos colectivamente su rumbo.</p>
+            <div class="org-fotos">
+            <figure class="org-foto"><img src="<?php echo get_template_directory_uri(); ?>/images/organizacion-1.webp" alt="Grupo de organización de la Peña en la sede" loading="lazy"></figure>
+            <figure class="org-foto"><img src="<?php echo get_template_directory_uri(); ?>/images/organizacion-2.webp" alt="Reunión de organización en la sede" loading="lazy"></figure>
+            <figure class="org-foto"><img src="<?php echo get_template_directory_uri(); ?>/images/organizacion-3.webp" alt="Encuentro de socios y socias en la sede" loading="lazy"></figure>
+            </div>
         </div>
 
     </section>
