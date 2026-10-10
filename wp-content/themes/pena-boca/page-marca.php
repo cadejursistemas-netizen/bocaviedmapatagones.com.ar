@@ -17,12 +17,13 @@ get_header(); ?>
 .pg-info a { color: var(--boca-oro); }
 .prod-section { background-color: var(--boca-fondo); padding: 0 5% 70px 5%; max-width: 1100px; margin: 0 auto; }
 .prod-titulo { color: var(--boca-oro); text-align: center; font-size: 2rem; margin: 0 0 30px 0; }
-.flyers-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; align-items: start; }
+.flyers-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; align-items: stretch; }
 .flyer { display: flex; flex-direction: column; gap: 14px; }
-.flyer > a:first-child { display: block; border-radius: 12px; overflow: hidden; border: 3px solid var(--boca-azul-principal); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-.flyer img { width: 100%; height: auto; display: block; transition: transform 0.4s ease; }
+.flyer > a:first-child { display: flex; align-items: center; justify-content: center; aspect-ratio: 3 / 4; border-radius: 12px; overflow: hidden; border: 3px solid var(--boca-azul-principal); background: #0a1122; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+.flyer img { width: 100%; height: 100%; object-fit: contain; display: block; transition: transform 0.4s ease; }
 .flyer > a:first-child:hover img { transform: scale(1.03); }
 .flyer-btn { text-align: center; }
+@media (max-width: 800px) { .flyers-grid { grid-template-columns: 1fr; max-width: 420px; margin: 0 auto; } }
 .prod-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 16px; }
 .prod { margin: 0; background: var(--boca-azul-principal); border-radius: 12px; overflow: hidden; border-bottom: 4px solid var(--boca-oro); }
 .prod img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; display: block; transition: transform 0.4s ease; }
