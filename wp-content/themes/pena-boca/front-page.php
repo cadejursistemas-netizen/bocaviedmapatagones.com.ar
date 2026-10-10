@@ -166,7 +166,10 @@ get_header(); ?>
         <span class="hero-tag">RECONOCIMIENTO OFICIAL</span>
         <h1 class="hero-title cabj-font">LA COMARCA<br><span style="color: var(--boca-oro);">ES BOSTERA</span></h1>
         <p class="hero-subtitle">Militamos a Boca a pulmón desde hace años. Ponemos el cuerpo, la cabeza y el corazón en nuestra ciudad.</p>
-        <a href="<?php echo site_url('/institucional'); ?>" class="btn-mod" style="background:var(--boca-oro); color:var(--boca-azul-oscuro);">Conocé nuestros Principios</a>
+        <div style="display:flex; gap:15px; flex-wrap:wrap;">
+            <a href="<?php echo site_url('/contacto'); ?>" class="btn-mod" style="background:var(--boca-oro); color:var(--boca-azul-oscuro);">Quiero afiliarme</a>
+            <a href="<?php echo site_url('/institucional'); ?>" class="btn-mod">Conocé nuestros Principios</a>
+        </div>
     </div>
 </header>
 
