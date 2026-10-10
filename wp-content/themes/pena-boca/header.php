@@ -6,6 +6,13 @@
     <?php wp_head(); /* Hook vital de WordPress */ ?>
     
     <style>
+    /* Accesibilidad: enlace para saltar al contenido, foco visible y menos movimiento */
+    .skip-link { position: absolute; left: -9999px; top: 8px; z-index: 3000; background: var(--boca-oro); color: var(--boca-azul-oscuro); padding: 10px 18px; border-radius: 6px; font-weight: 700; text-decoration: none; }
+    .skip-link:focus { left: 8px; }
+    a:focus-visible, button:focus-visible, summary:focus-visible, [tabindex]:focus-visible { outline: 3px solid var(--boca-oro); outline-offset: 3px; border-radius: 4px; }
+    @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+    }
     /* Botón global (se usa en todas las páginas) */
     .btn-mod {
         display: inline-block;
@@ -202,17 +209,19 @@
 </head>
 <body <?php body_class(); ?>>
 
+    <a class="skip-link" href="#primary">Saltar al contenido</a>
+
     <!-- HEADER PEÑA CON DOBLE LOGO (SE VERÁ EN TODA LA WEB) -->
-    <nav class="navbar-pena">
+    <nav class="navbar-pena" aria-label="Menú principal">
         <div class="navbar-logo-pena">
             <a href="<?php echo site_url(); ?>">
                 <img src="<?php echo get_template_directory_uri(); ?>/peña.png" alt="Peña Boca Viedma Patagones">
             </a>
         </div>
         
-        <button class="nav-toggle" type="button" aria-label="Abrir menú" onclick="document.querySelector('.navbar-links').classList.toggle('open')">&#9776;</button>
+        <button class="nav-toggle" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu-principal" onclick="var m=document.getElementById('menu-principal');var o=m.classList.toggle('open');this.setAttribute('aria-expanded',o);this.setAttribute('aria-label',o?'Cerrar menú':'Abrir menú');">&#9776;</button>
 
-        <div class="navbar-links">
+        <div class="navbar-links" id="menu-principal">
             <a href="<?php echo site_url('/pena-oficial'); ?>">Peña Oficial</a>
             <div class="nav-item">
                 <a href="<?php echo site_url('/institucional'); ?>">Institucional <span class="caret">▾</span></a>

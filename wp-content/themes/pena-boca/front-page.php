@@ -178,6 +178,7 @@ get_header(); ?>
 }
 </style>
 
+<main id="primary" class="site-main">
 <!-- HERO INSTITUCIONAL -->
 <header class="hero-slider">
     <div class="hero-content">
@@ -318,5 +319,7 @@ get_header(); ?>
     </p>
     <a href="<?php echo site_url('/contacto'); ?>" style="background-color: var(--boca-azul-oscuro); color: var(--boca-oro); padding: 15px 40px; font-size: 1.1rem; text-decoration: none; font-weight: bold; border-radius: 8px; text-transform: uppercase; display: inline-block; box-shadow: 0 5px 15px rgba(0,0,0,0.3);">Escribinos por WhatsApp</a>
 </div>
+
+</main>
 
 <?php get_footer(); ?>

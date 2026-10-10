@@ -195,9 +195,9 @@ get_header(); ?>
 <div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Visor de fotos">
     <button class="lb-close" aria-label="Cerrar">&times;</button>
     <button class="lb-prev" aria-label="Foto anterior">&#8249;</button>
-    <img id="lb-img" src="" alt="">
+    <img id="lb-img" src="" alt="Foto ampliada de la Peña">
     <button class="lb-next" aria-label="Foto siguiente">&#8250;</button>
-    <div class="lb-count" id="lb-count"></div>
+    <div class="lb-count" id="lb-count" aria-live="polite"></div>
 </div>
 
 <script>
@@ -213,8 +213,9 @@ document.addEventListener('DOMContentLoaded', function () {
         img.src = v[current].getAttribute('href');
         count.textContent = (current + 1) + ' / ' + v.length;
     }
-    function open(el) { var v = visibles(); lb.classList.add('open'); document.body.style.overflow = 'hidden'; show(v.indexOf(el)); }
-    function close() { lb.classList.remove('open'); document.body.style.overflow = ''; img.src = ''; }
+    var last = null;
+    function open(el) { var v = visibles(); last = el; lb.classList.add('open'); document.body.style.overflow = 'hidden'; show(v.indexOf(el)); lb.querySelector('.lb-close').focus(); }
+    function close() { lb.classList.remove('open'); document.body.style.overflow = ''; img.src = ''; if (last) last.focus(); }
 
     items.forEach(function (it) { it.addEventListener('click', function (e) { e.preventDefault(); open(it); }); });
     lb.querySelector('.lb-close').addEventListener('click', close);
