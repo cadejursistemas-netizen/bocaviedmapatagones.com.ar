@@ -140,6 +140,7 @@
             <a href="<?php echo site_url('/actividades'); ?>">Actividades</a>
             <a href="<?php echo site_url('/viajes'); ?>">Viajes</a>
             <a href="<?php echo site_url('/marca'); ?>">Marca</a>
+            <a href="<?php echo site_url('/desde-la-cuna'); ?>">Desde la Cuna</a>
             <a href="<?php echo site_url('/contacto'); ?>" class="btn-nav-contacto">Contacto</a>
         </div>
 
