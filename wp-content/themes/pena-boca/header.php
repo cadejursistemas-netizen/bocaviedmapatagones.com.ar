@@ -213,6 +213,7 @@
             <div class="nav-item">
                 <a href="<?php echo site_url('/institucional'); ?>">Institucional <span class="caret">▾</span></a>
                 <div class="nav-sub">
+                    <a href="<?php echo site_url('/institucional'); ?>#historia">Historia</a>
                     <a href="<?php echo site_url('/institucional'); ?>#principios">Principios</a>
                     <a href="<?php echo site_url('/institucional'); ?>#reconocimientos">Reconocimientos</a>
                     <a href="<?php echo site_url('/institucional'); ?>#autoridades">Autoridades</a>

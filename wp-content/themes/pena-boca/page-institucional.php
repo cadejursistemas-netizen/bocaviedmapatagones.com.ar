@@ -115,32 +115,77 @@ get_header(); ?>
             <p>Militamos en equipo a Boca a pulmón desde hace muchos años; poniendo el cuerpo, cabeza y corazón en cada cosa que hacemos. Esto no lo hacemos de forma improvisada: Nuestro proyecto institucional está orientado por principios innegociables.</p>
         </div>
 
-        <!-- Bloque 2: Principios Innegociables -->
+        <!-- Bloque 2: Principios -->
         <div class="inst-block" id="principios">
-            <h2 class="cabj-font">Principios Innegociables</h2>
-            <p>Los valores que guían cada paso de nuestra Peña en la Comarca Viedma-Patagones:</p>
-            
+            <h2 class="cabj-font">Principios</h2>
+            <p>Nuestras acciones no son improvisadas. Están orientadas por principios que acordamos y organizan lo que hacemos:</p>
+
             <div class="principios-grid">
                 <div class="principio-card">
-                    <h4>Democracia Interna</h4>
-                    <p>Decisiones construidas colectivamente y participación activa de los socios.</p>
+                    <h4>Solo por y para Boca</h4>
+                    <p>El único fin es que Boca siga siendo cada vez más grande. Todo lo que genera la Peña es de la Peña y el pueblo bostero.</p>
                 </div>
                 <div class="principio-card">
-                    <h4>Compromiso Social</h4>
-                    <p>Un espacio presente que acompaña las necesidades de la comunidad.</p>
+                    <h4>Peña abierta</h4>
+                    <p>Una Peña mejor se hace entre muchos. Alentamos que se involucren y recibimos observaciones, necesidades e ideas.</p>
                 </div>
                 <div class="principio-card">
-                    <h4>Defensa del Socio</h4>
-                    <p>Garantizar que el Club siga siendo de los socios y socias.</p>
+                    <h4>Somos Boca</h4>
+                    <p>Representar oficialmente a Boca implica el compromiso afín a los valores del CABJ, su identidad e historia.</p>
+                </div>
+                <div class="principio-card">
+                    <h4>Nada mejor que otro bostero</h4>
+                    <p>Trabajar en equipo es un desafío con complejidades propias. Comunicar lo que sentimos y sostener los buenos tratos es fundamental para que crezca la Peña. Acá no sobra nadie.</p>
                 </div>
             </div>
         </div>
 
         <!-- Bloque 3: Historia -->
-        <div class="inst-block">
+        <div class="inst-block" id="historia">
             <h2 class="cabj-font">Historia</h2>
-            <p>El camino recorrido para convertirnos en el único espacio de la Comarca con reconocimiento oficial de Boca Juniors. Años de esfuerzo, viajes, encuentros en la sede y un sentimiento inquebrantable.</p>
-            <!-- Acá podés explayarte o editar el texto libremente desde el panel de WP -->
+            <div class="hitos">
+                <div class="hito">
+                    <span class="hito-year">2021</span>
+                    <div>
+                        <p>Un grupo de socios y socias de Boca, que ni siquiera nos conocíamos, necesitábamos estar cerca de una peña. Nos acercamos a colaborar a la peña Patagonia Azul y Oro, con la representación oficial de Boca desde 1997, pero más enfocada en un club de fútbol.</p>
+                    </div>
+                </div>
+
+                <div class="hito">
+                    <span class="hito-year">2022</span>
+                    <div>
+                        <p>Creamos allí un área de gestión para socios de Boca, pero luego notamos que eran dos funciones distintas: un club local por un lado y una peña dedicada exclusivamente a socios y socias e hinchas de Boca por el otro.</p>
+                    </div>
+                </div>
+
+                <div class="hito">
+                    <span class="hito-year">2023</span>
+                    <div>
+                        <p>Por eso, acordamos separar caminos con el aval del Club Atlético Boca Juniors. Renovamos las autoridades a través de la Asamblea y nació nuestra peña oficial. Ese grupo de socios que solo quería estar cerca de una peña, ahora estaba a cargo de la misma.</p>
+                    </div>
+                </div>
+
+                <div class="hito">
+                    <span class="hito-year">2024</span>
+                    <div>
+                        <p>Asumimos la responsabilidad consolidada, formalizamos el trabajo, áreas referentes y nuestro sistema de socio peña.</p>
+                    </div>
+                </div>
+
+                <div class="hito">
+                    <span class="hito-year">2025</span>
+                    <div>
+                        <p>Obtuvimos la personería jurídica y abrimos nuestro local. En relación a Boca, fuimos elegidos como sede de la Copa Socios y tenemos el orgullo de que nuestra bandera esté colgada cada partido en la Bombonera.</p>
+                    </div>
+                </div>
+
+                <div class="hito">
+                    <span class="hito-year">2026</span>
+                    <div>
+                        <p>Seguimos construyendo la Peña y sabemos que lo mejor está por venir. ¿Te lo vas a perder? Vos también podés ser parte. Ya te avisamos.</p>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- Bloque: Reconocimientos -->
