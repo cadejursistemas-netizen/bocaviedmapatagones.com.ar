@@ -35,3 +35,14 @@ function pboca_precargar_fuentes() {
     }
 }
 add_action( 'wp_head', 'pboca_precargar_fuentes', 1 );
+
+// Ícono de la pestaña (favicon) con el escudo de la peña
+function pboca_favicon() {
+    $base = get_template_directory_uri() . '/icons/';
+    echo '<link rel="icon" href="' . esc_url( $base . 'favicon.ico' ) . '" sizes="any">' . "\n";
+    echo '<link rel="icon" type="image/png" sizes="32x32" href="' . esc_url( $base . 'favicon-32.png' ) . '">' . "\n";
+    echo '<link rel="icon" type="image/png" sizes="192x192" href="' . esc_url( $base . 'icon-192.png' ) . '">' . "\n";
+    echo '<link rel="apple-touch-icon" href="' . esc_url( $base . 'apple-touch-icon.png' ) . '">' . "\n";
+    echo '<meta name="theme-color" content="#0a1122">' . "\n";
+}
+add_action( 'wp_head', 'pboca_favicon', 2 );
