@@ -253,9 +253,9 @@ get_header(); ?>
             <?php
             // Para sumar una foto: copiarla en images/autoridades/ y poner el nombre del archivo (sin ruta) en 'foto'.
             $pboca_cargos = array(
-                array( 'cargo' => 'Presidenta',          'nombre' => 'Florencia Gastaminza',       'foto' => '' ),
+                array( 'cargo' => 'Presidenta',          'nombre' => 'Florencia Gastaminza',       'foto' => 'presidenta.webp' ),
                 array( 'cargo' => 'Secretaria General',  'nombre' => 'María Sol Taraborrelli',     'foto' => 'secretaria-general.webp' ),
-                array( 'cargo' => 'Tesorero',            'nombre' => 'Juan Marcos González',       'foto' => '' ),
+                array( 'cargo' => 'Tesorero',            'nombre' => 'Juan Marcos González',       'foto' => 'tesorero.webp' ),
             );
             $pboca_vocales = array(
                 array( 'cargo' => 'Viajes',        'nombre' => 'Facundo Mendoza',          'foto' => '' ),
