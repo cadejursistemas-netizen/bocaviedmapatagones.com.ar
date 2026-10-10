@@ -70,7 +70,7 @@ get_header(); ?>
 .hito-year { background-color: var(--boca-oro); color: var(--boca-azul-oscuro); font-family: 'Russo One', sans-serif; padding: 6px 14px; border-radius: 6px; font-size: 1.1rem; flex-shrink: 0; }
 .hito h4 { color: var(--boca-oro); margin: 0 0 6px 0; font-size: 1.1rem; text-transform: uppercase; }
 .hito p { margin: 0; }
-.hito-img { display: block; width: 100%; max-width: 420px; border-radius: 8px; margin-top: 12px; border: 2px solid var(--boca-oro); }
+.hito-img { display: block; width: auto; height: auto; max-width: min(100%, 420px); max-height: 480px; border-radius: 8px; margin-top: 12px; border: 2px solid var(--boca-oro); }
 @media (max-width: 600px) { .hito { flex-direction: column; gap: 8px; } }
 
 .autoridades-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; margin-top: 25px; }
