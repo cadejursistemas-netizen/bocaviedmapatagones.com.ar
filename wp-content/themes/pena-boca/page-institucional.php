@@ -172,6 +172,12 @@ get_header(); ?>
             </ul>
         </div>
 
+        <!-- Bloque 5: Organización general y participación -->
+        <div class="inst-block">
+            <h2 class="cabj-font">Organización general y participación</h2>
+            <p>Además de la Comisión, contamos con un grupo de organización que planifica y coordina el funcionamiento de la Peña. Somos más de 30 socios y socias que participamos activamente en las distintas áreas de trabajo. Este grupo constituye el alma de la Peña: una mesa ampliada de toma de decisiones, donde compartimos ideas, definimos objetivos y construimos colectivamente su rumbo.</p>
+        </div>
+
     </section>
 
 </main>
