@@ -39,6 +39,8 @@ get_header(); ?>
     border-left: 5px solid var(--boca-oro);
 }
 
+.inst-block { scroll-margin-top: 100px; }
+
 .inst-block h2 {
     color: var(--boca-oro);
     font-family: 'Russo One', sans-serif;
@@ -107,7 +109,7 @@ get_header(); ?>
         </div>
 
         <!-- Bloque 2: Principios Innegociables -->
-        <div class="inst-block">
+        <div class="inst-block" id="principios">
             <h2 class="cabj-font">Principios Innegociables</h2>
             <p>Los valores que guían cada paso de nuestra Peña en la Comarca Viedma-Patagones:</p>
             
@@ -135,7 +137,7 @@ get_header(); ?>
         </div>
 
         <!-- Bloque 4: Autoridades -->
-        <div class="inst-block">
+        <div class="inst-block" id="autoridades">
             <h2 class="cabj-font">Autoridades</h2>
             <ul>
                 <li><strong>Presidenta:</strong> Florencia Gastaminza</li>
@@ -173,7 +175,7 @@ get_header(); ?>
         </div>
 
         <!-- Bloque 5: Organización general y participación -->
-        <div class="inst-block">
+        <div class="inst-block" id="organizacion">
             <h2 class="cabj-font">Organización general y participación</h2>
             <p>Además de la Comisión, contamos con un grupo de organización que planifica y coordina el funcionamiento de la Peña. Somos más de 30 socios y socias que participamos activamente en las distintas áreas de trabajo. Este grupo constituye el alma de la Peña: una mesa ampliada de toma de decisiones, donde compartimos ideas, definimos objetivos y construimos colectivamente su rumbo.</p>
         </div>
