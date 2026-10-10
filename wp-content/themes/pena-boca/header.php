@@ -134,6 +134,27 @@
         filter: drop-shadow(0 2px 5px rgba(0,0,0,0.5));
     }
 
+    .nav-item { position: relative; display: flex; align-items: center; }
+    .nav-item .caret { font-size: 0.7rem; }
+    .nav-sub {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        min-width: 220px;
+        padding-top: 18px;
+        z-index: 200;
+    }
+    .nav-sub a {
+        display: block;
+        margin: 0;
+        padding: 12px 18px;
+        background-color: rgba(10, 17, 34, 0.98);
+        border-left: 3px solid var(--boca-oro);
+    }
+    .nav-sub a:hover { background-color: var(--boca-azul-principal); }
+    .nav-item:hover .nav-sub, .nav-item:focus-within .nav-sub { display: block; }
+
     .nav-toggle {
         display: none;
         background: transparent;
@@ -163,6 +184,10 @@
         }
         .navbar-links.open { display: flex; }
         .navbar-links a { margin: 0; padding: 12px 0; font-size: 1rem; text-align: center; }
+        .nav-item { display: block; }
+        .nav-item .caret { display: none; }
+        .nav-sub { display: block; position: static; padding-top: 0; min-width: 0; }
+        .nav-sub a { background: transparent; border-left: 0; padding: 8px 0; font-size: 0.9rem; opacity: 0.8; }
         .btn-nav-contacto { margin-top: 10px !important; }
     }
 
@@ -184,15 +209,28 @@
         <button class="nav-toggle" type="button" aria-label="Abrir menú" onclick="document.querySelector('.navbar-links').classList.toggle('open')">&#9776;</button>
 
         <div class="navbar-links">
-            <a href="<?php echo site_url('/institucional'); ?>">Institucional</a>
+            <div class="nav-item">
+                <a href="<?php echo site_url('/institucional'); ?>">Institucional <span class="caret">▾</span></a>
+                <div class="nav-sub">
+                    <a href="<?php echo site_url('/institucional'); ?>">Autoridades y principios</a>
+                    <a href="<?php echo site_url('/preguntas-frecuentes'); ?>">Preguntas Frecuentes</a>
+                </div>
+            </div>
             <a href="<?php echo site_url('/ser-parte'); ?>">Ser Parte</a>
-            <a href="<?php echo site_url('/streaming'); ?>">Streaming</a>
             <a href="<?php echo site_url('/sede'); ?>">Sede</a>
-            <a href="<?php echo site_url('/actividades'); ?>">Actividades</a>
+            <div class="nav-item">
+                <a href="<?php echo site_url('/actividades'); ?>">Actividades <span class="caret">▾</span></a>
+                <div class="nav-sub">
+                    <a href="<?php echo site_url('/actividades'); ?>">Todas las actividades</a>
+                    <a href="<?php echo site_url('/futbol'); ?>">Fútbol Semanal</a>
+                    <a href="<?php echo site_url('/accion-social'); ?>">Acción Social</a>
+                    <a href="<?php echo site_url('/bosteras'); ?>">Bosteras</a>
+                    <a href="<?php echo site_url('/desde-la-cuna'); ?>">Desde la Cuna</a>
+                </div>
+            </div>
             <a href="<?php echo site_url('/viajes'); ?>">Viajes</a>
             <a href="<?php echo site_url('/marca'); ?>">Marca</a>
-            <a href="<?php echo site_url('/desde-la-cuna'); ?>">Desde la Cuna</a>
-            <a href="<?php echo site_url('/bosteras'); ?>">Bosteras</a>
+            <a href="<?php echo site_url('/streaming'); ?>">Streaming</a>
             <a href="<?php echo site_url('/contacto'); ?>" class="btn-nav-contacto">Contacto</a>
         </div>
 
