@@ -22,7 +22,16 @@ function pboca_cargar_scripts() {
     // Cargar la hoja de estilos principal (style.css)
     wp_enqueue_style( 'pboca-style', get_stylesheet_uri(), array(), '1.0' );
     
-    // Acá podés sumar Google Fonts para la tipografía de Boca (ej: Russo One y Montserrat)
-    wp_enqueue_style( 'pboca-fonts', 'https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Russo+One&display=swap', false );
+    // Tipografías alojadas en el propio tema (Montserrat y Russo One): sin pedidos a Google
+    wp_enqueue_style( 'pboca-fonts', get_template_directory_uri() . '/fonts/fonts.css', array(), '1.0' );
 }
 add_action( 'wp_enqueue_scripts', 'pboca_cargar_scripts' );
+
+// Precargar las fuentes principales para que el texto aparezca más rápido
+function pboca_precargar_fuentes() {
+    $base = get_template_directory_uri() . '/fonts/';
+    foreach ( array( 'montserrat-latin.woff2', 'russo-one-latin.woff2' ) as $f ) {
+        echo '<link rel="preload" href="' . esc_url( $base . $f ) . '" as="font" type="font/woff2" crossorigin>' . "\n";
+    }
+}
+add_action( 'wp_head', 'pboca_precargar_fuentes', 1 );
