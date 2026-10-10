@@ -221,6 +221,7 @@ get_header(); ?>
             <div class="modulo-tag">Nuestra Marca</div>
             <h2 class="modulo-title cabj-font">VAMOS LXS XENEIZES</h2>
             <p class="modulo-text">En la Peña tenemos nuestra propia marca de indumentaria y productos, pensada para llevar los colores a todos lados. Te mostramos lo disponible y estate atento a las próximas fechas de venta.</p>
+            <a href="<?php echo site_url('/marca'); ?>" class="btn-mod">Ver más</a>
         </div>
     </article>
 
@@ -241,7 +242,8 @@ get_header(); ?>
                 <li>✦ ¡Un montón de sorteos! Más de la mitad del micro se lleva un premio.</li>
             </ul>
             <p class="modulo-text">Y, sobre todo, la oportunidad de acercarte a una comunidad bostera que crece viaje a viaje.</p>
-            <p class="modulo-text"><strong>Sumate al próximo:</strong> Facundo (<a href="https://wa.me/542920536136">2920536136</a>) y Alfonso (<a href="https://wa.me/542920405196">2920405196</a>).</p>
+            <p class="modulo-text"><strong>Sumate al próximo:</strong> Facundo (<a href="https://wa.me/5492920536136">2920536136</a>) y Alfonso (<a href="https://wa.me/5492920405196">2920405196</a>).</p>
+            <a href="<?php echo site_url('/viajes'); ?>" class="btn-mod">Sumate al próximo</a>
         </div>
     </article>
 
@@ -254,6 +256,7 @@ get_header(); ?>
             <div class="modulo-tag">Desde la cuna</div>
             <h2 class="modulo-title cabj-font">EL AMOR POR BOCA SE TRANSMITE DE GENERACIÓN EN GENERACIÓN</h2>
             <p class="modulo-text">Por eso, los más chiquitos también tienen su lugar: contamos con un espacio de juegos y juguetes pensado para que se diviertan y que la Peña sea donde quieran crecer.</p>
+            <a href="<?php echo site_url('/desde-la-cuna'); ?>" class="btn-mod">Conocé más</a>
         </div>
     </article>
 

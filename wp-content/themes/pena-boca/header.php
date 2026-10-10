@@ -138,6 +138,8 @@
             <a href="<?php echo site_url('/streaming'); ?>">Streaming</a>
             <a href="<?php echo site_url('/sede'); ?>">Sede</a>
             <a href="<?php echo site_url('/actividades'); ?>">Actividades</a>
+            <a href="<?php echo site_url('/viajes'); ?>">Viajes</a>
+            <a href="<?php echo site_url('/marca'); ?>">Marca</a>
             <a href="<?php echo site_url('/contacto'); ?>" class="btn-nav-contacto">Contacto</a>
         </div>
 
