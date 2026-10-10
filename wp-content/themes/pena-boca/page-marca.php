@@ -99,7 +99,7 @@ get_header(); ?>
                 <figcaption>Piluso</figcaption>
             </figure>
             <figure class="prod">
-                <img src="<?php echo get_template_directory_uri(); ?>/images/marca-gorra.webp" alt="Gorra de la Peña" loading="lazy">
+                <img src="<?php echo get_template_directory_uri(); ?>/images/marca-gorra.webp" alt="Gorra de la Peña" loading="lazy" style="object-position: 0% 50%;">
                 <figcaption>Gorra</figcaption>
             </figure>
         </div>
