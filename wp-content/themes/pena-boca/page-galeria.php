@@ -2,7 +2,141 @@
 /*
 Template Name: Galería de Fotos
 */
+
+/**
+ * Fotos de Google Drive (opcional).
+ * Se activa definiendo en wp-config.php:
+ *   define( 'PBOCA_DRIVE_API_KEY',   'la-clave-de-api' );
+ *   define( 'PBOCA_DRIVE_FOLDER_ID', 'el-id-de-la-carpeta' );
+ * La carpeta debe estar compartida como "Cualquier persona con el enlace".
+ */
+if ( ! function_exists( 'pboca_drive_fotos' ) ) {
+    function pboca_drive_fotos() {
+        if ( ! defined( 'PBOCA_DRIVE_API_KEY' ) || ! defined( 'PBOCA_DRIVE_FOLDER_ID' ) || ! PBOCA_DRIVE_API_KEY || ! PBOCA_DRIVE_FOLDER_ID ) {
+            return array();
+        }
+        $cache = get_transient( 'pboca_drive_fotos' );
+        if ( false !== $cache ) {
+            return $cache;
+        }
+        $fotos = array();
+        $token = '';
+        $paginas = 0;
+        do {
+            $url = add_query_arg( array(
+                'q'        => "'" . PBOCA_DRIVE_FOLDER_ID . "' in parents and mimeType contains 'image/' and trashed = false",
+                'fields'   => 'nextPageToken,files(id,name,createdTime,imageMediaMetadata(time))',
+                'pageSize' => 200,
+                'orderBy'  => 'createdTime desc',
+                'key'      => PBOCA_DRIVE_API_KEY,
+                'pageToken' => $token,
+            ), 'https://www.googleapis.com/drive/v3/files' );
+            $resp = wp_remote_get( $url, array( 'timeout' => 10 ) );
+            if ( is_wp_error( $resp ) || 200 !== wp_remote_retrieve_response_code( $resp ) ) {
+                // Si Drive falla, usar la última lista buena para que la galería no quede vacía
+                $respaldo = get_transient( 'pboca_drive_fotos_respaldo' );
+                return $respaldo ? $respaldo : array();
+            }
+            $data = json_decode( wp_remote_retrieve_body( $resp ), true );
+            foreach ( isset( $data['files'] ) ? $data['files'] : array() as $f ) {
+                // Fecha de la foto (EXIF) si existe; si no, fecha de subida
+                $fecha = ! empty( $f['imageMediaMetadata']['time'] )
+                    ? preg_replace( '/^(\d{4}):(\d{2}):(\d{2})/', '$1-$2-$3', $f['imageMediaMetadata']['time'] )
+                    : $f['createdTime'];
+                $ts = strtotime( $fecha );
+                $fotos[] = array(
+                    'ts'    => $ts ? $ts : 0,
+                    'cat'   => 'nuevas',
+                    'thumb' => 'https://drive.google.com/thumbnail?id=' . rawurlencode( $f['id'] ) . '&sz=w420',
+                    'full'  => 'https://drive.google.com/thumbnail?id=' . rawurlencode( $f['id'] ) . '&sz=w1600',
+                );
+            }
+            $token = isset( $data['nextPageToken'] ) ? $data['nextPageToken'] : '';
+            $paginas++;
+        } while ( $token && $paginas < 5 );
+
+        set_transient( 'pboca_drive_fotos', $fotos, 10 * MINUTE_IN_SECONDS );
+        set_transient( 'pboca_drive_fotos_respaldo', $fotos, WEEK_IN_SECONDS );
+        return $fotos;
+    }
+}
+
+// Fotos que ya están en el tema: número, categoría y fecha de la foto
+$pboca_locales = array(
+    array( 1, 'grupos', '2025-10-06 21:48:29' ),
+    array( 2, 'grupos', '2026-03-21 21:10:06' ),
+    array( 3, 'grupos', '2026-03-22 15:44:19' ),
+    array( 4, 'grupos', '2026-05-04 21:08:41' ),
+    array( 5, 'grupos', '2026-07-07 22:54:08' ),
+    array( 6, 'grupos', '2026-08-01 23:51:40' ),
+    array( 7, 'grupos', '2026-08-23 22:30:10' ),
+    array( 8, 'grupos', '2026-08-23 23:29:45' ),
+    array( 9, 'grupos', '2026-04-19 12:00:00' ),
+    array( 10, 'local', '2026-04-19 16:13:52' ),
+    array( 11, 'local', '2026-04-19 16:20:29' ),
+    array( 12, 'local', '2026-04-19 16:22:12' ),
+    array( 13, 'local', '2026-04-19 16:26:02' ),
+    array( 14, 'local', '2026-04-19 17:58:09' ),
+    array( 15, 'local', '2026-04-19 18:02:10' ),
+    array( 16, 'local', '2026-04-19 18:05:09' ),
+    array( 17, 'local', '2026-05-02 17:06:17' ),
+    array( 18, 'local', '2026-05-02 18:14:04' ),
+    array( 19, 'local', '2026-05-02 18:24:53' ),
+    array( 20, 'local', '2026-05-09 19:55:20' ),
+    array( 21, 'local', '2026-05-09 20:04:26' ),
+    array( 22, 'local', '2026-05-09 20:06:58' ),
+    array( 23, 'local', '2026-05-19 22:32:00' ),
+    array( 24, 'local', '2026-05-19 22:34:56' ),
+    array( 25, 'local', '2026-07-08 23:04:23' ),
+    array( 26, 'local', '2026-08-01 18:23:18' ),
+    array( 27, 'local', '2026-08-02 01:06:47' ),
+    array( 28, 'local', '2026-08-02 18:01:57' ),
+    array( 29, 'local', '2026-08-02 18:03:15' ),
+    array( 30, 'local', '2026-08-02 18:04:08' ),
+    array( 31, 'local', '2026-08-11 19:21:34' ),
+    array( 32, 'local', '2026-08-11 19:57:18' ),
+    array( 33, 'local', '2026-08-18 19:34:49' ),
+    array( 34, 'local', '2026-08-18 20:19:07' ),
+    array( 35, 'local', '2026-08-18 20:55:16' ),
+    array( 36, 'local', '2026-09-08 23:36:14' ),
+    array( 37, 'local', '2026-09-11 23:23:10' ),
+    array( 38, 'local', '2026-09-11 23:24:01' ),
+    array( 39, 'local', '2026-09-11 23:24:13' ),
+    array( 40, 'local', '2026-09-15 21:08:03' ),
+    array( 41, 'local', '2026-09-15 21:11:10' ),
+    array( 42, 'local', '2026-09-15 21:15:02' ),
+    array( 43, 'local', '2026-09-15 21:17:47' ),
+    array( 44, 'local', '2026-09-15 22:30:00' ),
+    array( 45, 'local', '2026-09-15 22:33:54' ),
+    array( 46, 'local', '2026-09-15 23:42:49' ),
+    array( 47, 'local', '2026-09-15 23:43:17' ),
+    array( 48, 'local', '2026-09-15 23:47:42' ),
+    array( 49, 'local', '2026-09-15 23:49:54' ),
+    array( 50, 'local', '2026-09-20 15:35:16' ),
+    array( 51, 'local', '2026-09-20 15:37:03' ),
+    array( 52, 'local', '2026-09-20 16:41:55' ),
+    array( 53, 'local', '2026-09-20 16:42:28' ),
+);
+
+$pboca_fotos = array();
+$pboca_base  = get_template_directory_uri() . '/images/galeria/';
+foreach ( $pboca_locales as $l ) {
+    $nn = sprintf( '%02d', $l[0] );
+    $pboca_fotos[] = array(
+        'ts'    => strtotime( $l[2] ),
+        'cat'   => $l[1],
+        'thumb' => $pboca_base . 't' . $nn . '.webp',
+        'full'  => $pboca_base . 'g' . $nn . '.webp',
+    );
+}
+$pboca_drive = pboca_drive_fotos();
+$pboca_fotos = array_merge( $pboca_fotos, $pboca_drive );
+
+// De la más reciente a la más antigua
+usort( $pboca_fotos, function ( $a, $b ) { return $b['ts'] <=> $a['ts']; } );
+
 get_header(); ?>
+
 
 <style>
 .page-header { background-color: var(--boca-azul-principal); padding: 60px 5% 40px 5%; text-align: center; border-bottom: 4px solid var(--boca-oro); }
@@ -44,168 +178,15 @@ get_header(); ?>
             <button class="active" data-filter="all">Todas</button>
             <button data-filter="local">La sede</button>
             <button data-filter="grupos">Grupos</button>
+            <?php if ( ! empty( $pboca_drive ) ) : ?><button data-filter="nuevas">Nuevas</button><?php endif; ?>
         </div>
 
         <div class="fotos-grid" id="fotos-grid">
-            <a class="foto-item" data-cat="grupos" href="<?php echo get_template_directory_uri(); ?>/images/galeria/g01.webp">
-                <img src="<?php echo get_template_directory_uri(); ?>/images/galeria/t01.webp" alt="Foto de la Peña en la sede" loading="lazy" width="420" height="420">
+            <?php foreach ( $pboca_fotos as $f ) : ?>
+            <a class="foto-item" data-cat="<?php echo esc_attr( $f['cat'] ); ?>" href="<?php echo esc_url( $f['full'] ); ?>">
+                <img src="<?php echo esc_url( $f['thumb'] ); ?>" alt="Foto de la Peña" loading="lazy" width="420" height="420">
             </a>
-            <a class="foto-item" data-cat="grupos" href="<?php echo get_template_directory_uri(); ?>/images/galeria/g02.webp">
-                <img src="<?php echo get_template_directory_uri(); ?>/images/galeria/t02.webp" alt="Foto de la Peña en la sede" loading="lazy" width="420" height="420">
-            </a>
-            <a class="foto-item" data-cat="grupos" href="<?php echo get_template_directory_uri(); ?>/images/galeria/g03.webp">
-                <img src="<?php echo get_template_directory_uri(); ?>/images/galeria/t03.webp" alt="Foto de la Peña en la sede" loading="lazy" width="420" height="420">
-            </a>
-            <a class="foto-item" data-cat="grupos" href="<?php echo get_template_directory_uri(); ?>/images/galeria/g04.webp">
-                <img src="<?php echo get_template_directory_uri(); ?>/images/galeria/t04.webp" alt="Foto de la Peña en la sede" loading="lazy" width="420" height="420">
-            </a>
-            <a class="foto-item" data-cat="grupos" href="<?php echo get_template_directory_uri(); ?>/images/galeria/g05.webp">
-                <img src="<?php echo get_template_directory_uri(); ?>/images/galeria/t05.webp" alt="Foto de la Peña en la sede" loading="lazy" width="420" height="420">
-            </a>
-            <a class="foto-item" data-cat="grupos" href="<?php echo get_template_directory_uri(); ?>/images/galeria/g06.webp">
-                <img src="<?php echo get_template_directory_uri(); ?>/images/galeria/t06.webp" alt="Foto de la Peña en la sede" loading="lazy" width="420" height="420">
-            </a>
-            <a class="foto-item" data-cat="grupos" href="<?php echo get_template_directory_uri(); ?>/images/galeria/g07.webp">
-                <img src="<?php echo get_template_directory_uri(); ?>/images/galeria/t07.webp" alt="Foto de la Peña en la sede" loading="lazy" width="420" height="420">
-            </a>
-            <a class="foto-item" data-cat="grupos" href="<?php echo get_template_directory_uri(); ?>/images/galeria/g08.webp">
-                <img src="<?php echo get_template_directory_uri(); ?>/images/galeria/t08.webp" alt="Foto de la Peña en la sede" loading="lazy" width="420" height="420">
-            </a>
-            <a class="foto-item" data-cat="grupos" href="<?php echo get_template_directory_uri(); ?>/images/galeria/g09.webp">
-                <img src="<?php echo get_template_directory_uri(); ?>/images/galeria/t09.webp" alt="Foto de la Peña en la sede" loading="lazy" width="420" height="420">
-            </a>
-            <a class="foto-item" data-cat="local" href="<?php echo get_template_directory_uri(); ?>/images/galeria/g10.webp">
-                <img src="<?php echo get_template_directory_uri(); ?>/images/galeria/t10.webp" alt="Foto de la Peña en la sede" loading="lazy" width="420" height="420">
-            </a>
-            <a class="foto-item" data-cat="local" href="<?php echo get_template_directory_uri(); ?>/images/galeria/g11.webp">
-                <img src="<?php echo get_template_directory_uri(); ?>/images/galeria/t11.webp" alt="Foto de la Peña en la sede" loading="lazy" width="420" height="420">
-            </a>
-            <a class="foto-item" data-cat="local" href="<?php echo get_template_directory_uri(); ?>/images/galeria/g12.webp">
-                <img src="<?php echo get_template_directory_uri(); ?>/images/galeria/t12.webp" alt="Foto de la Peña en la sede" loading="lazy" width="420" height="420">
-            </a>
-            <a class="foto-item" data-cat="local" href="<?php echo get_template_directory_uri(); ?>/images/galeria/g13.webp">
-                <img src="<?php echo get_template_directory_uri(); ?>/images/galeria/t13.webp" alt="Foto de la Peña en la sede" loading="lazy" width="420" height="420">
-            </a>
-            <a class="foto-item" data-cat="local" href="<?php echo get_template_directory_uri(); ?>/images/galeria/g14.webp">
-                <img src="<?php echo get_template_directory_uri(); ?>/images/galeria/t14.webp" alt="Foto de la Peña en la sede" loading="lazy" width="420" height="420">
-            </a>
-            <a class="foto-item" data-cat="local" href="<?php echo get_template_directory_uri(); ?>/images/galeria/g15.webp">
-                <img src="<?php echo get_template_directory_uri(); ?>/images/galeria/t15.webp" alt="Foto de la Peña en la sede" loading="lazy" width="420" height="420">
-            </a>
-            <a class="foto-item" data-cat="local" href="<?php echo get_template_directory_uri(); ?>/images/galeria/g16.webp">
-                <img src="<?php echo get_template_directory_uri(); ?>/images/galeria/t16.webp" alt="Foto de la Peña en la sede" loading="lazy" width="420" height="420">
-            </a>
-            <a class="foto-item" data-cat="local" href="<?php echo get_template_directory_uri(); ?>/images/galeria/g17.webp">
-                <img src="<?php echo get_template_directory_uri(); ?>/images/galeria/t17.webp" alt="Foto de la Peña en la sede" loading="lazy" width="420" height="420">
-            </a>
-            <a class="foto-item" data-cat="local" href="<?php echo get_template_directory_uri(); ?>/images/galeria/g18.webp">
-                <img src="<?php echo get_template_directory_uri(); ?>/images/galeria/t18.webp" alt="Foto de la Peña en la sede" loading="lazy" width="420" height="420">
-            </a>
-            <a class="foto-item" data-cat="local" href="<?php echo get_template_directory_uri(); ?>/images/galeria/g19.webp">
-                <img src="<?php echo get_template_directory_uri(); ?>/images/galeria/t19.webp" alt="Foto de la Peña en la sede" loading="lazy" width="420" height="420">
-            </a>
-            <a class="foto-item" data-cat="local" href="<?php echo get_template_directory_uri(); ?>/images/galeria/g20.webp">
-                <img src="<?php echo get_template_directory_uri(); ?>/images/galeria/t20.webp" alt="Foto de la Peña en la sede" loading="lazy" width="420" height="420">
-            </a>
-            <a class="foto-item" data-cat="local" href="<?php echo get_template_directory_uri(); ?>/images/galeria/g21.webp">
-                <img src="<?php echo get_template_directory_uri(); ?>/images/galeria/t21.webp" alt="Foto de la Peña en la sede" loading="lazy" width="420" height="420">
-            </a>
-            <a class="foto-item" data-cat="local" href="<?php echo get_template_directory_uri(); ?>/images/galeria/g22.webp">
-                <img src="<?php echo get_template_directory_uri(); ?>/images/galeria/t22.webp" alt="Foto de la Peña en la sede" loading="lazy" width="420" height="420">
-            </a>
-            <a class="foto-item" data-cat="local" href="<?php echo get_template_directory_uri(); ?>/images/galeria/g23.webp">
-                <img src="<?php echo get_template_directory_uri(); ?>/images/galeria/t23.webp" alt="Foto de la Peña en la sede" loading="lazy" width="420" height="420">
-            </a>
-            <a class="foto-item" data-cat="local" href="<?php echo get_template_directory_uri(); ?>/images/galeria/g24.webp">
-                <img src="<?php echo get_template_directory_uri(); ?>/images/galeria/t24.webp" alt="Foto de la Peña en la sede" loading="lazy" width="420" height="420">
-            </a>
-            <a class="foto-item" data-cat="local" href="<?php echo get_template_directory_uri(); ?>/images/galeria/g25.webp">
-                <img src="<?php echo get_template_directory_uri(); ?>/images/galeria/t25.webp" alt="Foto de la Peña en la sede" loading="lazy" width="420" height="420">
-            </a>
-            <a class="foto-item" data-cat="local" href="<?php echo get_template_directory_uri(); ?>/images/galeria/g26.webp">
-                <img src="<?php echo get_template_directory_uri(); ?>/images/galeria/t26.webp" alt="Foto de la Peña en la sede" loading="lazy" width="420" height="420">
-            </a>
-            <a class="foto-item" data-cat="local" href="<?php echo get_template_directory_uri(); ?>/images/galeria/g27.webp">
-                <img src="<?php echo get_template_directory_uri(); ?>/images/galeria/t27.webp" alt="Foto de la Peña en la sede" loading="lazy" width="420" height="420">
-            </a>
-            <a class="foto-item" data-cat="local" href="<?php echo get_template_directory_uri(); ?>/images/galeria/g28.webp">
-                <img src="<?php echo get_template_directory_uri(); ?>/images/galeria/t28.webp" alt="Foto de la Peña en la sede" loading="lazy" width="420" height="420">
-            </a>
-            <a class="foto-item" data-cat="local" href="<?php echo get_template_directory_uri(); ?>/images/galeria/g29.webp">
-                <img src="<?php echo get_template_directory_uri(); ?>/images/galeria/t29.webp" alt="Foto de la Peña en la sede" loading="lazy" width="420" height="420">
-            </a>
-            <a class="foto-item" data-cat="local" href="<?php echo get_template_directory_uri(); ?>/images/galeria/g30.webp">
-                <img src="<?php echo get_template_directory_uri(); ?>/images/galeria/t30.webp" alt="Foto de la Peña en la sede" loading="lazy" width="420" height="420">
-            </a>
-            <a class="foto-item" data-cat="local" href="<?php echo get_template_directory_uri(); ?>/images/galeria/g31.webp">
-                <img src="<?php echo get_template_directory_uri(); ?>/images/galeria/t31.webp" alt="Foto de la Peña en la sede" loading="lazy" width="420" height="420">
-            </a>
-            <a class="foto-item" data-cat="local" href="<?php echo get_template_directory_uri(); ?>/images/galeria/g32.webp">
-                <img src="<?php echo get_template_directory_uri(); ?>/images/galeria/t32.webp" alt="Foto de la Peña en la sede" loading="lazy" width="420" height="420">
-            </a>
-            <a class="foto-item" data-cat="local" href="<?php echo get_template_directory_uri(); ?>/images/galeria/g33.webp">
-                <img src="<?php echo get_template_directory_uri(); ?>/images/galeria/t33.webp" alt="Foto de la Peña en la sede" loading="lazy" width="420" height="420">
-            </a>
-            <a class="foto-item" data-cat="local" href="<?php echo get_template_directory_uri(); ?>/images/galeria/g34.webp">
-                <img src="<?php echo get_template_directory_uri(); ?>/images/galeria/t34.webp" alt="Foto de la Peña en la sede" loading="lazy" width="420" height="420">
-            </a>
-            <a class="foto-item" data-cat="local" href="<?php echo get_template_directory_uri(); ?>/images/galeria/g35.webp">
-                <img src="<?php echo get_template_directory_uri(); ?>/images/galeria/t35.webp" alt="Foto de la Peña en la sede" loading="lazy" width="420" height="420">
-            </a>
-            <a class="foto-item" data-cat="local" href="<?php echo get_template_directory_uri(); ?>/images/galeria/g36.webp">
-                <img src="<?php echo get_template_directory_uri(); ?>/images/galeria/t36.webp" alt="Foto de la Peña en la sede" loading="lazy" width="420" height="420">
-            </a>
-            <a class="foto-item" data-cat="local" href="<?php echo get_template_directory_uri(); ?>/images/galeria/g37.webp">
-                <img src="<?php echo get_template_directory_uri(); ?>/images/galeria/t37.webp" alt="Foto de la Peña en la sede" loading="lazy" width="420" height="420">
-            </a>
-            <a class="foto-item" data-cat="local" href="<?php echo get_template_directory_uri(); ?>/images/galeria/g38.webp">
-                <img src="<?php echo get_template_directory_uri(); ?>/images/galeria/t38.webp" alt="Foto de la Peña en la sede" loading="lazy" width="420" height="420">
-            </a>
-            <a class="foto-item" data-cat="local" href="<?php echo get_template_directory_uri(); ?>/images/galeria/g39.webp">
-                <img src="<?php echo get_template_directory_uri(); ?>/images/galeria/t39.webp" alt="Foto de la Peña en la sede" loading="lazy" width="420" height="420">
-            </a>
-            <a class="foto-item" data-cat="local" href="<?php echo get_template_directory_uri(); ?>/images/galeria/g40.webp">
-                <img src="<?php echo get_template_directory_uri(); ?>/images/galeria/t40.webp" alt="Foto de la Peña en la sede" loading="lazy" width="420" height="420">
-            </a>
-            <a class="foto-item" data-cat="local" href="<?php echo get_template_directory_uri(); ?>/images/galeria/g41.webp">
-                <img src="<?php echo get_template_directory_uri(); ?>/images/galeria/t41.webp" alt="Foto de la Peña en la sede" loading="lazy" width="420" height="420">
-            </a>
-            <a class="foto-item" data-cat="local" href="<?php echo get_template_directory_uri(); ?>/images/galeria/g42.webp">
-                <img src="<?php echo get_template_directory_uri(); ?>/images/galeria/t42.webp" alt="Foto de la Peña en la sede" loading="lazy" width="420" height="420">
-            </a>
-            <a class="foto-item" data-cat="local" href="<?php echo get_template_directory_uri(); ?>/images/galeria/g43.webp">
-                <img src="<?php echo get_template_directory_uri(); ?>/images/galeria/t43.webp" alt="Foto de la Peña en la sede" loading="lazy" width="420" height="420">
-            </a>
-            <a class="foto-item" data-cat="local" href="<?php echo get_template_directory_uri(); ?>/images/galeria/g44.webp">
-                <img src="<?php echo get_template_directory_uri(); ?>/images/galeria/t44.webp" alt="Foto de la Peña en la sede" loading="lazy" width="420" height="420">
-            </a>
-            <a class="foto-item" data-cat="local" href="<?php echo get_template_directory_uri(); ?>/images/galeria/g45.webp">
-                <img src="<?php echo get_template_directory_uri(); ?>/images/galeria/t45.webp" alt="Foto de la Peña en la sede" loading="lazy" width="420" height="420">
-            </a>
-            <a class="foto-item" data-cat="local" href="<?php echo get_template_directory_uri(); ?>/images/galeria/g46.webp">
-                <img src="<?php echo get_template_directory_uri(); ?>/images/galeria/t46.webp" alt="Foto de la Peña en la sede" loading="lazy" width="420" height="420">
-            </a>
-            <a class="foto-item" data-cat="local" href="<?php echo get_template_directory_uri(); ?>/images/galeria/g47.webp">
-                <img src="<?php echo get_template_directory_uri(); ?>/images/galeria/t47.webp" alt="Foto de la Peña en la sede" loading="lazy" width="420" height="420">
-            </a>
-            <a class="foto-item" data-cat="local" href="<?php echo get_template_directory_uri(); ?>/images/galeria/g48.webp">
-                <img src="<?php echo get_template_directory_uri(); ?>/images/galeria/t48.webp" alt="Foto de la Peña en la sede" loading="lazy" width="420" height="420">
-            </a>
-            <a class="foto-item" data-cat="local" href="<?php echo get_template_directory_uri(); ?>/images/galeria/g49.webp">
-                <img src="<?php echo get_template_directory_uri(); ?>/images/galeria/t49.webp" alt="Foto de la Peña en la sede" loading="lazy" width="420" height="420">
-            </a>
-            <a class="foto-item" data-cat="local" href="<?php echo get_template_directory_uri(); ?>/images/galeria/g50.webp">
-                <img src="<?php echo get_template_directory_uri(); ?>/images/galeria/t50.webp" alt="Foto de la Peña en la sede" loading="lazy" width="420" height="420">
-            </a>
-            <a class="foto-item" data-cat="local" href="<?php echo get_template_directory_uri(); ?>/images/galeria/g51.webp">
-                <img src="<?php echo get_template_directory_uri(); ?>/images/galeria/t51.webp" alt="Foto de la Peña en la sede" loading="lazy" width="420" height="420">
-            </a>
-            <a class="foto-item" data-cat="local" href="<?php echo get_template_directory_uri(); ?>/images/galeria/g52.webp">
-                <img src="<?php echo get_template_directory_uri(); ?>/images/galeria/t52.webp" alt="Foto de la Peña en la sede" loading="lazy" width="420" height="420">
-            </a>
-            <a class="foto-item" data-cat="local" href="<?php echo get_template_directory_uri(); ?>/images/galeria/g53.webp">
-                <img src="<?php echo get_template_directory_uri(); ?>/images/galeria/t53.webp" alt="Foto de la Peña en la sede" loading="lazy" width="420" height="420">
-            </a>
+            <?php endforeach; ?>
         </div>
     </section>
 
