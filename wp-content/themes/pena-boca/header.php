@@ -100,9 +100,10 @@
     .navbar-links a {
         color: var(--boca-texto-claro);
         text-decoration: none;
-        margin: 0 15px;
+        margin: 0 9px;
         font-weight: 500;
-        font-size: 0.95rem;
+        font-size: 0.85rem;
+        white-space: nowrap;
         transition: color 0.3s;
     }
 
@@ -133,8 +134,39 @@
         filter: drop-shadow(0 2px 5px rgba(0,0,0,0.5));
     }
 
+    .nav-toggle {
+        display: none;
+        background: transparent;
+        border: 2px solid var(--boca-oro);
+        color: var(--boca-oro);
+        font-size: 1.6rem;
+        line-height: 1;
+        padding: 4px 12px;
+        border-radius: 6px;
+        cursor: pointer;
+    }
+
+    @media (max-width: 1100px) {
+        .navbar-logo-cabj { display: none; }
+        .nav-toggle { display: block; }
+        .navbar-links {
+            display: none;
+            position: absolute;
+            top: 80px;
+            left: 0;
+            right: 0;
+            flex-direction: column;
+            align-items: stretch;
+            background-color: rgba(10, 17, 34, 0.98);
+            border-bottom: 3px solid var(--boca-oro);
+            padding: 10px 5% 20px 5%;
+        }
+        .navbar-links.open { display: flex; }
+        .navbar-links a { margin: 0; padding: 12px 0; font-size: 1rem; text-align: center; }
+        .btn-nav-contacto { margin-top: 10px !important; }
+    }
+
     @media (max-width: 900px) {
-        .navbar-links, .navbar-logo-cabj { display: none; }
         .navbar-logo-pena img { height: 90px; width: 90px; top: 15px; }
     }
     </style>
@@ -149,6 +181,8 @@
             </a>
         </div>
         
+        <button class="nav-toggle" type="button" aria-label="Abrir menú" onclick="document.querySelector('.navbar-links').classList.toggle('open')">&#9776;</button>
+
         <div class="navbar-links">
             <a href="<?php echo site_url('/institucional'); ?>">Institucional</a>
             <a href="<?php echo site_url('/ser-parte'); ?>">Ser Parte</a>
@@ -158,6 +192,7 @@
             <a href="<?php echo site_url('/viajes'); ?>">Viajes</a>
             <a href="<?php echo site_url('/marca'); ?>">Marca</a>
             <a href="<?php echo site_url('/desde-la-cuna'); ?>">Desde la Cuna</a>
+            <a href="<?php echo site_url('/bosteras'); ?>">Bosteras</a>
             <a href="<?php echo site_url('/contacto'); ?>" class="btn-nav-contacto">Contacto</a>
         </div>
 
