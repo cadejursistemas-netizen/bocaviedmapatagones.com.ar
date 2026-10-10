@@ -265,7 +265,7 @@ get_header(); ?>
                 array( 'cargo' => 'Acción Social', 'nombre' => 'Aldana Jauge',             'foto' => 'accion-social.webp' ),
             );
             $pboca_revisor = array(
-                array( 'cargo' => 'Revisor de cuentas', 'nombre' => 'Alfonso Gimenez', 'foto' => '' ),
+                array( 'cargo' => 'Revisor de cuentas', 'nombre' => 'Alfonso Gimenez', 'foto' => 'revisor-de-cuentas.webp' ),
             );
             if ( ! function_exists( 'pboca_tarjeta_autoridad' ) ) {
                 function pboca_tarjeta_autoridad( $p ) {
