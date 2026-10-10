@@ -57,24 +57,16 @@ get_header(); ?>
     <section class="prod-section flyers-section">
         <h2 class="cabj-font prod-titulo">Indumentaria</h2>
         <div class="flyers-grid">
+            <?php foreach ( pboca_get_afiches() as $af ) : ?>
             <article class="flyer">
-                <a href="<?php echo get_template_directory_uri(); ?>/images/marca-campera.webp" target="_blank" rel="noopener">
-                    <img src="<?php echo get_template_directory_uri(); ?>/images/marca-campera.webp" alt="Encargá tu campera, con descuento para socixs Peña" loading="lazy">
+                <a href="<?php echo esc_url( $af['img'] ); ?>" target="_blank" rel="noopener">
+                    <img src="<?php echo esc_url( $af['img'] ); ?>" alt="<?php echo esc_attr( $af['titulo'] ); ?>" loading="lazy">
                 </a>
-                <a class="btn-mod flyer-btn" href="https://wa.me/5492920405196?text=Hola!%20Quiero%20encargar%20la%20campera%20de%20la%20Pe%C3%B1a" target="_blank" rel="noopener">Pedir campera por WhatsApp</a>
+                <?php if ( $af['whatsapp'] ) : ?>
+                <a class="btn-mod flyer-btn" href="https://wa.me/<?php echo esc_attr( $af['whatsapp'] ); ?>?text=<?php echo rawurlencode( $af['mensaje'] ); ?>" target="_blank" rel="noopener"><?php echo esc_html( $af['boton'] ? $af['boton'] : 'Pedir por WhatsApp' ); ?></a>
+                <?php endif; ?>
             </article>
-            <article class="flyer">
-                <a href="<?php echo get_template_directory_uri(); ?>/images/marca-chomba.webp" target="_blank" rel="noopener">
-                    <img src="<?php echo get_template_directory_uri(); ?>/images/marca-chomba.webp" alt="Nueva chomba: lanzamiento de nuestra marca de indumentaria, en preventa" loading="lazy">
-                </a>
-                <a class="btn-mod flyer-btn" href="https://wa.me/5492920545899?text=Hola!%20Quiero%20pedir%20la%20chomba%20en%20preventa" target="_blank" rel="noopener">Pedir chomba por WhatsApp</a>
-            </article>
-            <article class="flyer">
-                <a href="<?php echo get_template_directory_uri(); ?>/images/marca-camiseta.webp" target="_blank" rel="noopener">
-                    <img src="<?php echo get_template_directory_uri(); ?>/images/marca-camiseta.webp" alt="Camiseta Boca Juniors de la Peña: pedí la tuya" loading="lazy">
-                </a>
-                <a class="btn-mod flyer-btn" href="https://wa.me/5492920405196?text=Hola!%20Quiero%20pedir%20la%20camiseta%20de%20la%20Pe%C3%B1a" target="_blank" rel="noopener">Pedir camiseta por WhatsApp</a>
-            </article>
+            <?php endforeach; ?>
         </div>
         <p class="prod-nota">Pedidos y consultas: <strong>Alfonso</strong> (<a href="https://wa.me/5492920405196">2920 405196</a>) o <strong>Laucha</strong> (<a href="https://wa.me/5492920545899">2920 545899</a>).</p>
     </section>

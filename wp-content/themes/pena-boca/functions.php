@@ -90,3 +90,6 @@ function pboca_datos_compartir() {
     echo '<meta name="twitter:card" content="summary_large_image">' . "\n";
 }
 add_action( 'wp_head', 'pboca_datos_compartir', 3 );
+
+// Contenido editable desde el panel (autoridades, afiches, preguntas frecuentes)
+require_once get_template_directory() . '/inc/contenido-editable.php';

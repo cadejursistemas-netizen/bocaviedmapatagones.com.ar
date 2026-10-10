@@ -251,22 +251,7 @@ get_header(); ?>
         <div class="inst-block" id="autoridades">
             <h2 class="cabj-font">Autoridades</h2>
             <?php
-            // Para sumar una foto: copiarla en images/autoridades/ y poner el nombre del archivo (sin ruta) en 'foto'.
-            $pboca_cargos = array(
-                array( 'cargo' => 'Presidenta',          'nombre' => 'Florencia Gastaminza',       'foto' => 'presidenta.webp' ),
-                array( 'cargo' => 'Secretaria General',  'nombre' => 'María Sol Taraborrelli',     'foto' => 'secretaria-general.webp' ),
-                array( 'cargo' => 'Tesorero',            'nombre' => 'Juan Marcos González',       'foto' => 'tesorero.webp' ),
-            );
-            $pboca_vocales = array(
-                array( 'cargo' => 'Viajes',        'nombre' => 'Facundo Mendoza',          'foto' => 'viajes.webp' ),
-                array( 'cargo' => 'Streaming',     'nombre' => 'Lautaro Iriondo',          'foto' => 'streaming.webp' ),
-                array( 'cargo' => 'Socixs Peña',   'nombre' => 'Pablo Zeki',               'foto' => 'socixs-pena.webp' ),
-                array( 'cargo' => 'Socixs Boca',   'nombre' => 'María Victoria Rodríguez', 'foto' => 'socixs-boca.webp' ),
-                array( 'cargo' => 'Acción Social', 'nombre' => 'Aldana Jauge',             'foto' => 'accion-social.webp' ),
-            );
-            $pboca_revisor = array(
-                array( 'cargo' => 'Revisor de cuentas', 'nombre' => 'Alfonso Gimenez', 'foto' => 'revisor-de-cuentas.webp' ),
-            );
+            // Las autoridades se editan desde el panel de WordPress (menú "Autoridades").
             if ( ! function_exists( 'pboca_tarjeta_autoridad' ) ) {
                 function pboca_tarjeta_autoridad( $p ) {
                     $iniciales = '';
@@ -274,13 +259,16 @@ get_header(); ?>
                     $iniciales = mb_substr( $iniciales, 0, 2 );
                     echo '<div class="autoridad">';
                     if ( $p['foto'] ) {
-                        echo '<img src="' . esc_url( get_template_directory_uri() . '/images/autoridades/' . $p['foto'] ) . '" alt="' . esc_attr( $p['nombre'] ) . '" loading="lazy" width="400" height="400">';
+                        echo '<img src="' . esc_url( $p['foto'] ) . '" alt="' . esc_attr( $p['nombre'] ) . '" loading="lazy" width="400" height="400">';
                     } else {
                         echo '<span class="autoridad-ini">' . esc_html( $iniciales ) . '</span>';
                     }
                     echo '<h4>' . esc_html( $p['cargo'] ) . '</h4><p>' . esc_html( $p['nombre'] ) . '</p></div>';
                 }
             }
+            $pboca_cargos  = pboca_get_autoridades( 'principal' );
+            $pboca_vocales = pboca_get_autoridades( 'vocal' );
+            $pboca_revisor = pboca_get_autoridades( 'revisor' );
             ?>
 
             <div class="autoridades-grid autoridades-3">

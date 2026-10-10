@@ -24,49 +24,14 @@ get_header(); ?>
     </header>
 
     <section class="faq-section">
-
+        <?php foreach ( pboca_get_faqs() as $faq ) : ?>
         <details class="faq-item">
-            <summary>¿Cuánto sale la cuota de la Peña?</summary>
+            <summary><?php echo esc_html( $faq['pregunta'] ); ?></summary>
             <div class="faq-body">
-                <p>¡Solo $5.000 por mes! Una forma de ayudar a sostener la institución bostera de la Comarca.</p>
+                <?php echo $faq['respuesta']; // HTML ya limpio en pboca_get_faqs() ?>
             </div>
         </details>
-
-        <details class="faq-item">
-            <summary>¿Cuánto cuesta la entrada para ver un partido en la sede?</summary>
-            <div class="faq-body">
-                <p>¡Es gratuita! Si consumís algo, eso nos ayuda. Pero no es obligatorio tampoco.</p>
-            </div>
-        </details>
-
-        <details class="faq-item">
-            <summary>¿Necesito ser socio para ir a la sede, viajar o participar de las actividades?</summary>
-            <div class="faq-body">
-                <p>¡No! No necesitás ser socio de la Peña ni de Boca.</p>
-                <p><strong>Único requisito: ser hincha de Boca.</strong></p>
-            </div>
-        </details>
-
-        <details class="faq-item">
-            <summary>¿Es lo mismo ser socio/a de la Peña que ser socio/a de Boca?</summary>
-            <div class="faq-body">
-                <p>No, son dos cosas diferentes.</p>
-                <p>🔹 Ser socio de la Peña te permite formar parte de nuestra comunidad bostera de Viedma y Patagones, con beneficios vinculados a las actividades y propuestas que organizamos desde acá.</p>
-                <p>🔹 Ser socio de Boca significa asociarte directamente al Club Atlético Boca Juniors y acceder a los beneficios que ofrece el club, de acuerdo con la categoría de socio.</p>
-                <p>¡Y hay algo más! Desde la Peña podemos acompañarte directamente: te gestionamos la impresión del carnet y te ayudamos con las gestiones.</p>
-            </div>
-        </details>
-
-        <details class="faq-item">
-            <summary>¿Cómo puedo colaborar con la Peña?</summary>
-            <div class="faq-body">
-                <p>¡Hay muchas formas de dar una mano!</p>
-                <p>💙 <strong>Donando:</strong> muebles, objetos de decoración de Boca, banderas o cualquier elemento que pueda servir para nuestro local.</p>
-                <p>💛 <strong>Proponiendo ideas y tu voluntad de participar activamente:</strong> compartiendo iniciativas y propuestas para seguir creciendo.</p>
-                <p>💙 <strong>Haciéndote socio/a y motivando a tus amistades a asociarse:</strong> mientras más seamos, más vamos a poder generar para la gente de Boca.</p>
-            </div>
-        </details>
-
+        <?php endforeach; ?>
     </section>
 
 </main>
