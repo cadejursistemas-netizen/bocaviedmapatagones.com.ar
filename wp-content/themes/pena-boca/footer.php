@@ -111,6 +111,7 @@
                 <a href="<?php echo site_url('/ser-parte'); ?>">Asociación Civil / Beneficios</a>
                 <a href="<?php echo site_url('/sede'); ?>">Nuestra Sede Bostera</a>
                 <a href="<?php echo site_url('/streaming'); ?>">Streaming en Vivo</a>
+                <a href="<?php echo site_url('/preguntas-frecuentes'); ?>">Preguntas Frecuentes</a>
             </div>
 
             <!-- Columna 3: Gestiones y Contacto -->
