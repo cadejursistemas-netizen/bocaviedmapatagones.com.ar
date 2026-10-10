@@ -176,6 +176,8 @@ get_header(); ?>
             <button class="filter-btn active" data-filter="all">Todas</button>
             <button class="filter-btn" data-filter="cancha">Cancha</button>
             <button class="filter-btn" data-filter="sede">Sede</button>
+            <button class="filter-btn" data-filter="futbol">Fútbol</button>
+            <button class="filter-btn" data-filter="viajes">Viajes</button>
             <button class="filter-btn" data-filter="copa-socios">Copa Socios</button>
             <button class="filter-btn" data-filter="accion-social">Acción Social</button>
             <button class="filter-btn" data-filter="articulacion">Articulación CABJ</button>
@@ -187,57 +189,75 @@ get_header(); ?>
         <!-- Grilla de Fotos -->
         <div class="gallery-grid" id="gallery-container">
             
-            <!-- Ejemplo 1: Cancha -->
             <div class="gallery-item" data-category="cancha">
-                <img src="https://cdn-imgix.headout.com/media/images/e8053359-e21a-4dd9-a486-2f73722b29c2-1747905609251-277193.jpg?auto=compress%2Cformat&q=90&crop=faces&fit=crop" alt="Viaje a la cancha">
+                <img src="<?php echo get_template_directory_uri(); ?>/images/gal-cancha.jpg" alt="Bandera en La Bombonera" loading="lazy">
                 <div class="gallery-overlay">
                     <span class="gallery-cat">Cancha</span>
+                    <p class="gallery-desc">Bandera en La Bombonera</p>
+                </div>
+            </div>
+
+            <div class="gallery-item" data-category="viajes">
+                <img src="<?php echo get_template_directory_uri(); ?>/images/gal-viaje.jpg" alt="Viaje a La Bombonera" loading="lazy">
+                <div class="gallery-overlay">
+                    <span class="gallery-cat">Viajes</span>
                     <p class="gallery-desc">Viaje a La Bombonera</p>
                 </div>
             </div>
 
-            <!-- Ejemplo 2: Acción Social -->
             <div class="gallery-item" data-category="accion-social">
-                <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Acción Social">
+                <img src="<?php echo get_template_directory_uri(); ?>/images/mod-accion-social.jpg" alt="Jornada de donación de sangre" loading="lazy">
                 <div class="gallery-overlay">
                     <span class="gallery-cat">Acción Social</span>
-                    <p class="gallery-desc">Colecta en la Comarca</p>
+                    <p class="gallery-desc">Jornada de donación de sangre</p>
                 </div>
             </div>
 
-            <!-- Ejemplo 3: Sede -->
             <div class="gallery-item" data-category="sede">
-                <img src="https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Sede">
+                <img src="<?php echo get_template_directory_uri(); ?>/images/gal-figuritas.jpg" alt="Intercambio de figuritas" loading="lazy">
                 <div class="gallery-overlay">
                     <span class="gallery-cat">Sede</span>
-                    <p class="gallery-desc">Previa del partido</p>
+                    <p class="gallery-desc">Intercambio de figuritas</p>
                 </div>
             </div>
 
-            <!-- Ejemplo 4: Articulación CABJ -->
-            <div class="gallery-item" data-category="articulacion">
-                <img src="https://images.unsplash.com/photo-1511886929837-354d827aae26?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Articulación CABJ">
+            <div class="gallery-item" data-category="sede">
+                <img src="<?php echo get_template_directory_uri(); ?>/images/gal-play.jpg" alt="Torneo de PlayStation" loading="lazy">
                 <div class="gallery-overlay">
-                    <span class="gallery-cat">Articulación CABJ</span>
-                    <p class="gallery-desc">Reunión en Brandsen 805</p>
+                    <span class="gallery-cat">Sede</span>
+                    <p class="gallery-desc">Torneo de PlayStation</p>
                 </div>
             </div>
 
-            <!-- Ejemplo 5: Asambleas -->
-            <div class="gallery-item" data-category="asambleas">
-                <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Asambleas">
-                <div class="gallery-overlay">
-                    <span class="gallery-cat">Asambleas</span>
-                    <p class="gallery-desc">Asamblea de Socios</p>
-                </div>
-            </div>
-
-            <!-- Ejemplo 6: Copa Socios -->
             <div class="gallery-item" data-category="copa-socios">
-                <img src="https://images.unsplash.com/photo-1526232761682-d26e03ac148e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Copa Socios">
+                <img src="<?php echo get_template_directory_uri(); ?>/images/gal-copa.jpg" alt="Copa Socios 2025" loading="lazy">
                 <div class="gallery-overlay">
                     <span class="gallery-cat">Copa Socios</span>
-                    <p class="gallery-desc">Torneo relámpago</p>
+                    <p class="gallery-desc">Copa Socios 2025</p>
+                </div>
+            </div>
+
+            <div class="gallery-item" data-category="asambleas">
+                <img src="<?php echo get_template_directory_uri(); ?>/images/gal-asamblea.jpg" alt="Asamblea de socios 2026" loading="lazy">
+                <div class="gallery-overlay">
+                    <span class="gallery-cat">Asambleas</span>
+                    <p class="gallery-desc">Asamblea de socios 2026</p>
+                </div>
+            </div>
+
+            <div class="gallery-item" data-category="futbol">
+                <img src="<?php echo get_template_directory_uri(); ?>/images/mod-futbol.jpg" alt="Fútbol semanal" loading="lazy">
+                <div class="gallery-overlay">
+                    <span class="gallery-cat">Fútbol</span>
+                    <p class="gallery-desc">Fútbol semanal</p>
+                </div>
+            </div>
+
+            <div class="gallery-item" data-category="reconocimientos">
+                <img src="<?php echo get_template_directory_uri(); ?>/images/rec-2022.jpg" alt="Convención de Peñas 2022" loading="lazy">
+                <div class="gallery-overlay">
+                    <span class="gallery-cat">Reconocimientos</span>
+                    <p class="gallery-desc">Convención de Peñas 2022</p>
                 </div>
             </div>
 

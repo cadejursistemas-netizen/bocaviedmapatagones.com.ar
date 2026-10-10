@@ -69,6 +69,7 @@ get_header(); ?>
 .hito-year { background-color: var(--boca-oro); color: var(--boca-azul-oscuro); font-family: 'Russo One', sans-serif; padding: 6px 14px; border-radius: 6px; font-size: 1.1rem; flex-shrink: 0; }
 .hito h4 { color: var(--boca-oro); margin: 0 0 6px 0; font-size: 1.1rem; text-transform: uppercase; }
 .hito p { margin: 0; }
+.hito-img { display: block; width: 100%; max-width: 420px; border-radius: 8px; margin-top: 12px; border: 2px solid var(--boca-oro); }
 @media (max-width: 600px) { .hito { flex-direction: column; gap: 8px; } }
 
 /* Estilo para los Principios Innegociables */
@@ -200,6 +201,7 @@ get_header(); ?>
                     <div>
                         <h4>Convención Nacional de Peñas</h4>
                         <p>A fines de 2022, fuimos convocados a participar de la Convención Nacional de Peñas del Club Atlético Boca Juniors.</p>
+                        <img class="hito-img" src="<?php echo get_template_directory_uri(); ?>/images/rec-2022.jpg" alt="Reconocimiento 2022" loading="lazy">
                     </div>
                 </div>
 
@@ -208,6 +210,7 @@ get_header(); ?>
                     <div>
                         <h4>Reconocimiento de las autoridades oficiales</h4>
                         <p>Boca Juniors nos reconoció como las nuevas autoridades a cargo de la Peña Oficial, en ese entonces con Carlos Colombo a cargo del Departamento de Interior y Exterior.</p>
+                        <img class="hito-img" src="<?php echo get_template_directory_uri(); ?>/images/rec-2023.jpg" alt="Reconocimiento 2023" loading="lazy">
                     </div>
                 </div>
 
@@ -216,6 +219,7 @@ get_header(); ?>
                     <div>
                         <h4>Sede de la Copa Socios</h4>
                         <p>Fuimos seleccionados por el Club Atlético Boca Juniors como sede de la Copa Socios, con el Presidente actual Miguel Dinopulos a cargo del Departamento de Interior y Exterior.</p>
+                        <img class="hito-img" src="<?php echo get_template_directory_uri(); ?>/images/gal-copa.jpg" alt="Reconocimiento 2025" loading="lazy">
                     </div>
                 </div>
 
