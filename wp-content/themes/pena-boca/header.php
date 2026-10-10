@@ -6,6 +6,23 @@
     <?php wp_head(); /* Hook vital de WordPress */ ?>
     
     <style>
+    /* Botón global (se usa en todas las páginas) */
+    .btn-mod {
+        display: inline-block;
+        padding: 10px 25px;
+        border: 2px solid var(--boca-oro);
+        color: var(--boca-oro);
+        text-decoration: none;
+        font-weight: bold;
+        border-radius: 6px;
+        text-transform: uppercase;
+        font-size: 0.85rem;
+        transition: all 0.3s;
+    }
+    .btn-mod:hover {
+        background-color: var(--boca-oro);
+        color: var(--boca-azul-oscuro);
+    }
     /* ==========================================
        1. VARIABLES Y ESTILOS GLOBALES
        ========================================== */
