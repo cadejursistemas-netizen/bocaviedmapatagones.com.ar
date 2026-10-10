@@ -27,7 +27,7 @@ get_header(); ?>
     <section class="pg-section">
         <div class="pg-grid">
             <div class="pg-img">
-                <img src="<?php echo get_template_directory_uri(); ?>/images/mod-marca.jpg" alt="Indumentaria de la Peña" onerror="this.src='https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80';">
+                <img src="<?php echo get_template_directory_uri(); ?>/images/mod-marca.webp" alt="Indumentaria de la Peña" onerror="this.src='https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80';">
             </div>
             <div class="pg-info">
                 <h2 class="cabj-font">Vamos lxs xeneizes</h2>

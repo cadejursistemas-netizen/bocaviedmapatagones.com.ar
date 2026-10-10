@@ -27,7 +27,7 @@ get_header(); ?>
     <section class="pg-section">
         <div class="pg-grid">
             <div class="pg-img">
-                <img src="<?php echo get_template_directory_uri(); ?>/images/mod-viajes.jpg" alt="Viajes con la Peña" onerror="this.src='https://cdn-imgix.headout.com/media/images/e8053359-e21a-4dd9-a486-2f73722b29c2-1747905609251-277193.jpg?auto=compress%2Cformat&q=90&crop=faces&fit=crop';">
+                <img src="<?php echo get_template_directory_uri(); ?>/images/mod-viajes.webp" alt="Viajes con la Peña" onerror="this.src='https://cdn-imgix.headout.com/media/images/e8053359-e21a-4dd9-a486-2f73722b29c2-1747905609251-277193.jpg?auto=compress%2Cformat&q=90&crop=faces&fit=crop';">
             </div>
             <div class="pg-info">
                 <h2 class="cabj-font">Estar cerca de la Peña es estar cerca de Boca</h2>

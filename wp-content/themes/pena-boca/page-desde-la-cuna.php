@@ -27,7 +27,7 @@ get_header(); ?>
     <section class="pg-section">
         <div class="pg-grid">
             <div class="pg-img">
-                <img src="<?php echo get_template_directory_uri(); ?>/images/mod-cuna.jpg" alt="Espacio de juegos para chicos" onerror="this.src='https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80';">
+                <img src="<?php echo get_template_directory_uri(); ?>/images/mod-cuna.webp" alt="Espacio de juegos para chicos" onerror="this.src='https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80';">
             </div>
             <div class="pg-info">
                 <h2 class="cabj-font">El amor por Boca se transmite de generación en generación</h2>

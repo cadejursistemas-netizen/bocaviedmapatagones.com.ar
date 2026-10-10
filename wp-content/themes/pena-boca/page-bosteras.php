@@ -27,7 +27,7 @@ get_header(); ?>
     <section class="pg-section">
         <div class="pg-grid">
             <div class="pg-img">
-                <img src="<?php echo get_template_directory_uri(); ?>/images/mod-bosteras.jpg" alt="Espacio exclusivo para bosteras" onerror="this.src='https://images.unsplash.com/photo-1529156069898-49953e39b3ac?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80';">
+                <img src="<?php echo get_template_directory_uri(); ?>/images/mod-bosteras.webp" alt="Espacio exclusivo para bosteras" onerror="this.src='https://images.unsplash.com/photo-1529156069898-49953e39b3ac?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80';">
             </div>
             <div class="pg-info">
                 <h2 class="cabj-font">¿Sabías que en la Peña tenemos un espacio exclusivo para bosteras?</h2>

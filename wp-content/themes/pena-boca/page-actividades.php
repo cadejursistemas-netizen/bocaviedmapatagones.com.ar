@@ -190,7 +190,7 @@ get_header(); ?>
         <div class="gallery-grid" id="gallery-container">
             
             <div class="gallery-item" data-category="cancha">
-                <img src="<?php echo get_template_directory_uri(); ?>/images/gal-cancha.jpg" alt="Bandera en La Bombonera" loading="lazy">
+                <img src="<?php echo get_template_directory_uri(); ?>/images/gal-cancha.webp" alt="Bandera en La Bombonera" loading="lazy">
                 <div class="gallery-overlay">
                     <span class="gallery-cat">Cancha</span>
                     <p class="gallery-desc">Bandera en La Bombonera</p>
@@ -198,7 +198,7 @@ get_header(); ?>
             </div>
 
             <div class="gallery-item" data-category="viajes">
-                <img src="<?php echo get_template_directory_uri(); ?>/images/gal-viaje.jpg" alt="Viaje a La Bombonera" loading="lazy">
+                <img src="<?php echo get_template_directory_uri(); ?>/images/gal-viaje.webp" alt="Viaje a La Bombonera" loading="lazy">
                 <div class="gallery-overlay">
                     <span class="gallery-cat">Viajes</span>
                     <p class="gallery-desc">Viaje a La Bombonera</p>
@@ -206,7 +206,7 @@ get_header(); ?>
             </div>
 
             <div class="gallery-item" data-category="accion-social">
-                <img src="<?php echo get_template_directory_uri(); ?>/images/mod-accion-social.jpg" alt="Jornada de donación de sangre" loading="lazy">
+                <img src="<?php echo get_template_directory_uri(); ?>/images/mod-accion-social.webp" alt="Jornada de donación de sangre" loading="lazy">
                 <div class="gallery-overlay">
                     <span class="gallery-cat">Acción Social</span>
                     <p class="gallery-desc">Jornada de donación de sangre</p>
@@ -214,7 +214,7 @@ get_header(); ?>
             </div>
 
             <div class="gallery-item" data-category="sede">
-                <img src="<?php echo get_template_directory_uri(); ?>/images/gal-figuritas.jpg" alt="Intercambio de figuritas" loading="lazy">
+                <img src="<?php echo get_template_directory_uri(); ?>/images/gal-figuritas.webp" alt="Intercambio de figuritas" loading="lazy">
                 <div class="gallery-overlay">
                     <span class="gallery-cat">Sede</span>
                     <p class="gallery-desc">Intercambio de figuritas</p>
@@ -222,7 +222,7 @@ get_header(); ?>
             </div>
 
             <div class="gallery-item" data-category="sede">
-                <img src="<?php echo get_template_directory_uri(); ?>/images/gal-play.jpg" alt="Torneo de PlayStation" loading="lazy">
+                <img src="<?php echo get_template_directory_uri(); ?>/images/gal-play.webp" alt="Torneo de PlayStation" loading="lazy">
                 <div class="gallery-overlay">
                     <span class="gallery-cat">Sede</span>
                     <p class="gallery-desc">Torneo de PlayStation</p>
@@ -230,7 +230,7 @@ get_header(); ?>
             </div>
 
             <div class="gallery-item" data-category="copa-socios">
-                <img src="<?php echo get_template_directory_uri(); ?>/images/gal-copa.jpg" alt="Copa Socios 2025" loading="lazy">
+                <img src="<?php echo get_template_directory_uri(); ?>/images/gal-copa.webp" alt="Copa Socios 2025" loading="lazy">
                 <div class="gallery-overlay">
                     <span class="gallery-cat">Copa Socios</span>
                     <p class="gallery-desc">Copa Socios 2025</p>
@@ -238,7 +238,7 @@ get_header(); ?>
             </div>
 
             <div class="gallery-item" data-category="asambleas">
-                <img src="<?php echo get_template_directory_uri(); ?>/images/gal-asamblea.jpg" alt="Asamblea de socios 2026" loading="lazy">
+                <img src="<?php echo get_template_directory_uri(); ?>/images/gal-asamblea.webp" alt="Asamblea de socios 2026" loading="lazy">
                 <div class="gallery-overlay">
                     <span class="gallery-cat">Asambleas</span>
                     <p class="gallery-desc">Asamblea de socios 2026</p>
@@ -246,7 +246,7 @@ get_header(); ?>
             </div>
 
             <div class="gallery-item" data-category="futbol">
-                <img src="<?php echo get_template_directory_uri(); ?>/images/mod-futbol.jpg" alt="Fútbol semanal" loading="lazy">
+                <img src="<?php echo get_template_directory_uri(); ?>/images/mod-futbol.webp" alt="Fútbol semanal" loading="lazy">
                 <div class="gallery-overlay">
                     <span class="gallery-cat">Fútbol</span>
                     <p class="gallery-desc">Fútbol semanal</p>
@@ -254,7 +254,7 @@ get_header(); ?>
             </div>
 
             <div class="gallery-item" data-category="reconocimientos">
-                <img src="<?php echo get_template_directory_uri(); ?>/images/rec-2022.jpg" alt="Convención de Peñas 2022" loading="lazy">
+                <img src="<?php echo get_template_directory_uri(); ?>/images/rec-2022.webp" alt="Convención de Peñas 2022" loading="lazy">
                 <div class="gallery-overlay">
                     <span class="gallery-cat">Reconocimientos</span>
                     <p class="gallery-desc">Convención de Peñas 2022</p>

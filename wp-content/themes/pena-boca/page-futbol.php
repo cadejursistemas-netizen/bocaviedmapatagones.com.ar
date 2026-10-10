@@ -27,7 +27,7 @@ get_header(); ?>
     <section class="pg-section">
         <div class="pg-grid">
             <div class="pg-img">
-                <img src="<?php echo get_template_directory_uri(); ?>/images/mod-futbol.jpg" alt="Fútbol semanal de la Peña" onerror="this.src='https://images.unsplash.com/photo-1526232761682-d26e03ac148e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80';">
+                <img src="<?php echo get_template_directory_uri(); ?>/images/mod-futbol.webp" alt="Fútbol semanal de la Peña" onerror="this.src='https://images.unsplash.com/photo-1526232761682-d26e03ac148e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80';">
             </div>
             <div class="pg-info">
                 <h2 class="cabj-font">Sumate a jugar con gente de Boca</h2>

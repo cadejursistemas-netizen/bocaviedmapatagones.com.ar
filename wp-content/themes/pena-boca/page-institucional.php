@@ -201,7 +201,7 @@ get_header(); ?>
                     <div>
                         <h4>Convención Nacional de Peñas</h4>
                         <p>A fines de 2022, fuimos convocados a participar de la Convención Nacional de Peñas del Club Atlético Boca Juniors.</p>
-                        <img class="hito-img" src="<?php echo get_template_directory_uri(); ?>/images/rec-2022.jpg" alt="Reconocimiento 2022" loading="lazy">
+                        <img class="hito-img" src="<?php echo get_template_directory_uri(); ?>/images/rec-2022.webp" alt="Reconocimiento 2022" loading="lazy">
                     </div>
                 </div>
 
@@ -210,7 +210,7 @@ get_header(); ?>
                     <div>
                         <h4>Reconocimiento de las autoridades oficiales</h4>
                         <p>Boca Juniors nos reconoció como las nuevas autoridades a cargo de la Peña Oficial, en ese entonces con Carlos Colombo a cargo del Departamento de Interior y Exterior.</p>
-                        <img class="hito-img" src="<?php echo get_template_directory_uri(); ?>/images/rec-2023.jpg" alt="Reconocimiento 2023" loading="lazy">
+                        <img class="hito-img" src="<?php echo get_template_directory_uri(); ?>/images/rec-2023.webp" alt="Reconocimiento 2023" loading="lazy">
                     </div>
                 </div>
 
@@ -219,7 +219,7 @@ get_header(); ?>
                     <div>
                         <h4>Sede de la Copa Socios</h4>
                         <p>Fuimos seleccionados por el Club Atlético Boca Juniors como sede de la Copa Socios, con el Presidente actual Miguel Dinopulos a cargo del Departamento de Interior y Exterior.</p>
-                        <img class="hito-img" src="<?php echo get_template_directory_uri(); ?>/images/gal-copa.jpg" alt="Reconocimiento 2025" loading="lazy">
+                        <img class="hito-img" src="<?php echo get_template_directory_uri(); ?>/images/gal-copa.webp" alt="Reconocimiento 2025" loading="lazy">
                     </div>
                 </div>
 
@@ -228,7 +228,7 @@ get_header(); ?>
                     <div>
                         <h4>Interés provincial</h4>
                         <p>La Copa Socios fue declarada de interés provincial por la Legislatura de la Provincia de Río Negro, destacando la relevancia de esta iniciativa en el territorio.</p>
-                        <img class="hito-img" src="<?php echo get_template_directory_uri(); ?>/images/rec-2026.jpg" alt="Reconocimiento 2026: Copa Socios de interés provincial" loading="lazy">
+                        <img class="hito-img" src="<?php echo get_template_directory_uri(); ?>/images/rec-2026.webp" alt="Reconocimiento 2026: Copa Socios de interés provincial" loading="lazy">
                     </div>
                 </div>
             </div>
