@@ -73,6 +73,16 @@ get_header(); ?>
 .hito-img { display: block; width: 100%; max-width: 420px; border-radius: 8px; margin-top: 12px; border: 2px solid var(--boca-oro); }
 @media (max-width: 600px) { .hito { flex-direction: column; gap: 8px; } }
 
+.autoridades-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; margin-top: 25px; }
+.autoridades-grid .autoridad { flex: 0 1 150px; }
+.autoridades-grid.autoridades-3 .autoridad, .autoridades-1 .autoridad { flex-basis: 240px; }
+.autoridad { box-sizing: border-box; background-color: var(--boca-azul-oscuro); border-top: 3px solid var(--boca-oro); border-radius: 10px; padding: 22px 14px; text-align: center; }
+.autoridad img, .autoridad-ini { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 3px solid var(--boca-oro); display: block; margin: 0 auto 14px auto; }
+.autoridad-ini { display: flex; align-items: center; justify-content: center; background: var(--boca-azul-principal); color: var(--boca-oro); font-family: 'Russo One', sans-serif; font-size: 2rem; }
+.autoridad h4 { color: var(--boca-oro); margin: 0 0 6px 0; font-size: 1rem; text-transform: uppercase; }
+.autoridad p { margin: 0; font-size: 1rem; color: var(--boca-texto-claro); }
+@media (max-width: 700px) { .autoridades-grid { gap: 12px; } .autoridades-grid .autoridad, .autoridades-grid.autoridades-3 .autoridad, .autoridades-1 .autoridad { flex: 0 0 calc(50% - 8px); padding: 18px 8px; } .autoridad img, .autoridad-ini { width: 96px; height: 96px; } }
+
 /* Estilo para los Principios Innegociables */
 .principios-grid {
     display: grid;
@@ -240,39 +250,51 @@ get_header(); ?>
         <!-- Bloque 4: Autoridades -->
         <div class="inst-block" id="autoridades">
             <h2 class="cabj-font">Autoridades</h2>
-            <ul>
-                <li><strong>Presidenta:</strong> Florencia Gastaminza</li>
-                <li><strong>Secretaria General:</strong> María Sol Taraborrelli</li>
-                <li><strong>Tesorero:</strong> Juan Marcos González</li>
-            </ul>
+            <?php
+            // Para sumar una foto: copiarla en images/autoridades/ y poner el nombre del archivo (sin ruta) en 'foto'.
+            $pboca_cargos = array(
+                array( 'cargo' => 'Presidenta',          'nombre' => 'Florencia Gastaminza',       'foto' => '' ),
+                array( 'cargo' => 'Secretaria General',  'nombre' => 'María Sol Taraborrelli',     'foto' => 'secretaria-general.webp' ),
+                array( 'cargo' => 'Tesorero',            'nombre' => 'Juan Marcos González',       'foto' => '' ),
+            );
+            $pboca_vocales = array(
+                array( 'cargo' => 'Viajes',        'nombre' => 'Facundo Mendoza',          'foto' => '' ),
+                array( 'cargo' => 'Streaming',     'nombre' => 'Lautaro Iriondo',          'foto' => '' ),
+                array( 'cargo' => 'Socixs Peña',   'nombre' => 'Pablo Zeki',               'foto' => '' ),
+                array( 'cargo' => 'Socixs Boca',   'nombre' => 'María Victoria Rodríguez', 'foto' => 'socixs-boca.webp' ),
+                array( 'cargo' => 'Acción Social', 'nombre' => 'Aldana Jauge',             'foto' => 'accion-social.webp' ),
+            );
+            $pboca_revisor = array(
+                array( 'cargo' => 'Revisor de cuentas', 'nombre' => 'Alfonso Gimenez', 'foto' => '' ),
+            );
+            if ( ! function_exists( 'pboca_tarjeta_autoridad' ) ) {
+                function pboca_tarjeta_autoridad( $p ) {
+                    $iniciales = '';
+                    foreach ( explode( ' ', $p['nombre'] ) as $parte ) { $iniciales .= mb_substr( $parte, 0, 1 ); }
+                    $iniciales = mb_substr( $iniciales, 0, 2 );
+                    echo '<div class="autoridad">';
+                    if ( $p['foto'] ) {
+                        echo '<img src="' . esc_url( get_template_directory_uri() . '/images/autoridades/' . $p['foto'] ) . '" alt="' . esc_attr( $p['nombre'] ) . '" loading="lazy" width="400" height="400">';
+                    } else {
+                        echo '<span class="autoridad-ini">' . esc_html( $iniciales ) . '</span>';
+                    }
+                    echo '<h4>' . esc_html( $p['cargo'] ) . '</h4><p>' . esc_html( $p['nombre'] ) . '</p></div>';
+                }
+            }
+            ?>
 
-            <h3 class="cabj-font" style="color: var(--boca-oro); margin-top: 30px;">Vocales y áreas a cargo</h3>
-            <div class="principios-grid">
-                <div class="principio-card">
-                    <h4>Viajes</h4>
-                    <p>Facundo Mendoza</p>
-                </div>
-                <div class="principio-card">
-                    <h4>Streaming</h4>
-                    <p>Lautaro Iriondo</p>
-                </div>
-                <div class="principio-card">
-                    <h4>Socixs Peña</h4>
-                    <p>Pablo Zeki</p>
-                </div>
-                <div class="principio-card">
-                    <h4>Socixs Boca</h4>
-                    <p>María Victoria Rodríguez</p>
-                </div>
-                <div class="principio-card">
-                    <h4>Acción Social</h4>
-                    <p>Aldana Jauge</p>
-                </div>
+            <div class="autoridades-grid autoridades-3">
+                <?php foreach ( $pboca_cargos as $p ) { pboca_tarjeta_autoridad( $p ); } ?>
             </div>
 
-            <ul style="margin-top: 30px;">
-                <li><strong>Revisor de cuentas:</strong> Alfonso Gimenez</li>
-            </ul>
+            <h3 class="cabj-font" style="color: var(--boca-oro); margin: 35px 0 0 0; text-align: center;">Vocales y áreas a cargo</h3>
+            <div class="autoridades-grid">
+                <?php foreach ( $pboca_vocales as $p ) { pboca_tarjeta_autoridad( $p ); } ?>
+            </div>
+
+            <div class="autoridades-grid autoridades-1">
+                <?php foreach ( $pboca_revisor as $p ) { pboca_tarjeta_autoridad( $p ); } ?>
+            </div>
         </div>
 
         <!-- Bloque 5: Organización general y participación -->
