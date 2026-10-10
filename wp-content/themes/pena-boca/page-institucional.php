@@ -64,6 +64,13 @@ get_header(); ?>
     margin-bottom: 10px;
 }
 
+.hitos { margin: 25px 0; border-left: 3px solid var(--boca-oro); padding-left: 25px; }
+.hito { display: flex; gap: 20px; margin-bottom: 25px; align-items: flex-start; }
+.hito-year { background-color: var(--boca-oro); color: var(--boca-azul-oscuro); font-family: 'Russo One', sans-serif; padding: 6px 14px; border-radius: 6px; font-size: 1.1rem; flex-shrink: 0; }
+.hito h4 { color: var(--boca-oro); margin: 0 0 6px 0; font-size: 1.1rem; text-transform: uppercase; }
+.hito p { margin: 0; }
+@media (max-width: 600px) { .hito { flex-direction: column; gap: 8px; } }
+
 /* Estilo para los Principios Innegociables */
 .principios-grid {
     display: grid;
@@ -134,6 +141,49 @@ get_header(); ?>
             <h2 class="cabj-font">Historia</h2>
             <p>El camino recorrido para convertirnos en el único espacio de la Comarca con reconocimiento oficial de Boca Juniors. Años de esfuerzo, viajes, encuentros en la sede y un sentimiento inquebrantable.</p>
             <!-- Acá podés explayarte o editar el texto libremente desde el panel de WP -->
+        </div>
+
+        <!-- Bloque: Reconocimientos -->
+        <div class="inst-block" id="reconocimientos">
+            <h2 class="cabj-font">Reconocimientos</h2>
+            <p>Nuestra Peña se consolida como una institución cada vez más reconocida, tanto en el territorio como en el Club Atlético Boca Juniors. Este recorrido es el resultado del trabajo colectivo, el compromiso y la construcción de una comunidad xeneize.</p>
+            <p>Compartimos algunos de los hitos más importantes de nuestra historia institucional:</p>
+
+            <div class="hitos">
+                <div class="hito">
+                    <span class="hito-year">2022</span>
+                    <div>
+                        <h4>Convención Nacional de Peñas</h4>
+                        <p>A fines de 2022, fuimos convocados a participar de la Convención Nacional de Peñas del Club Atlético Boca Juniors.</p>
+                    </div>
+                </div>
+
+                <div class="hito">
+                    <span class="hito-year">2023</span>
+                    <div>
+                        <h4>Reconocimiento de las autoridades oficiales</h4>
+                        <p>Boca Juniors nos reconoció como las nuevas autoridades a cargo de la Peña Oficial, en ese entonces con Carlos Colombo a cargo del Departamento de Interior y Exterior.</p>
+                    </div>
+                </div>
+
+                <div class="hito">
+                    <span class="hito-year">2025</span>
+                    <div>
+                        <h4>Sede de la Copa Socios</h4>
+                        <p>Fuimos seleccionados por el Club Atlético Boca Juniors como sede de la Copa Socios, con el Presidente actual Miguel Dinopulos a cargo del Departamento de Interior y Exterior.</p>
+                    </div>
+                </div>
+
+                <div class="hito">
+                    <span class="hito-year">2026</span>
+                    <div>
+                        <h4>Interés provincial</h4>
+                        <p>La Copa Socios fue declarada de interés provincial por la Legislatura de la Provincia de Río Negro, destacando la relevancia de esta iniciativa en el territorio.</p>
+                    </div>
+                </div>
+            </div>
+
+            <p>Cada uno de estos hitos forma parte de una construcción colectiva que seguimos fortaleciendo, con el compromiso de representar a Boca, a la altura de lo que representa para nosotrxs.</p>
         </div>
 
         <!-- Bloque 4: Autoridades -->
