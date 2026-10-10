@@ -171,6 +171,33 @@
         </a>
     </div>
 
+    <!-- ANIMACIÓN DE APARICIÓN AL HACER SCROLL -->
+    <style>
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) {
+        .reveal { opacity: 1; transform: none; transition: none; }
+    }
+    </style>
+    <script>
+    (function () {
+        if (!('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        var selector = '.modulo-row, .oficial-banner, .banner-cta, .inst-block, .hito, .principio-card, .pg-grid, .faq-item, .gallery-item, .sede-grid, .footer-col';
+        var els = document.querySelectorAll(selector);
+        var io = new IntersectionObserver(function (entries) {
+            entries.forEach(function (e) {
+                if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+            });
+        }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+        els.forEach(function (el) {
+            var i = Array.prototype.indexOf.call(el.parentNode.children, el);
+            el.style.transitionDelay = Math.min(i, 5) * 80 + 'ms';
+            el.classList.add('reveal');
+            io.observe(el);
+        });
+    })();
+    </script>
+
     <?php wp_footer(); /* Hook vital de WordPress antes de cerrar el body */ ?>
 </body>
 </html>
