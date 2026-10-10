@@ -106,17 +106,12 @@ get_header(); ?>
             
             <!-- Columna de Texto (Relevamiento) -->
             <div class="sede-info">
-                <h2 class="cabj-font">¿Todavía no conocés la sede bostera de la Comarca?</h2>
-                <p>Es el punto de encuentro de todos los hinchas y socios de Viedma y Patagones. Un espacio propio para vivir nuestra pasión en comunidad.</p>
-                
-                <ul class="sede-features">
-                    <li>Transmitimos todos los partidos en pantalla gigante.</li>
-                    <li>Participá de las actividades sin necesidad de ser socio/a.</li>
-                    <li>Reuniones, previas, asambleas y camaradería boquense.</li>
-                </ul>
+                <h2 class="cabj-font">¿Todavía no conocés la única sede oficial del Club Atlético Boca Juniors en la Comarca?</h2>
+                <p>¡Te estamos esperando!</p>
+                <p>Encontrás nuestro local abierto cada vez que juega Boca y en todas las actividades que organizamos.</p>
 
                 <div style="margin-top: 30px;">
-                    <a href="<?php echo site_url('/contacto'); ?>" class="btn-mod" style="background: var(--boca-oro); color: var(--boca-azul-oscuro); display: inline-block;">Consultar por actividades</a>
+                    <a href="https://maps.app.goo.gl/4wqVqu9P2uVqpgu16?g_st=ac" target="_blank" rel="noopener" class="btn-mod" style="background: var(--boca-oro); color: var(--boca-azul-oscuro); display: inline-block;">Cómo llegar</a>
                 </div>
             </div>
 

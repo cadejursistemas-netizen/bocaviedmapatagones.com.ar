@@ -28,6 +28,22 @@ get_header(); ?>
     margin-top: 15px;
 }
 
+.actividades-intro {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 5% 0 5%;
+    text-align: center;
+    color: var(--boca-texto-claro);
+    font-size: 1.1rem;
+    line-height: 1.7;
+}
+
+.actividades-lema {
+    color: var(--boca-oro);
+    font-weight: 800;
+    font-size: 1.3rem;
+}
+
 .gallery-section {
     background-color: var(--boca-fondo);
     padding: 50px 5% 80px 5%;
@@ -141,6 +157,12 @@ get_header(); ?>
         <h1 class="page-title cabj-font">NUESTRAS ACTIVIDADES</h1>
         <p class="page-subtitle">El trabajo de la Peña en Viedma - Patagones y la Bombonera</p>
     </header>
+
+    <!-- Introducción -->
+    <section class="actividades-intro">
+        <p>En la Peña hay propuestas para todos los gustos y edades: torneos de PlayStation y truco, intercambio de figuritas, catas de vino, curso de fotografía, fútbol, karaoke, juntadas nocturnas y mucho más. Si tenés ganas de compartir la pasión por Boca de una manera diferente, ¡seguro encontrás tu lugar! Y si tenés alguna propuesta, también podés acercarla.</p>
+        <p class="actividades-lema">¡Vamos los xeneizes!</p>
+    </section>
 
     <!-- Sección de Galería -->
     <section class="gallery-section">

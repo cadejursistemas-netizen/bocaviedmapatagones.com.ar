@@ -194,8 +194,8 @@ get_header(); ?>
         <div class="modulo-content">
             <div class="modulo-tag">Nuestra Casa</div>
             <h2 class="modulo-title cabj-font">LA SEDE BOSTERA</h2>
-            <p class="modulo-text">¿Todavía no conocés nuestro lugar en el mundo? Transmitimos todos los partidos en pantalla gigante y organizamos actividades sociales, previas y eventos solidarios sin necesidad de que seas socio/a.</p>
-            <a href="<?php echo site_url('/sede'); ?>" class="btn-mod">Cómo Llegar</a>
+            <p class="modulo-text">¿Todavía no conocés la única sede oficial del Club Atlético Boca Juniors en la Comarca? ¡Te estamos esperando! Encontrás nuestro local abierto cada vez que juega Boca y en todas las actividades que organizamos.</p>
+            <a href="https://maps.app.goo.gl/4wqVqu9P2uVqpgu16?g_st=ac" target="_blank" rel="noopener" class="btn-mod">Cómo Llegar</a>
         </div>
     </article>
 
@@ -209,6 +209,51 @@ get_header(); ?>
             <h2 class="modulo-title cabj-font">STREAMING BOSTERO</h2>
             <p class="modulo-text">Viernes de previa, análisis y debate. Escuchanos todos los viernes desde las 19hs por nuestro canal de YouTube. ¡Incluso podés sumarte a participar en vivo en el panel con nosotros!</p>
             <a href="<?php echo site_url('/streaming'); ?>" class="btn-mod">Ir a YouTube</a>
+        </div>
+    </article>
+
+    <!-- Módulo 4: Nuestra Marca -->
+    <article class="modulo-row">
+        <div class="modulo-img">
+            <img src="<?php echo get_template_directory_uri(); ?>/images/mod-marca.jpg" alt="Indumentaria de la Peña" onerror="this.src='https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80';">
+        </div>
+        <div class="modulo-content">
+            <div class="modulo-tag">Nuestra Marca</div>
+            <h2 class="modulo-title cabj-font">VAMOS LXS XENEIZES</h2>
+            <p class="modulo-text">En la Peña tenemos nuestra propia marca de indumentaria y productos, pensada para llevar los colores a todos lados. Te mostramos lo disponible y estate atento a las próximas fechas de venta.</p>
+        </div>
+    </article>
+
+    <!-- Módulo 5: Viajes -->
+    <article class="modulo-row">
+        <div class="modulo-img">
+            <img src="<?php echo get_template_directory_uri(); ?>/images/mod-viajes.jpg" alt="Viajes con la Peña" onerror="this.src='https://cdn-imgix.headout.com/media/images/e8053359-e21a-4dd9-a486-2f73722b29c2-1747905609251-277193.jpg?auto=compress%2Cformat&q=90&crop=faces&fit=crop';">
+        </div>
+        <div class="modulo-content">
+            <div class="modulo-tag">Viajes</div>
+            <h2 class="modulo-title cabj-font">ESTAR CERCA DE LA PEÑA ES ESTAR CERCA DE BOCA</h2>
+            <p class="modulo-text">Viajá con la Peña y sumate a disfrutar en familia y con amigxs.</p>
+            <ul class="modulo-text" style="list-style:none; padding:0;">
+                <li>✦ Viaje familiar.</li>
+                <li>✦ Entrada garantizada.</li>
+                <li>✦ Traslado ida y vuelta.</li>
+                <li>✦ Cena en La Boca y paseo por Caminito.</li>
+                <li>✦ ¡Un montón de sorteos! Más de la mitad del micro se lleva un premio.</li>
+            </ul>
+            <p class="modulo-text">Y, sobre todo, la oportunidad de acercarte a una comunidad bostera que crece viaje a viaje.</p>
+            <p class="modulo-text"><strong>Sumate al próximo:</strong> Facundo (<a href="https://wa.me/542920536136">2920536136</a>) y Alfonso (<a href="https://wa.me/542920405196">2920405196</a>).</p>
+        </div>
+    </article>
+
+    <!-- Módulo 6: Desde la cuna -->
+    <article class="modulo-row">
+        <div class="modulo-img">
+            <img src="<?php echo get_template_directory_uri(); ?>/images/mod-cuna.jpg" alt="Espacio de juegos para chicos" onerror="this.src='https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80';">
+        </div>
+        <div class="modulo-content">
+            <div class="modulo-tag">Desde la cuna</div>
+            <h2 class="modulo-title cabj-font">EL AMOR POR BOCA SE TRANSMITE DE GENERACIÓN EN GENERACIÓN</h2>
+            <p class="modulo-text">Por eso, los más chiquitos también tienen su lugar: contamos con un espacio de juegos y juguetes pensado para que se diviertan y que la Peña sea donde quieran crecer.</p>
         </div>
     </article>
 
