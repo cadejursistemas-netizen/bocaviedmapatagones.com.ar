@@ -258,9 +258,9 @@ get_header(); ?>
                 array( 'cargo' => 'Tesorero',            'nombre' => 'Juan Marcos González',       'foto' => 'tesorero.webp' ),
             );
             $pboca_vocales = array(
-                array( 'cargo' => 'Viajes',        'nombre' => 'Facundo Mendoza',          'foto' => '' ),
-                array( 'cargo' => 'Streaming',     'nombre' => 'Lautaro Iriondo',          'foto' => '' ),
-                array( 'cargo' => 'Socixs Peña',   'nombre' => 'Pablo Zeki',               'foto' => '' ),
+                array( 'cargo' => 'Viajes',        'nombre' => 'Facundo Mendoza',          'foto' => 'viajes.webp' ),
+                array( 'cargo' => 'Streaming',     'nombre' => 'Lautaro Iriondo',          'foto' => 'streaming.webp' ),
+                array( 'cargo' => 'Socixs Peña',   'nombre' => 'Pablo Zeki',               'foto' => 'socixs-pena.webp' ),
                 array( 'cargo' => 'Socixs Boca',   'nombre' => 'María Victoria Rodríguez', 'foto' => 'socixs-boca.webp' ),
                 array( 'cargo' => 'Acción Social', 'nombre' => 'Aldana Jauge',             'foto' => 'accion-social.webp' ),
             );
