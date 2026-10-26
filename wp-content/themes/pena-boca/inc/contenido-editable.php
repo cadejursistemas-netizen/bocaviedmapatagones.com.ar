@@ -207,7 +207,7 @@ function pboca_get_autoridades( $grupo ) {
         $out[] = array(
             'cargo'  => $d['cargo'],
             'nombre' => $d['nombre'],
-            'foto'   => get_template_directory_uri() . '/images/autoridades/' . $d['foto'],
+            'foto'   => pboca_img( 'images/autoridades/' . $d['foto'] ),
         );
     }
     return $out;
@@ -234,7 +234,7 @@ function pboca_get_afiches() {
     foreach ( pboca_defaults_afiches() as $d ) {
         $out[] = array(
             'titulo'   => $d['titulo'],
-            'img'      => get_template_directory_uri() . '/images/' . $d['img'],
+            'img'      => pboca_img( 'images/' . $d['img'] ),
             'boton'    => $d['boton'],
             'whatsapp' => $d['whatsapp'],
             'mensaje'  => $d['mensaje'],

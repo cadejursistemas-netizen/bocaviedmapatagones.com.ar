@@ -27,7 +27,7 @@ get_header(); ?>
     <section class="pg-section">
         <div class="pg-grid">
             <div class="pg-img">
-                <img src="<?php echo get_template_directory_uri(); ?>/images/mod-accion-social.webp" alt="Acción Social de la Peña" onerror="this.src='https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80';">
+                <img src="<?php echo pboca_img('images/mod-accion-social.webp'); ?>" alt="Acción Social de la Peña" onerror="this.src='https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80';">
             </div>
             <div class="pg-info">
                 <h2 class="cabj-font">A Boca lo hace grande su gente</h2>
