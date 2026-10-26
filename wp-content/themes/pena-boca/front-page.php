@@ -10,7 +10,7 @@ get_header(); ?>
     position: relative;
     height: 75vh;
     min-height: 500px;
-    background: linear-gradient(to right, rgba(5, 8, 17, 0.92) 25%, rgba(5, 8, 17, 0.15)), url('<?php echo get_template_directory_uri(); ?>/images/mod-pena-oficial.webp') center/cover no-repeat;
+    background: linear-gradient(to right, rgba(5, 8, 17, 0.92) 25%, rgba(5, 8, 17, 0.15)), url('<?php echo pboca_img('images/mod-pena-oficial.webp'); ?>') center/cover no-repeat;
     display: flex;
     align-items: center;
     padding: 0 5%;
@@ -162,7 +162,7 @@ get_header(); ?>
 }
 
 @media (max-width: 700px) {
-    .hero-slider { background: linear-gradient(rgba(5, 8, 17, 0.8), rgba(5, 8, 17, 0.8)), url('<?php echo get_template_directory_uri(); ?>/images/mod-pena-oficial.webp') center/cover no-repeat; }
+    .hero-slider { background: linear-gradient(rgba(5, 8, 17, 0.8), rgba(5, 8, 17, 0.8)), url('<?php echo pboca_img('images/mod-pena-oficial.webp'); ?>') center/cover no-repeat; }
 }
 
 @media (max-width: 900px) {
@@ -207,7 +207,7 @@ get_header(); ?>
     <!-- Módulo 1: Asociación Civil / Ser Parte -->
     <article class="modulo-row">
         <div class="modulo-img">
-            <img src="<?php echo get_template_directory_uri(); ?>/images/mod-socios.webp" alt="Socios Peña" onerror="this.src='https://images.unsplash.com/photo-1511886929837-354d827aae26?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80';">
+            <img src="<?php echo pboca_img('images/mod-socios.webp'); ?>" alt="Socios Peña" onerror="this.src='https://images.unsplash.com/photo-1511886929837-354d827aae26?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80';">
         </div>
         <div class="modulo-content">
             <div class="modulo-tag">Asociación Civil</div>
@@ -220,7 +220,7 @@ get_header(); ?>
     <!-- Módulo 2: Sede -->
     <article class="modulo-row">
         <div class="modulo-img">
-            <img src="<?php echo get_template_directory_uri(); ?>/images/mod-sede.webp" alt="Sede Bostera" onerror="this.src='https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80';">
+            <img src="<?php echo pboca_img('images/mod-sede.webp'); ?>" alt="Sede Bostera" onerror="this.src='https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80';">
         </div>
         <div class="modulo-content">
             <div class="modulo-tag">Nuestra Casa</div>
@@ -233,7 +233,7 @@ get_header(); ?>
     <!-- Módulo 3: Streaming -->
     <article class="modulo-row">
         <div class="modulo-img">
-            <img src="<?php echo get_template_directory_uri(); ?>/images/mod-streaming.webp" alt="Streaming Peña Boca" onerror="this.src='https://images.unsplash.com/photo-1598550476439-6847785fcea6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80';">
+            <img src="<?php echo pboca_img('images/mod-streaming.webp'); ?>" alt="Streaming Peña Boca" onerror="this.src='https://images.unsplash.com/photo-1598550476439-6847785fcea6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80';">
         </div>
         <div class="modulo-content">
             <div class="modulo-tag">Multimedia en Vivo</div>
@@ -246,7 +246,7 @@ get_header(); ?>
     <!-- Módulo 4: Nuestra Marca -->
     <article class="modulo-row">
         <div class="modulo-img">
-            <img src="<?php echo get_template_directory_uri(); ?>/images/mod-marca.webp" alt="Indumentaria de la Peña" onerror="this.src='https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80';">
+            <img src="<?php echo pboca_img('images/mod-marca.webp'); ?>" alt="Indumentaria de la Peña" onerror="this.src='https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80';">
         </div>
         <div class="modulo-content">
             <div class="modulo-tag">Nuestra Marca</div>
@@ -259,7 +259,7 @@ get_header(); ?>
     <!-- Módulo 5: Viajes -->
     <article class="modulo-row">
         <div class="modulo-img">
-            <img src="<?php echo get_template_directory_uri(); ?>/images/mod-viajes.webp" alt="Viajes con la Peña" onerror="this.src='https://cdn-imgix.headout.com/media/images/e8053359-e21a-4dd9-a486-2f73722b29c2-1747905609251-277193.jpg?auto=compress%2Cformat&q=90&crop=faces&fit=crop';">
+            <img src="<?php echo pboca_img('images/mod-viajes.webp'); ?>" alt="Viajes con la Peña" onerror="this.src='https://cdn-imgix.headout.com/media/images/e8053359-e21a-4dd9-a486-2f73722b29c2-1747905609251-277193.jpg?auto=compress%2Cformat&q=90&crop=faces&fit=crop';">
         </div>
         <div class="modulo-content">
             <div class="modulo-tag">Viajes</div>
@@ -281,7 +281,7 @@ get_header(); ?>
     <!-- Módulo 6: Desde la cuna -->
     <article class="modulo-row">
         <div class="modulo-img">
-            <img src="<?php echo get_template_directory_uri(); ?>/images/mod-cuna.webp" alt="Espacio de juegos para chicos" onerror="this.src='https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80';">
+            <img src="<?php echo pboca_img('images/mod-cuna.webp'); ?>" alt="Espacio de juegos para chicos" onerror="this.src='https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80';">
         </div>
         <div class="modulo-content">
             <div class="modulo-tag">Desde la cuna</div>
@@ -297,14 +297,14 @@ get_header(); ?>
 <section class="tira-fotos">
     <h2 class="cabj-font tira-titulo">VIVÍ LA PEÑA</h2>
     <div class="tira-scroll">
-        <a href="<?php echo site_url('/galeria'); ?>"><img src="<?php echo get_template_directory_uri(); ?>/images/galeria/t02.webp" alt="Foto de la Peña" loading="lazy" width="420" height="420"></a>
-        <a href="<?php echo site_url('/galeria'); ?>"><img src="<?php echo get_template_directory_uri(); ?>/images/galeria/t05.webp" alt="Foto de la Peña" loading="lazy" width="420" height="420"></a>
-        <a href="<?php echo site_url('/galeria'); ?>"><img src="<?php echo get_template_directory_uri(); ?>/images/galeria/t09.webp" alt="Foto de la Peña" loading="lazy" width="420" height="420"></a>
-        <a href="<?php echo site_url('/galeria'); ?>"><img src="<?php echo get_template_directory_uri(); ?>/images/galeria/t15.webp" alt="Foto de la Peña" loading="lazy" width="420" height="420"></a>
-        <a href="<?php echo site_url('/galeria'); ?>"><img src="<?php echo get_template_directory_uri(); ?>/images/galeria/t22.webp" alt="Foto de la Peña" loading="lazy" width="420" height="420"></a>
-        <a href="<?php echo site_url('/galeria'); ?>"><img src="<?php echo get_template_directory_uri(); ?>/images/galeria/t31.webp" alt="Foto de la Peña" loading="lazy" width="420" height="420"></a>
-        <a href="<?php echo site_url('/galeria'); ?>"><img src="<?php echo get_template_directory_uri(); ?>/images/galeria/t36.webp" alt="Foto de la Peña" loading="lazy" width="420" height="420"></a>
-        <a href="<?php echo site_url('/galeria'); ?>"><img src="<?php echo get_template_directory_uri(); ?>/images/galeria/t48.webp" alt="Foto de la Peña" loading="lazy" width="420" height="420"></a>
+        <a href="<?php echo site_url('/galeria'); ?>"><img src="<?php echo pboca_img('images/galeria/t02.webp'); ?>" alt="Foto de la Peña" loading="lazy" width="420" height="420"></a>
+        <a href="<?php echo site_url('/galeria'); ?>"><img src="<?php echo pboca_img('images/galeria/t05.webp'); ?>" alt="Foto de la Peña" loading="lazy" width="420" height="420"></a>
+        <a href="<?php echo site_url('/galeria'); ?>"><img src="<?php echo pboca_img('images/galeria/t09.webp'); ?>" alt="Foto de la Peña" loading="lazy" width="420" height="420"></a>
+        <a href="<?php echo site_url('/galeria'); ?>"><img src="<?php echo pboca_img('images/galeria/t15.webp'); ?>" alt="Foto de la Peña" loading="lazy" width="420" height="420"></a>
+        <a href="<?php echo site_url('/galeria'); ?>"><img src="<?php echo pboca_img('images/galeria/t22.webp'); ?>" alt="Foto de la Peña" loading="lazy" width="420" height="420"></a>
+        <a href="<?php echo site_url('/galeria'); ?>"><img src="<?php echo pboca_img('images/galeria/t31.webp'); ?>" alt="Foto de la Peña" loading="lazy" width="420" height="420"></a>
+        <a href="<?php echo site_url('/galeria'); ?>"><img src="<?php echo pboca_img('images/galeria/t36.webp'); ?>" alt="Foto de la Peña" loading="lazy" width="420" height="420"></a>
+        <a href="<?php echo site_url('/galeria'); ?>"><img src="<?php echo pboca_img('images/galeria/t48.webp'); ?>" alt="Foto de la Peña" loading="lazy" width="420" height="420"></a>
     </div>
     <div style="text-align:center; margin-top:25px;">
         <a href="<?php echo site_url('/galeria'); ?>" class="btn-mod">Ver todas las fotos</a>

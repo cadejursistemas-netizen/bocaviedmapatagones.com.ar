@@ -218,7 +218,7 @@ get_header(); ?>
                     <div>
                         <h4>Convención Nacional de Peñas</h4>
                         <p>A fines de 2022, fuimos convocados a participar de la Convención Nacional de Peñas del Club Atlético Boca Juniors.</p>
-                        <img class="hito-img" src="<?php echo get_template_directory_uri(); ?>/images/rec-2022.webp" alt="Reconocimiento 2022" loading="lazy">
+                        <img class="hito-img" src="<?php echo pboca_img('images/rec-2022.webp'); ?>" alt="Reconocimiento 2022" loading="lazy">
                     </div>
                 </div>
 
@@ -227,7 +227,7 @@ get_header(); ?>
                     <div>
                         <h4>Reconocimiento de las autoridades oficiales</h4>
                         <p>Boca Juniors nos reconoció como las nuevas autoridades a cargo de la Peña Oficial, en ese entonces con Carlos Colombo a cargo del Departamento de Interior y Exterior.</p>
-                        <img class="hito-img" src="<?php echo get_template_directory_uri(); ?>/images/rec-2023.webp" alt="Reconocimiento 2023" loading="lazy">
+                        <img class="hito-img" src="<?php echo pboca_img('images/rec-2023.webp'); ?>" alt="Reconocimiento 2023" loading="lazy">
                     </div>
                 </div>
 
@@ -236,7 +236,7 @@ get_header(); ?>
                     <div>
                         <h4>Sede de la Copa Socios</h4>
                         <p>Fuimos seleccionados por el Club Atlético Boca Juniors como sede de la Copa Socios, con el Presidente actual Miguel Dinopulos a cargo del Departamento de Interior y Exterior.</p>
-                        <img class="hito-img" src="<?php echo get_template_directory_uri(); ?>/images/gal-copa.webp" alt="Reconocimiento 2025" loading="lazy">
+                        <img class="hito-img" src="<?php echo pboca_img('images/gal-copa.webp'); ?>" alt="Reconocimiento 2025" loading="lazy">
                     </div>
                 </div>
 
@@ -245,7 +245,7 @@ get_header(); ?>
                     <div>
                         <h4>Interés provincial</h4>
                         <p>La Copa Socios fue declarada de interés provincial por la Legislatura de la Provincia de Río Negro, destacando la relevancia de esta iniciativa en el territorio.</p>
-                        <img class="hito-img" src="<?php echo get_template_directory_uri(); ?>/images/rec-2026.webp" alt="Reconocimiento 2026: Copa Socios de interés provincial" loading="lazy">
+                        <img class="hito-img" src="<?php echo pboca_img('images/rec-2026.webp'); ?>" alt="Reconocimiento 2026: Copa Socios de interés provincial" loading="lazy">
                     </div>
                 </div>
             </div>
@@ -296,9 +296,9 @@ get_header(); ?>
             <h2 class="cabj-font">Organización general y participación</h2>
             <p>Además de la Comisión, contamos con un grupo de organización que planifica y coordina el funcionamiento de la Peña. Somos más de 30 socios y socias que participamos activamente en las distintas áreas de trabajo. Este grupo constituye el alma de la Peña: una mesa ampliada de toma de decisiones, donde compartimos ideas, definimos objetivos y construimos colectivamente su rumbo.</p>
             <div class="org-fotos">
-            <figure class="org-foto"><img src="<?php echo get_template_directory_uri(); ?>/images/organizacion-1.webp" alt="Grupo de organización de la Peña en la sede" loading="lazy"></figure>
-            <figure class="org-foto"><img src="<?php echo get_template_directory_uri(); ?>/images/organizacion-2.webp" alt="Reunión de organización en la sede" loading="lazy"></figure>
-            <figure class="org-foto"><img src="<?php echo get_template_directory_uri(); ?>/images/organizacion-3.webp" alt="Encuentro de socios y socias en la sede" loading="lazy"></figure>
+            <figure class="org-foto"><img src="<?php echo pboca_img('images/organizacion-1.webp'); ?>" alt="Grupo de organización de la Peña en la sede" loading="lazy"></figure>
+            <figure class="org-foto"><img src="<?php echo pboca_img('images/organizacion-2.webp'); ?>" alt="Reunión de organización en la sede" loading="lazy"></figure>
+            <figure class="org-foto"><img src="<?php echo pboca_img('images/organizacion-3.webp'); ?>" alt="Encuentro de socios y socias en la sede" loading="lazy"></figure>
             </div>
         </div>
 

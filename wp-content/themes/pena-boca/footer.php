@@ -100,7 +100,7 @@
             
             <!-- Columna 1: Identidad -->
             <div class="footer-col">
-                <img src="<?php echo get_template_directory_uri(); ?>/peña.png" alt="Peña Boca Viedma Patagones" style="max-width: 110px; margin-bottom: 15px; border-radius: 50%;">
+                <img src="<?php echo pboca_img('peña.png'); ?>" alt="Peña Boca Viedma Patagones" style="max-width: 110px; margin-bottom: 15px; border-radius: 50%;">
                 <p>Somos el único espacio de la Comarca Viedma-Patagones con reconocimiento oficial del Club Atlético Boca Juniors.</p>
             </div>
 

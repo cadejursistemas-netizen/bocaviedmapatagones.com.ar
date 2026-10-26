@@ -233,7 +233,7 @@
     <nav class="navbar-pena" aria-label="Menú principal">
         <div class="navbar-logo-pena">
             <a href="<?php echo site_url(); ?>">
-                <img src="<?php echo get_template_directory_uri(); ?>/peña.png" alt="Peña Boca Viedma Patagones">
+                <img src="<?php echo pboca_img('peña.png'); ?>" alt="Peña Boca Viedma Patagones">
             </a>
         </div>
         
@@ -272,7 +272,7 @@
         </div>
 
         <div class="navbar-logo-cabj">
-            <img src="<?php echo get_template_directory_uri(); ?>/cabj-logo.svg"  alt="Escudo Oficial CABJ">
+            <img src="<?php echo pboca_img('cabj-logo.svg'); ?>"  alt="Escudo Oficial CABJ">
         </div>
     </nav>
     <script>
