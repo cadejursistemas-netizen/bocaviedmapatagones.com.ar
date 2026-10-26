@@ -18,7 +18,7 @@ get_header(); ?>
 .viajes-galeria { background-color: var(--boca-fondo); padding: 0 5% 70px 5%; max-width: 1100px; margin: 0 auto; }
 .viajes-galeria-titulo { color: var(--boca-oro); text-align: center; font-size: 2rem; margin: 0 0 30px 0; }
 .viajes-fotos { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; }
-.viaje-foto { flex: 0 0 calc(33.333% - 11px); aspect-ratio: 1 / 1; border-radius: 12px; overflow: hidden; border: 3px solid var(--boca-azul-principal); box-shadow: 0 10px 30px rgba(0,0,0,0.5); display: block; box-sizing: border-box; }
+.viaje-foto { flex: 0 0 calc(25% - 12px); aspect-ratio: 1 / 1; border-radius: 12px; overflow: hidden; border: 3px solid var(--boca-azul-principal); box-shadow: 0 10px 30px rgba(0,0,0,0.5); display: block; box-sizing: border-box; }
 .viaje-foto img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s ease; }
 .viaje-foto:hover img { transform: scale(1.06); }
 @media (max-width: 700px) { .viaje-foto { flex-basis: calc(50% - 8px); } }
@@ -56,6 +56,18 @@ get_header(); ?>
     <section class="viajes-galeria">
         <h2 class="cabj-font viajes-galeria-titulo">Así se vive el viaje</h2>
         <div class="viajes-fotos">
+            <a class="viaje-foto" href="<?php echo get_template_directory_uri(); ?>/images/viajes-6.webp" target="_blank" rel="noopener">
+                <img src="<?php echo get_template_directory_uri(); ?>/images/viajes-6.webp" alt="Grupo de la Peña viajando en el micro" loading="lazy">
+            </a>
+            <a class="viaje-foto" href="<?php echo get_template_directory_uri(); ?>/images/viajes-7.webp" target="_blank" rel="noopener">
+                <img src="<?php echo get_template_directory_uri(); ?>/images/viajes-7.webp" alt="Socios y socias de la Peña en el micro durante el viaje" loading="lazy">
+            </a>
+            <a class="viaje-foto" href="<?php echo get_template_directory_uri(); ?>/images/viajes-8.webp" target="_blank" rel="noopener">
+                <img src="<?php echo get_template_directory_uri(); ?>/images/viajes-8.webp" alt="Dos socias tomando mate en el micro" loading="lazy" style="object-position: center 62%;">
+            </a>
+            <a class="viaje-foto" href="<?php echo get_template_directory_uri(); ?>/images/viajes-5.webp" target="_blank" rel="noopener">
+                <img src="<?php echo get_template_directory_uri(); ?>/images/viajes-5.webp" alt="Selfie del grupo de la Peña durante el viaje" loading="lazy">
+            </a>
             <a class="viaje-foto" href="<?php echo get_template_directory_uri(); ?>/images/viajes-1.webp" target="_blank" rel="noopener">
                 <img src="<?php echo get_template_directory_uri(); ?>/images/viajes-1.webp" alt="Pareja de la Peña en los alrededores de la Bombonera" loading="lazy">
             </a>
@@ -67,9 +79,6 @@ get_header(); ?>
             </a>
             <a class="viaje-foto" href="<?php echo get_template_directory_uri(); ?>/images/viajes-4.webp" target="_blank" rel="noopener">
                 <img src="<?php echo get_template_directory_uri(); ?>/images/viajes-4.webp" alt="Tres hinchas de la Peña en la Bombonera" loading="lazy">
-            </a>
-            <a class="viaje-foto" href="<?php echo get_template_directory_uri(); ?>/images/viajes-5.webp" target="_blank" rel="noopener">
-                <img src="<?php echo get_template_directory_uri(); ?>/images/viajes-5.webp" alt="Selfie del grupo de la Peña durante el viaje" loading="lazy">
             </a>
         </div>
     </section>
