@@ -1,0 +1,26 @@
+{
+  "page": {
+    "w": 793.6875,
+    "h": 1122.515625
+  },
+  "kickerNum": {
+    "x": 290.609375,
+    "baseline": 177,
+    "size": 20,
+    "letterSpacing": 3.2,
+    "color": "#F5B700"
+  },
+  "greeting": {
+    "x": 56,
+    "baseline": 297,
+    "size": 98,
+    "maxWidth": 485.6875,
+    "color": "#FFFFFF"
+  },
+  "cardBody": {
+    "x": 413.6875,
+    "y": 792.859375,
+    "w": 324,
+    "h": 144
+  }
+}
