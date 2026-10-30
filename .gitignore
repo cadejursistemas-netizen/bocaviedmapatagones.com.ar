@@ -1,0 +1,12 @@
+# Copias de seguridad del sitio (contienen la base de datos, usuarios y archivos)
+wp-content/ai1wm-backups/
+*.wpress
+wp-content/backups-dup-pro/
+wp-content/updraft/
+
+# Archivos subidos al sitio y fotos privadas de socios (nunca van al repositorio)
+wp-content/uploads/
+
+# Claves y configuración local
+.env
+wp-config.php
