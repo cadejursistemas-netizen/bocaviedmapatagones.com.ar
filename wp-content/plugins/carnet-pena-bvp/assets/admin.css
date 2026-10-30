@@ -133,3 +133,6 @@
 		grid-template-columns: minmax(0, 1fr);
 	}
 }
+
+.cpbvp-aviso { background: #fff8e5; border-left: 4px solid #dba617; padding: 8px 12px; margin: 8px 0 0; }
+.cpbvp-thumb { object-fit: cover; border-radius: 4px; }

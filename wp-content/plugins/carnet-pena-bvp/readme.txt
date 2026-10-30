@@ -2,7 +2,7 @@
 Requires at least: 5.8
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.1.0
+Stable tag: 1.2.0
 License: GPL-2.0-or-later
 
 Carga de socios/as de la peña y generación del carnet de bienvenida en PDF (2 páginas A4).
@@ -13,12 +13,16 @@ Carga de socios/as de la peña y generación del carnet de bienvenida en PDF (2 
 2. Elegí el archivo carnet-pena-bvp.zip, instalalo y activalo.
 3. Aparece el menú "Socios Peña".
 
+== Si ya tenías socios cargados ==
+
+Entrá a Socios Peña > Proteger fotos y tocá "Proteger ahora". Si el sitio usa Cloudflare, después hacé "Purgar todo" en Caching.
+
 == Uso ==
 
 1. Socios Peña > Añadir socio/a.
 2. Escribí el nombre y apellido en el título.
 3. Completá Nº de socio/a (viene sugerido el siguiente libre), DNI, fecha de ingreso y saludo (Bienvenido / Bienvenida).
-4. "Elegir foto": subila desde la compu o el celular, o elegila de la Biblioteca de medios.
+4. "Subir foto": elegila desde la compu o el celular.
    Arrastrá la foto y usá el zoom para que la cara quede dentro del óvalo.
 5. Guardá (Publicar / Actualizar) y tocá "Descargar carnet en PDF".
 
@@ -31,9 +35,10 @@ Si cargás un Nº que ya tiene otro socio/a, al guardar aparece un aviso.
 * El PDF se arma en el navegador del operador con pdf-lib: no necesita librerías en el servidor.
 * assets/template.pdf es el diseño completo sin datos; el plugin le agrega el saludo,
   el Nº del titular y el dorso del carnet (foto y datos) en las posiciones de assets/layout.json.
-* Las fotos quedan en la Biblioteca de medios de WordPress.
+* Las fotos NO van a la Biblioteca de medios: se guardan en wp-content/uploads/cpbvp-privado/ con un nombre al azar de 32 caracteres, sin datos ocultos (ubicación, cámara), y solo un administrador con la sesión iniciada puede verlas (se entregan a través de WordPress). La carpeta tiene un .htaccess que bloquea el acceso directo.
+* Si el servidor no usa Apache/LiteSpeed (el .htaccess no se aplica), el nombre al azar sigue protegiendo cada archivo. Lo más seguro es mover la carpeta fuera de la web con el filtro "cpbvp_carpeta_privada".
 * Solo lo pueden usar los Administradores (capacidad "manage_options"). Los Editores y Autores no ven el menú "Socios Peña" ni las fichas.
-* Datos personales: se guardan Nº, DNI, fecha de ingreso y foto. Las fichas no son públicas (no tienen dirección web). Las fotos, en cambio, quedan en la Biblioteca de medios de WordPress, cuyos archivos son accesibles por su dirección directa.
+* Datos personales: se guardan Nº, DNI, fecha de ingreso y foto (puede incluir menores). Las fichas no son públicas (no tienen dirección web) y las fotos tampoco (ver arriba).
 
 == Cambiar el diseño ==
 
@@ -46,6 +51,10 @@ Después de editar template.html, regenerá template.pdf y layout.json con:
 y reemplazá esos dos archivos en carnet-pena-bvp/assets/.
 
 == Cambios ==
+
+= 1.2.0 =
+* Las fotos se guardan en una carpeta privada (no en la Biblioteca de medios), con nombre al azar y sin datos ocultos.
+* Nueva pantalla Socios Peña > Proteger fotos: pasa las fotos que ya estaban en la Biblioteca de medios a la carpeta privada y borra las copias públicas.
 
 = 1.1.0 =
 * Acceso restringido a Administradores.

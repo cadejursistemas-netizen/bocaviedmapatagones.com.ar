@@ -1,4 +1,4 @@
-/* global PDFLib, wp, CPBVP */
+/* global PDFLib, CPBVP */
 /**
  * Carnet Peña Boca Viedma | Patagones
  * Encuadre de la foto, vista previa del carnet y armado del PDF en el navegador.
@@ -29,6 +29,7 @@
 		ingreso: $('cpbvp_ingreso'),
 		saludo: $('cpbvp_saludo'),
 		fotoId: $('cpbvp_foto_id'),
+		fotoPriv: $('cpbvp_foto_priv'),
 		crop: $('cpbvp_crop'),
 		fotoBtn: $('cpbvp_foto_btn'),
 		zoom: $('cpbvp_zoom'),
@@ -325,26 +326,75 @@
 			.catch(function () { status('No se pudo cargar la foto.', true); });
 	}
 
-	var frame = null;
-	el.fotoBtn.addEventListener('click', function (e) {
-		e.preventDefault();
-		if (!frame) {
-			frame = wp.media({
-				title: 'Elegí la foto carnet del socio/a',
-				button: { text: 'Usar esta foto' },
-				library: { type: 'image' },
-				multiple: false
+	/**
+	 * La foto NO pasa por la Biblioteca de medios (que es pública). Se achica y se vuelve a
+	 * guardar como JPG acá, en el navegador (así se pierden la ubicación y demás datos ocultos),
+	 * y se sube a una carpeta privada que solo ven los administradores.
+	 */
+	var MAX_SIDE = 1200;
+
+	function prepareJpeg(file) {
+		return new Promise(function (resolve, reject) {
+			var url = URL.createObjectURL(file);
+			var img = new Image();
+			img.onload = function () {
+				URL.revokeObjectURL(url);
+				var k = Math.min(1, MAX_SIDE / Math.max(img.naturalWidth, img.naturalHeight));
+				var c = document.createElement('canvas');
+				c.width = Math.max(1, Math.round(img.naturalWidth * k));
+				c.height = Math.max(1, Math.round(img.naturalHeight * k));
+				var ctx = c.getContext('2d');
+				ctx.fillStyle = '#FFFFFF'; // un PNG con transparencia queda sobre fondo blanco
+				ctx.fillRect(0, 0, c.width, c.height);
+				ctx.drawImage(img, 0, 0, c.width, c.height);
+				c.toBlob(function (blob) { return blob ? resolve(blob) : reject(new Error('jpeg')); }, 'image/jpeg', 0.9);
+			};
+			img.onerror = function () { URL.revokeObjectURL(url); reject(new Error('decode')); };
+			img.src = url;
+		});
+	}
+
+	function uploadPhoto(blob) {
+		var fd = new FormData();
+		fd.append('action', 'cpbvp_subir_foto');
+		fd.append('_wpnonce', cfg.nonce);
+		fd.append('foto', blob, 'foto.jpg');
+		return fetch(cfg.ajaxUrl, { method: 'POST', body: fd, credentials: 'same-origin' }).then(function (r) {
+			return r.json().catch(function () { return null; }).then(function (j) {
+				if (j && j.success) return j.data;
+				throw new Error((j && j.data && j.data.mensaje) || ('No se pudo subir la foto (' + r.status + ').'));
 			});
-			frame.on('select', function () {
-				var a = frame.state().get('selection').first().toJSON();
-				var url = (a.sizes && a.sizes.large) ? a.sizes.large.url : a.url;
-				el.fotoId.value = a.id;
+		});
+	}
+
+	function handleFile(file) {
+		status('Subiendo la foto…');
+		el.fotoBtn.disabled = true;
+		prepareJpeg(file)
+			.then(uploadPhoto)
+			.then(function (d) {
+				el.fotoPriv.value = d.f;
+				el.fotoId.value = ''; // si había una foto vieja en la Biblioteca de medios, se borra al guardar
 				el.fotoBtn.textContent = 'Cambiar foto';
 				crop = { z: 1, x: 0, y: 0 };
-				setPhoto(url);
-			});
-		}
-		frame.open();
+				return setPhoto(d.url);
+			})
+			.catch(function (err) {
+				var m = err && err.message;
+				status(m === 'decode' || m === 'jpeg' ? 'No se pudo leer esa foto. Probá con una imagen JPG o PNG.' : (m || 'No se pudo subir la foto.'), true);
+			})
+			.then(function () { el.fotoBtn.disabled = false; });
+	}
+
+	el.fotoBtn.addEventListener('click', function (e) {
+		e.preventDefault();
+		var input = document.createElement('input');
+		input.type = 'file';
+		input.accept = 'image/*';
+		input.addEventListener('change', function () {
+			if (input.files && input.files[0]) handleFile(input.files[0]);
+		});
+		input.click();
 	});
 
 	// Arrastrar para encuadrar
@@ -468,7 +518,7 @@
 		if (!photo) missing.push('foto');
 		if (missing.length) { status('Falta completar: ' + missing.join(', ') + '.', true); return Promise.resolve(); }
 		if (photoTainted) {
-			status('La foto está guardada en otro dominio y el navegador no deja usarla en el PDF. Subila de nuevo a la Biblioteca de medios.', true);
+			status('El navegador no deja usar esta foto en el PDF. Subila de nuevo con el botón "Cambiar foto".', true);
 			return Promise.resolve();
 		}
 
@@ -538,7 +588,7 @@
 			status('Listo: se descargó el PDF.');
 		}).catch(function (err) {
 			var msg = (err && err.name === 'SecurityError')
-				? 'El navegador bloqueó la foto (está en otro dominio). Subila de nuevo a la Biblioteca de medios.'
+				? 'El navegador bloqueó la foto. Subila de nuevo con el botón "Cambiar foto".'
 				: 'No se pudo generar el PDF. ' + ((err && err.message) || '');
 			status(msg, true);
 			if (window.console) console.error(err); // eslint-disable-line no-console
