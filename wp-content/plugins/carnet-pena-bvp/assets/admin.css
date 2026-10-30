@@ -1,0 +1,138 @@
+/* Carnet Peña Boca Viedma | Patagones — admin */
+
+.cpbvp {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 24px 32px;
+	padding: 4px 0 8px;
+}
+.cpbvp-fields {
+	flex: 1 1 380px;
+	min-width: 0;
+}
+.cpbvp-preview {
+	flex: 1 1 340px;
+	min-width: 0;
+	max-width: 520px;
+}
+.cpbvp-help {
+	margin: 0 0 12px;
+	color: #50575e;
+}
+.cpbvp-grid {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 0 16px;
+}
+.cpbvp-grid p {
+	margin: 0 0 14px;
+}
+.cpbvp-grid label,
+.cpbvp-zoom label {
+	display: block;
+	font-weight: 600;
+	margin-bottom: 4px;
+}
+.cpbvp-grid input,
+.cpbvp-grid select {
+	width: 100%;
+	max-width: none;
+	min-height: 36px;
+	font-size: 15px;
+}
+.cpbvp-photo {
+	margin: 4px 0 0;
+	padding: 12px 14px 14px;
+	border: 1px solid #dcdcde;
+	border-radius: 6px;
+	background: #f6f7f7;
+}
+.cpbvp-photo legend {
+	padding: 0 6px;
+	font-weight: 600;
+}
+.cpbvp-cropper {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 16px;
+	align-items: flex-start;
+}
+#cpbvp_cropper {
+	width: 176px;
+	height: auto;
+	border-radius: 8px;
+	cursor: grab;
+	touch-action: none;
+	box-shadow: 0 0 0 1px #c3c4c7;
+	background: #f0f2f6;
+}
+#cpbvp_cropper.is-dragging {
+	cursor: grabbing;
+}
+#cpbvp_cropper:focus-visible {
+	outline: 2px solid #2271b1;
+	outline-offset: 2px;
+}
+.cpbvp-photo-tools {
+	flex: 1 1 160px;
+	min-width: 0;
+}
+.cpbvp-zoom {
+	margin: 12px 0 6px;
+}
+.cpbvp-zoom input {
+	width: 100%;
+}
+.cpbvp-preview h4 {
+	margin: 0 0 10px;
+}
+#cpbvp_preview {
+	display: block;
+	width: 100%;
+	max-width: 486px;
+	height: auto;
+	border-radius: 21px;
+	box-shadow: 0 8px 22px rgba(6, 26, 64, 0.25);
+	margin-bottom: 16px;
+}
+#cpbvp_pdf {
+	width: 100%;
+	max-width: 486px;
+	text-align: center;
+}
+.cpbvp-status {
+	min-height: 1.5em;
+	margin: 8px 0 4px;
+	font-weight: 600;
+}
+.cpbvp-status.is-error {
+	color: #b32d2e;
+}
+
+/* Listado */
+.column-cpbvp_foto {
+	width: 48px;
+}
+.cpbvp-thumb {
+	width: 40px;
+	height: 40px;
+	border-radius: 4px;
+	object-fit: cover;
+	display: block;
+}
+.column-cpbvp_numero,
+.column-cpbvp_ingreso {
+	width: 120px;
+}
+.column-cpbvp_dni {
+	width: 140px;
+}
+
+@media (max-width: 600px) {
+	.cpbvp-grid {
+		grid-template-columns: minmax(0, 1fr);
+	}
+}
+
+.cpbvp-aviso { background: #fff8e5; border-left: 4px solid #dba617; padding: 8px 12px; margin: 8px 0 0; }
+.cpbvp-thumb { object-fit: cover; border-radius: 4px; }
