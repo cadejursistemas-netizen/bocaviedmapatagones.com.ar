@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       Carnet Peña Boca Viedma | Patagones
  * Description:       Carga de socios/as de la peña (nombre, Nº, DNI, fecha de ingreso y foto) y generación del carnet de bienvenida en PDF de 2 páginas A4.
- * Version:           1.3.1
+ * Version:           1.3.2
  * Requires at least: 5.8
  * Requires PHP:      7.4
  * Author:            Peña Boca Viedma | Patagones
@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 final class CPBVP_Plugin {
 
-	const VERSION = '1.3.1';
+	const VERSION = '1.3.2';
 	const CPT     = 'cpbvp_socio';
 	const CAP     = 'cpbvp_gestionar';  // permiso para cargar socios y generar carnets
 	const ROL     = 'cpbvp_gestor';     // rol "Gestor/a de carnets"
@@ -226,17 +226,29 @@ final class CPBVP_Plugin {
 		);
 	}
 
-	/** Todas las capacidades del tipo "Socios" apuntan al permiso "cpbvp_gestionar". */
+	/**
+	 * Permisos del tipo "Socios".
+	 * Los permisos "generales" (ver el listado, crear, publicar, borrar...) exigen "cpbvp_gestionar".
+	 * Los permisos "de una ficha concreta" (editar, leer, borrar UNA ficha) llevan nombres propios: si
+	 * usaran el mismo nombre, WordPress tomaría "cpbvp_gestionar" como permiso de una ficha y diría
+	 * siempre que no.
+	 */
 	private static function capabilities() {
-		$cap  = self::CAP;
-		$keys = array(
-			'edit_post', 'read_post', 'delete_post',
+		$cap       = self::CAP;
+		$generales = array(
 			'edit_posts', 'edit_others_posts', 'delete_posts', 'publish_posts',
 			'read_private_posts', 'delete_private_posts', 'delete_published_posts',
 			'delete_others_posts', 'edit_private_posts', 'edit_published_posts',
 			'create_posts',
 		);
-		return array_fill_keys( $keys, $cap );
+		return array_merge(
+			array(
+				'edit_post'   => 'edit_cpbvp_socio',
+				'read_post'   => 'read_cpbvp_socio',
+				'delete_post' => 'delete_cpbvp_socio',
+			),
+			array_fill_keys( $generales, $cap )
+		);
 	}
 
 	public static function title_placeholder( $text, $post ) {
