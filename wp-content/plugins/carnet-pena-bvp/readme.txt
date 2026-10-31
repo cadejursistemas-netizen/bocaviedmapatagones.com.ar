@@ -2,7 +2,7 @@
 Requires at least: 5.8
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.3.2
+Stable tag: 1.3.3
 License: GPL-2.0-or-later
 
 Carga de socios/as de la peña y generación del carnet de bienvenida en PDF (2 páginas A4).
@@ -62,6 +62,10 @@ Después de editar template.html, regenerá template.pdf y layout.json con:
 y reemplazá esos dos archivos en carnet-pena-bvp/assets/.
 
 == Cambios ==
+
+= 1.3.3 =
+* Subida de fotos: si el permiso de seguridad de la página venció (error 403 "-1"), se pide uno nuevo y se reintenta solo.
+* Si el servidor rechaza la subida, el aviso muestra el detalle técnico (código, dirección y respuesta) para poder encontrar la causa.
 
 = 1.3.2 =
 * CORRIGE el aviso "Necesitas un nivel más alto de permisos" que veían incluso los administradores. Los permisos de una ficha concreta (editar, leer, borrar) tenían el mismo nombre que el permiso general y WordPress los confundía. Ahora tienen nombres propios.

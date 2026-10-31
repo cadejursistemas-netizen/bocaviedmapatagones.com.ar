@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       Carnet Peña Boca Viedma | Patagones
  * Description:       Carga de socios/as de la peña (nombre, Nº, DNI, fecha de ingreso y foto) y generación del carnet de bienvenida en PDF de 2 páginas A4.
- * Version:           1.3.2
+ * Version:           1.3.3
  * Requires at least: 5.8
  * Requires PHP:      7.4
  * Author:            Peña Boca Viedma | Patagones
@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 final class CPBVP_Plugin {
 
-	const VERSION = '1.3.2';
+	const VERSION = '1.3.3';
 	const CPT     = 'cpbvp_socio';
 	const CAP     = 'cpbvp_gestionar';  // permiso para cargar socios y generar carnets
 	const ROL     = 'cpbvp_gestor';     // rol "Gestor/a de carnets"
@@ -48,6 +48,7 @@ final class CPBVP_Plugin {
 		// Fotos privadas: subida, entrega solo a administradores y limpieza.
 		add_action( 'wp_ajax_cpbvp_subir_foto', array( __CLASS__, 'ajax_subir_foto' ) );
 		add_action( 'wp_ajax_cpbvp_foto', array( __CLASS__, 'ajax_foto' ) );
+		add_action( 'wp_ajax_cpbvp_nonce', array( __CLASS__, 'ajax_nonce' ) );
 		add_action( 'before_delete_post', array( __CLASS__, 'borrar_foto_al_borrar' ) );
 		add_action( 'admin_menu', array( __CLASS__, 'menu_proteger' ) );
 		add_action( 'admin_post_cpbvp_proteger', array( __CLASS__, 'proteger_existentes' ) );
@@ -795,6 +796,15 @@ final class CPBVP_Plugin {
 				'url' => self::url_foto( $nombre ),
 			)
 		);
+	}
+
+	/** Entrega un permiso de seguridad nuevo para subir fotos (si el de la página venció o quedó viejo). */
+	public static function ajax_nonce() {
+		if ( ! current_user_can( self::CAP ) ) {
+			wp_send_json_error( array( 'mensaje' => 'No tenés permiso para subir fotos.' ), 403 );
+		}
+		nocache_headers();
+		wp_send_json_success( array( 'nonce' => wp_create_nonce( 'cpbvp_foto' ) ) );
 	}
 
 	/** Entrega la foto, solo a un administrador con la sesión iniciada. */

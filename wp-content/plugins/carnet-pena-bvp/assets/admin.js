@@ -354,16 +354,52 @@
 		});
 	}
 
-	function uploadPhoto(blob) {
+	function postUpload(blob, nonce) {
 		var fd = new FormData();
 		fd.append('action', 'cpbvp_subir_foto');
-		fd.append('_wpnonce', cfg.nonce);
+		fd.append('_wpnonce', nonce);
 		fd.append('foto', blob, 'foto.jpg');
 		return fetch(cfg.ajaxUrl, { method: 'POST', body: fd, credentials: 'same-origin' }).then(function (r) {
-			return r.json().catch(function () { return null; }).then(function (j) {
-				if (j && j.success) return j.data;
-				throw new Error((j && j.data && j.data.mensaje) || ('No se pudo subir la foto (' + r.status + ').'));
+			return r.text().then(function (t) {
+				var j = null;
+				try { j = JSON.parse(t); } catch (e) { /* no era JSON */ }
+				return { status: r.status, text: t, json: j };
 			});
+		});
+	}
+
+	// Si el permiso de seguridad de la página venció, pide uno nuevo.
+	function freshNonce() {
+		var fd = new FormData();
+		fd.append('action', 'cpbvp_nonce');
+		return fetch(cfg.ajaxUrl, { method: 'POST', body: fd, credentials: 'same-origin' })
+			.then(function (r) { return r.json(); })
+			.then(function (j) { return j && j.success && j.data ? j.data.nonce : null; })
+			.catch(function () { return null; });
+	}
+
+	// Mensaje claro; si no es una respuesta conocida del plugin, muestra qué contestó el servidor.
+	function uploadError(res) {
+		var msg = res.json && res.json.data && res.json.data.mensaje;
+		if (msg) return new Error(msg);
+		var snippet = String(res.text || '').replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 160);
+		return new Error('No se pudo subir la foto. Detalle técnico: HTTP ' + res.status + ' · ' + cfg.ajaxUrl + ' · respuesta: "' + snippet + '"');
+	}
+
+	function uploadPhoto(blob) {
+		return postUpload(blob, cfg.nonce).then(function (res) {
+			if (res.json && res.json.success) return res.json.data;
+			if (String(res.text).trim() === '-1') {
+				return freshNonce().then(function (n) {
+					if (!n) throw uploadError(res);
+					cfg.nonce = n;
+					return postUpload(blob, n);
+				}).then(function (res2) {
+					if (res2.json && res2.json.success) return res2.json.data;
+					throw uploadError(res2);
+				});
+			}
+			throw uploadError(res);
 		});
 	}
 
