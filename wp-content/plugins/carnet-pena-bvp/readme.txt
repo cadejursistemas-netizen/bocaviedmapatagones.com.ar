@@ -2,7 +2,7 @@
 Requires at least: 5.8
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.2.0
+Stable tag: 1.3.0
 License: GPL-2.0-or-later
 
 Carga de socios/as de la peña y generación del carnet de bienvenida en PDF (2 páginas A4).
@@ -12,6 +12,16 @@ Carga de socios/as de la peña y generación del carnet de bienvenida en PDF (2 
 1. En el escritorio de WordPress: Plugins > Añadir nuevo > Subir plugin.
 2. Elegí el archivo carnet-pena-bvp.zip, instalalo y activalo.
 3. Aparece el menú "Socios Peña".
+
+== Usuarios que solo hacen carnets ==
+
+Para que alguien cargue socios y genere carnets sin ver el resto del panel:
+
+1. Usuarios > Añadir nuevo.
+2. En "Rol" elegí "Gestor/a de carnets".
+
+Ese usuario, al iniciar sesión, va directo al listado de socios. Ve solo "Socios Peña" (y su perfil, para cambiar su clave). No ve Entradas, Medios, Páginas, Apariencia, Plugins, Ajustes ni el Escritorio, y no puede cambiar nada del sitio. Tampoco ve la barra de WordPress al navegar la web.
+Tiene acceso a los datos de los socios (DNI y fotos), así que dale ese rol solo a personas de confianza, con su propia clave.
 
 == Si ya tenías socios cargados ==
 
@@ -37,7 +47,8 @@ Si cargás un Nº que ya tiene otro socio/a, al guardar aparece un aviso.
   el Nº del titular y el dorso del carnet (foto y datos) en las posiciones de assets/layout.json.
 * Las fotos NO van a la Biblioteca de medios: se guardan en wp-content/uploads/cpbvp-privado/ con un nombre al azar de 32 caracteres, sin datos ocultos (ubicación, cámara), y solo un administrador con la sesión iniciada puede verlas (se entregan a través de WordPress). La carpeta tiene un .htaccess que bloquea el acceso directo.
 * Si el servidor no usa Apache/LiteSpeed (el .htaccess no se aplica), el nombre al azar sigue protegiendo cada archivo. Lo más seguro es mover la carpeta fuera de la web con el filtro "cpbvp_carpeta_privada".
-* Solo lo pueden usar los Administradores (capacidad "manage_options"). Los Editores y Autores no ven el menú "Socios Peña" ni las fichas.
+* Lo pueden usar los Administradores y el rol "Gestor/a de carnets" (permiso "cpbvp_gestionar"). Los Editores, Autores y demás usuarios no ven el menú "Socios Peña" ni las fichas.
+* La pantalla "Proteger fotos" (que borra fotos de la Biblioteca de medios) es solo para Administradores.
 * Datos personales: se guardan Nº, DNI, fecha de ingreso y foto (puede incluir menores). Las fichas no son públicas (no tienen dirección web) y las fotos tampoco (ver arriba).
 
 == Cambiar el diseño ==
@@ -51,6 +62,9 @@ Después de editar template.html, regenerá template.pdf y layout.json con:
 y reemplazá esos dos archivos en carnet-pena-bvp/assets/.
 
 == Cambios ==
+
+= 1.3.0 =
+* Nuevo rol "Gestor/a de carnets": ve solo los carnets, sin el resto del panel de WordPress.
 
 = 1.2.0 =
 * Las fotos se guardan en una carpeta privada (no en la Biblioteca de medios), con nombre al azar y sin datos ocultos.

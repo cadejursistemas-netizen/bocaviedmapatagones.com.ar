@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       Carnet Peña Boca Viedma | Patagones
  * Description:       Carga de socios/as de la peña (nombre, Nº, DNI, fecha de ingreso y foto) y generación del carnet de bienvenida en PDF de 2 páginas A4.
- * Version:           1.2.0
+ * Version:           1.3.0
  * Requires at least: 5.8
  * Requires PHP:      7.4
  * Author:            Peña Boca Viedma | Patagones
@@ -16,8 +16,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 final class CPBVP_Plugin {
 
-	const VERSION = '1.2.0';
+	const VERSION = '1.3.0';
 	const CPT     = 'cpbvp_socio';
+	const CAP     = 'cpbvp_gestionar';  // permiso para cargar socios y generar carnets
+	const ROL     = 'cpbvp_gestor';     // rol "Gestor/a de carnets"
 
 	const M_NUMERO  = '_cpbvp_numero';
 	const M_DNI     = '_cpbvp_dni';
@@ -49,6 +51,93 @@ final class CPBVP_Plugin {
 		add_action( 'before_delete_post', array( __CLASS__, 'borrar_foto_al_borrar' ) );
 		add_action( 'admin_menu', array( __CLASS__, 'menu_proteger' ) );
 		add_action( 'admin_post_cpbvp_proteger', array( __CLASS__, 'proteger_existentes' ) );
+
+		// Rol "Gestor/a de carnets": ve solo los carnets, no el resto del panel.
+		add_action( 'init', array( __CLASS__, 'crear_rol' ) );
+		add_filter( 'user_has_cap', array( __CLASS__, 'admins_tienen_permiso' ) );
+		add_action( 'admin_menu', array( __CLASS__, 'limpiar_menu' ), 999 );
+		add_action( 'admin_init', array( __CLASS__, 'saltar_escritorio' ) );
+		add_action( 'admin_bar_menu', array( __CLASS__, 'limpiar_barra' ), 999 );
+		add_filter( 'show_admin_bar', array( __CLASS__, 'barra_en_el_sitio' ) );
+		add_filter( 'login_redirect', array( __CLASS__, 'despues_de_entrar' ), 10, 3 );
+	}
+
+	/* ------------------------------------------------------------------ */
+	/* Rol "Gestor/a de carnets"                                           */
+	/* ------------------------------------------------------------------ */
+
+	/** Crea el rol. Solo puede entrar al panel y manejar socios/carnets; no puede tocar nada más. */
+	public static function crear_rol() {
+		if ( get_option( 'cpbvp_rol_version' ) === self::VERSION && get_role( self::ROL ) ) {
+			return;
+		}
+		remove_role( self::ROL );
+		add_role(
+			self::ROL,
+			'Gestor/a de carnets',
+			array(
+				'read'    => true,
+				self::CAP => true,
+			)
+		);
+		update_option( 'cpbvp_rol_version', self::VERSION );
+	}
+
+	/** Los Administradores siempre tienen el permiso de gestionar carnets. */
+	public static function admins_tienen_permiso( $caps ) {
+		if ( ! empty( $caps['manage_options'] ) ) {
+			$caps[ self::CAP ] = true;
+		}
+		return $caps;
+	}
+
+	/** ¿Es un usuario que SOLO gestiona carnets (no es administrador)? */
+	private static function es_gestor() {
+		return is_user_logged_in() && current_user_can( self::CAP ) && ! current_user_can( 'manage_options' );
+	}
+
+	private static function url_listado() {
+		return admin_url( 'edit.php?post_type=' . self::CPT );
+	}
+
+	/** Saca el Escritorio y deja solo "Socios Peña" y el perfil propio (para cambiar su clave). */
+	public static function limpiar_menu() {
+		if ( ! self::es_gestor() ) {
+			return;
+		}
+		remove_menu_page( 'index.php' );
+	}
+
+	/** Si entra al Escritorio, lo mandamos directo a los carnets. */
+	public static function saltar_escritorio() {
+		global $pagenow;
+		if ( self::es_gestor() && 'index.php' === $pagenow && ! wp_doing_ajax() ) {
+			wp_safe_redirect( self::url_listado() );
+			exit;
+		}
+	}
+
+	/** Barra de arriba sin atajos que no le sirven. */
+	public static function limpiar_barra( $barra ) {
+		if ( ! self::es_gestor() ) {
+			return;
+		}
+		foreach ( array( 'wp-logo', 'comments', 'new-content', 'updates', 'customize', 'site-name', 'view-site', 'search' ) as $nodo ) {
+			$barra->remove_node( $nodo );
+		}
+	}
+
+	/** Sin barra de WordPress cuando navega el sitio público. */
+	public static function barra_en_el_sitio( $mostrar ) {
+		return self::es_gestor() ? false : $mostrar;
+	}
+
+	/** Al iniciar sesión, va derecho al listado de socios. */
+	public static function despues_de_entrar( $destino, $pedido, $usuario ) {
+		if ( $usuario instanceof WP_User && in_array( self::ROL, (array) $usuario->roles, true ) ) {
+			return self::url_listado();
+		}
+		return $destino;
 	}
 
 	/* ------------------------------------------------------------------ */
@@ -83,9 +172,8 @@ final class CPBVP_Plugin {
 				'menu_position'       => 26,
 				'menu_icon'           => 'dashicons-id-alt',
 				'supports'            => array( 'title' ),
-				// Solo administradores: todo (ver, crear, editar, borrar, descargar el PDF)
-				// exige "manage_options", que tienen únicamente los Administradores.
-				// Los Editores y Autores no ven el menú ni las fichas.
+				// Todo (ver, crear, editar, borrar, descargar el PDF) exige el permiso "cpbvp_gestionar".
+				// Lo tienen los Administradores y el rol "Gestor/a de carnets"; nadie más.
 				'capability_type'     => 'post',
 				'capabilities'        => self::capabilities(),
 				'map_meta_cap'        => true,
@@ -93,9 +181,9 @@ final class CPBVP_Plugin {
 		);
 	}
 
-	/** Todas las capacidades del tipo "Socios" apuntan a "manage_options" (solo Administradores). */
+	/** Todas las capacidades del tipo "Socios" apuntan al permiso "cpbvp_gestionar". */
 	private static function capabilities() {
-		$cap  = 'manage_options';
+		$cap  = self::CAP;
 		$keys = array(
 			'edit_post', 'read_post', 'delete_post',
 			'edit_posts', 'edit_others_posts', 'delete_posts', 'publish_posts',
@@ -225,7 +313,7 @@ final class CPBVP_Plugin {
 		if ( ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) || wp_is_post_revision( $post_id ) ) {
 			return;
 		}
-		if ( ! current_user_can( 'manage_options' ) || ! current_user_can( 'edit_post', $post_id ) ) {
+		if ( ! current_user_can( self::CAP ) || ! current_user_can( 'edit_post', $post_id ) ) {
 			return;
 		}
 
@@ -418,7 +506,7 @@ final class CPBVP_Plugin {
 
 	public static function enqueue( $hook ) {
 		$screen = get_current_screen();
-		if ( ! $screen || self::CPT !== $screen->post_type || ! current_user_can( 'manage_options' ) ) {
+		if ( ! $screen || self::CPT !== $screen->post_type || ! current_user_can( self::CAP ) ) {
 			return;
 		}
 		$url = plugin_dir_url( __FILE__ ) . 'assets/';
@@ -612,7 +700,7 @@ final class CPBVP_Plugin {
 	/** Recibe la foto (ya achicada por el navegador). Solo administradores. */
 	public static function ajax_subir_foto() {
 		check_ajax_referer( 'cpbvp_foto', '_wpnonce' );
-		if ( ! current_user_can( 'manage_options' ) ) {
+		if ( ! current_user_can( self::CAP ) ) {
 			wp_send_json_error( array( 'mensaje' => 'No tenés permiso para subir fotos.' ), 403 );
 		}
 		if ( empty( $_FILES['foto'] ) || ! is_array( $_FILES['foto'] ) ) {
@@ -654,7 +742,7 @@ final class CPBVP_Plugin {
 
 	/** Entrega la foto, solo a un administrador con la sesión iniciada. */
 	public static function ajax_foto() {
-		if ( ! current_user_can( 'manage_options' ) ) {
+		if ( ! current_user_can( self::CAP ) ) {
 			wp_die( 'No tenés permiso para ver esta foto.', 'Sin permiso', array( 'response' => 403 ) );
 		}
 		$f = isset( $_GET['f'] ) ? (string) wp_unslash( $_GET['f'] ) : ''; // phpcs:ignore WordPress.Security.NonceVerification, WordPress.Security.ValidatedSanitizedInput
