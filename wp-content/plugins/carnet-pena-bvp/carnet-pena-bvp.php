@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       Carnet Peña Boca Viedma | Patagones
  * Description:       Carga de socios/as de la peña (nombre, Nº, DNI, fecha de ingreso y foto) y generación del carnet de bienvenida en PDF de 2 páginas A4.
- * Version:           1.3.0
+ * Version:           1.3.2
  * Requires at least: 5.8
  * Requires PHP:      7.4
  * Author:            Peña Boca Viedma | Patagones
@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 final class CPBVP_Plugin {
 
-	const VERSION = '1.3.0';
+	const VERSION = '1.3.2';
 	const CPT     = 'cpbvp_socio';
 	const CAP     = 'cpbvp_gestionar';  // permiso para cargar socios y generar carnets
 	const ROL     = 'cpbvp_gestor';     // rol "Gestor/a de carnets"
@@ -54,7 +54,8 @@ final class CPBVP_Plugin {
 
 		// Rol "Gestor/a de carnets": ve solo los carnets, no el resto del panel.
 		add_action( 'init', array( __CLASS__, 'crear_rol' ) );
-		add_filter( 'user_has_cap', array( __CLASS__, 'admins_tienen_permiso' ) );
+		add_action( 'wp_ajax_cpbvp_diag', array( __CLASS__, 'diagnostico' ) );
+		add_filter( 'user_has_cap', array( __CLASS__, 'admins_tienen_permiso' ), 10, 4 );
 		add_action( 'admin_menu', array( __CLASS__, 'limpiar_menu' ), 999 );
 		add_action( 'admin_init', array( __CLASS__, 'saltar_escritorio' ) );
 		add_action( 'admin_bar_menu', array( __CLASS__, 'limpiar_barra' ), 999 );
@@ -71,6 +72,10 @@ final class CPBVP_Plugin {
 		if ( get_option( 'cpbvp_rol_version' ) === self::VERSION && get_role( self::ROL ) ) {
 			return;
 		}
+		$admin = get_role( 'administrator' );
+		if ( $admin && ! $admin->has_cap( self::CAP ) ) {
+			$admin->add_cap( self::CAP );
+		}
 		remove_role( self::ROL );
 		add_role(
 			self::ROL,
@@ -83,12 +88,52 @@ final class CPBVP_Plugin {
 		update_option( 'cpbvp_rol_version', self::VERSION );
 	}
 
-	/** Los Administradores siempre tienen el permiso de gestionar carnets. */
-	public static function admins_tienen_permiso( $caps ) {
-		if ( ! empty( $caps['manage_options'] ) ) {
+	/**
+	 * Los Administradores siempre tienen el permiso de gestionar carnets.
+	 * Se reconoce por el rol, por manage_options o por poder administrar plugins, y al super administrador de multisitio.
+	 */
+	public static function admins_tienen_permiso( $caps, $cap = array(), $args = array(), $user = null ) {
+		$es_admin = ! empty( $caps['manage_options'] ) || ! empty( $caps['activate_plugins'] ) || ! empty( $caps['administrator'] );
+		if ( ! $es_admin && $user instanceof WP_User ) {
+			$es_admin = in_array( 'administrator', (array) $user->roles, true ) || ( is_multisite() && is_super_admin( $user->ID ) );
+		}
+		if ( $es_admin ) {
 			$caps[ self::CAP ] = true;
 		}
 		return $caps;
+	}
+
+	/**
+	 * Diagnóstico para entender por qué alguien no entra a los carnets.
+	 * Muestra, solo a quien tiene la sesión iniciada, SUS propios permisos. No muestra claves ni datos de socios.
+	 * Dirección: /wp-admin/admin-ajax.php?action=cpbvp_diag
+	 */
+	public static function diagnostico() {
+		$u   = wp_get_current_user();
+		$cpt = get_post_type_object( self::CPT );
+		$out = array(
+			'plugin'                     => self::VERSION,
+			'wordpress'                  => get_bloginfo( 'version' ),
+			'php'                        => PHP_VERSION,
+			'multisitio'                 => is_multisite(),
+			'usuario'                    => $u->user_login,
+			'roles'                      => array_values( (array) $u->roles ),
+			'puede_manage_options'       => current_user_can( 'manage_options' ),
+			'puede_activar_plugins'      => current_user_can( 'activate_plugins' ),
+			'puede_cpbvp_gestionar'      => current_user_can( self::CAP ),
+			'rol_administrator_tiene_el_permiso' => ( get_role( 'administrator' ) ? get_role( 'administrator' )->has_cap( self::CAP ) : null ),
+			'tipo_socios_registrado'     => (bool) $cpt,
+			'permiso_para_editar_socios' => $cpt ? $cpt->cap->edit_posts : null,
+			'filtros_user_has_cap'       => has_filter( 'user_has_cap' ) ? count( $GLOBALS['wp_filter']['user_has_cap']->callbacks ) . ' prioridades' : 'ninguno',
+		);
+		if ( in_array( 'administrator', (array) $u->roles, true ) ) {
+			$out['plugins_activos'] = array_values( (array) get_option( 'active_plugins', array() ) );
+			$out['mu_plugins']      = array_keys( function_exists( 'get_mu_plugins' ) ? get_mu_plugins() : array() );
+		}
+		nocache_headers();
+		header( 'Content-Type: text/plain; charset=utf-8' );
+		echo wp_json_encode( $out, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE ); // phpcs:ignore WordPress.Security.EscapeOutput
+		exit;
 	}
 
 	/** ¿Es un usuario que SOLO gestiona carnets (no es administrador)? */
@@ -181,17 +226,29 @@ final class CPBVP_Plugin {
 		);
 	}
 
-	/** Todas las capacidades del tipo "Socios" apuntan al permiso "cpbvp_gestionar". */
+	/**
+	 * Permisos del tipo "Socios".
+	 * Los permisos "generales" (ver el listado, crear, publicar, borrar...) exigen "cpbvp_gestionar".
+	 * Los permisos "de una ficha concreta" (editar, leer, borrar UNA ficha) llevan nombres propios: si
+	 * usaran el mismo nombre, WordPress tomaría "cpbvp_gestionar" como permiso de una ficha y diría
+	 * siempre que no.
+	 */
 	private static function capabilities() {
-		$cap  = self::CAP;
-		$keys = array(
-			'edit_post', 'read_post', 'delete_post',
+		$cap       = self::CAP;
+		$generales = array(
 			'edit_posts', 'edit_others_posts', 'delete_posts', 'publish_posts',
 			'read_private_posts', 'delete_private_posts', 'delete_published_posts',
 			'delete_others_posts', 'edit_private_posts', 'edit_published_posts',
 			'create_posts',
 		);
-		return array_fill_keys( $keys, $cap );
+		return array_merge(
+			array(
+				'edit_post'   => 'edit_cpbvp_socio',
+				'read_post'   => 'read_cpbvp_socio',
+				'delete_post' => 'delete_cpbvp_socio',
+			),
+			array_fill_keys( $generales, $cap )
+		);
 	}
 
 	public static function title_placeholder( $text, $post ) {
