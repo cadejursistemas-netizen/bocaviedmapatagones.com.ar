@@ -41,6 +41,9 @@ function pboca_favicon() {
     $base = get_template_directory_uri() . '/icons/';
     echo '<link rel="icon" href="' . esc_url( $base . 'favicon.ico' ) . '" sizes="any">' . "\n";
     echo '<link rel="icon" type="image/png" sizes="32x32" href="' . esc_url( $base . 'favicon-32.png' ) . '">' . "\n";
+    // Google pide un ícono cuadrado de un múltiplo de 48 px (48, 96, 144, 192...)
+    echo '<link rel="icon" type="image/png" sizes="48x48" href="' . esc_url( $base . 'favicon-48.png' ) . '">' . "\n";
+    echo '<link rel="icon" type="image/png" sizes="96x96" href="' . esc_url( $base . 'favicon-96.png' ) . '">' . "\n";
     echo '<link rel="icon" type="image/png" sizes="192x192" href="' . esc_url( $base . 'icon-192.png' ) . '">' . "\n";
     echo '<link rel="apple-touch-icon" href="' . esc_url( $base . 'apple-touch-icon.png' ) . '">' . "\n";
     echo '<meta name="theme-color" content="#0a1122">' . "\n";
@@ -96,3 +99,18 @@ require_once get_template_directory() . '/inc/imagenes.php';
 
 // Contenido editable desde el panel (autoridades, afiches, preguntas frecuentes)
 require_once get_template_directory() . '/inc/contenido-editable.php';
+
+// La dirección /favicon.ico tiene que mostrar el escudo de la peña. Si no, WordPress muestra el logo "W" de WordPress.
+function pboca_servir_favicon() {
+    $archivo = get_template_directory() . '/icons/favicon.ico';
+    if ( ! is_file( $archivo ) ) {
+        return;
+    }
+    status_header( 200 );
+    header( 'Content-Type: image/x-icon' );
+    header( 'Content-Length: ' . filesize( $archivo ) );
+    header( 'Cache-Control: public, max-age=604800' );
+    readfile( $archivo );
+    exit;
+}
+add_action( 'do_faviconico', 'pboca_servir_favicon' );
