@@ -97,6 +97,9 @@ add_action( 'wp_head', 'pboca_datos_compartir', 3 );
 // Versión automática en las imágenes del tema (evita ver fotos viejas guardadas)
 require_once get_template_directory() . '/inc/imagenes.php';
 
+// Pantalla de ingreso con el escudo de la peña
+require_once get_template_directory() . '/inc/login.php';
+
 // Contenido editable desde el panel (autoridades, afiches, preguntas frecuentes)
 require_once get_template_directory() . '/inc/contenido-editable.php';
 
