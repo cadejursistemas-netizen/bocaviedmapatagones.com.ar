@@ -519,6 +519,72 @@
 		return { canvas: c, ctx: ctx };
 	}
 
+	/* ---------------------------------------------------------------- */
+	/* Beneficios (página 2)                                             */
+	/* ---------------------------------------------------------------- */
+
+	// Recuadros de la plantilla (px CSS de la página, origen arriba a la izquierda).
+	var BEN = {
+		cols: [57, 404], rows: [292, 468, 644], w: 332, h: 162,
+		padL: 21, textTop: 64, bottom: 10, right: 30, color: '#0B2E6E'
+	};
+
+	// "Sorteo los días *12* de cada mes" -> palabras con marca de dorado.
+	function benWords(text) {
+		var words = [], gold = false, cur = '';
+		function flush() { if (cur) { words.push({ t: cur, gold: gold }); cur = ''; } }
+		String(text || '').toUpperCase().split('').forEach(function (ch) {
+			if (ch === '*') { flush(); gold = !gold; }
+			else if (/\s/.test(ch)) flush();
+			else cur += ch;
+		});
+		flush();
+		return words;
+	}
+
+	function benLines(ctx, words, size, maxW) {
+		setFont(ctx, F.cond, 600, size);
+		var space = ctx.measureText(' ').width + 0.7, lines = [[]], w = 0;
+		words.forEach(function (wd) {
+			var ww = textWidth(ctx, wd.t, 0.7);
+			if (lines[lines.length - 1].length && w + space + ww > maxW) { lines.push([]); w = 0; }
+			if (lines[lines.length - 1].length) w += space;
+			lines[lines.length - 1].push(wd);
+			w += ww;
+		});
+		return lines;
+	}
+
+	/** Un PNG por recuadro: tapa el texto de la plantilla y escribe el texto cargado. */
+	function benefitCards(list) {
+		var out = [], padX = 12, top = 56;
+		for (var i = 0; i < 6; i++) {
+			var cx = BEN.cols[i % 2], cy = BEN.rows[Math.floor(i / 2)];
+			var r = { x: cx + padX, y: cy + top, w: BEN.w - padX * 2, h: BEN.h - top - 8 };
+			var o = offscreen(r.w, r.h, 4), ctx = o.ctx;
+			ctx.fillStyle = BEN.color;
+			ctx.fillRect(0, 0, r.w, r.h);
+			ctx.textBaseline = 'alphabetic';
+			var words = benWords(list && list[i]);
+			var maxW = BEN.w - BEN.padL - BEN.right, size = 21, lines = benLines(ctx, words, size, maxW);
+			while ((lines.length > 3 || (lines.length && lines.some(function (l) { return !l.length; }))) && size > 12) {
+				size -= 0.5; lines = benLines(ctx, words, size, maxW);
+			}
+			var pitch = size * 1.25, y0 = BEN.textTop - top + size * 0.95;
+			lines.forEach(function (line, li) {
+				var x = BEN.padL - padX;
+				line.forEach(function (wd) {
+					setFont(ctx, F.cond, 600, size);
+					ctx.fillStyle = wd.gold ? C.gold : C.white;
+					drawText(ctx, wd.t, x, y0 + li * pitch, 0.7);
+					x += textWidth(ctx, wd.t, 0.7) + ctx.measureText(' ').width + 0.7;
+				});
+			});
+			out.push({ canvas: o.canvas, r: r });
+		}
+		return out;
+	}
+
 	function canvasBytes(canvas, type, quality) {
 		return new Promise(function (resolve, reject) {
 			try {
@@ -593,6 +659,10 @@
 			kick.ctx.fillStyle = k.color;
 			drawText(kick.ctx, d.numero, 0, k.size * 1.2, k.letterSpacing);
 
+			// 4) Beneficios de la página 2 (textos editables en Socios Peña > Beneficios).
+			var pg2 = pdf.getPageCount() > 1 ? pdf.getPage(1) : null;
+			var ben = pg2 ? benefitCards(cfg.beneficios) : [];
+
 			// 3) Saludo grande ("BIENVENIDO" / "BIENVENIDA"), achicado si no entra.
 			var g = L.greeting;
 			var gr = { x: g.x, y: g.baseline - g.size * 1.25, w: g.maxWidth, h: g.size * 1.6 };
@@ -607,12 +677,15 @@
 				canvasBytes(body.canvas, 'image/jpeg', 0.92),
 				canvasBytes(kick.canvas, 'image/png'),
 				canvasBytes(greet.canvas, 'image/png')
-			]).then(function (b) {
-				return Promise.all([pdf.embedJpg(b[0]), pdf.embedPng(b[1]), pdf.embedPng(b[2])]);
+			].concat(ben.map(function (c) { return canvasBytes(c.canvas, 'image/png'); }))).then(function (b) {
+				return Promise.all(b.map(function (bytes, i) { return i === 0 ? pdf.embedJpg(bytes) : pdf.embedPng(bytes); }));
 			}).then(function (imgs) {
 				place(imgs[0], cb);
 				place(imgs[1], kr);
 				place(imgs[2], gr);
+				ben.forEach(function (c, i) {
+					pg2.drawImage(imgs[3 + i], { x: c.r.x * PT, y: pg2.getHeight() - (c.r.y + c.r.h) * PT, width: c.r.w * PT, height: c.r.h * PT });
+				});
 				pdf.setTitle('Carnet de socio/a – ' + d.name);
 				pdf.setAuthor('Peña Boca Viedma | Patagones');
 				pdf.setSubject('Bienvenida y carnet de socio/a Nº ' + d.numero);
