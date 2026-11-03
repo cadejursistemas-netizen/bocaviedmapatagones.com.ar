@@ -110,3 +110,4 @@ Cada foto tiene dos archivos: `gNN.webp` (grande, para el visor) y `tNN.webp` (m
 | g51 / t51 | Local | 20260920_153703 |
 | g52 / t52 | Local | 20260920_164155 |
 | g53 / t53 | Local | 20260920_164228 |
+| login-fondo | Foto del puente de Viedma–Patagones (enviada por la peña), fondo difuminado del login | images/login-fondo.webp |
