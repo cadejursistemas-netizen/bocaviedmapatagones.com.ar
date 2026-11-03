@@ -8,10 +8,27 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 function pboca_login_estilos() {
-    $logo = esc_url_raw( pboca_img( 'peña.png' ) );
+    $logo  = esc_url_raw( pboca_img( 'peña.png' ) );
+    $fondo = esc_url_raw( pboca_img( 'images/login-fondo.webp' ) );
     ?>
     <style>
         body.login { background: #0a1122; }
+        /* Foto del puente de Viedma–Patagones, difuminada y oscurecida para que el formulario se lea bien. */
+        body.login::before {
+            content: "";
+            position: fixed;
+            inset: -20px;
+            z-index: -2;
+            background: #0a1122 url("<?php echo $fondo; ?>") center / cover no-repeat;
+            filter: blur(9px);
+        }
+        body.login::after {
+            content: "";
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            background: linear-gradient(rgba(10, 17, 34, 0.55), rgba(10, 17, 34, 0.72));
+        }
         body.login #login h1 a {
             background-image: url("<?php echo $logo; ?>");
             background-size: contain;
