@@ -2,7 +2,7 @@
 Requires at least: 5.8
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.3.3
+Stable tag: 1.3.4
 License: GPL-2.0-or-later
 
 Carga de socios/as de la peña y generación del carnet de bienvenida en PDF (2 páginas A4).
@@ -22,6 +22,10 @@ Para que alguien cargue socios y genere carnets sin ver el resto del panel:
 
 Ese usuario, al iniciar sesión, va directo al listado de socios. Ve solo "Socios Peña" (y su perfil, para cambiar su clave). No ve Entradas, Medios, Páginas, Apariencia, Plugins, Ajustes ni el Escritorio, y no puede cambiar nada del sitio. Tampoco ve la barra de WordPress al navegar la web.
 Tiene acceso a los datos de los socios (DNI y fotos), así que dale ese rol solo a personas de confianza, con su propia clave.
+
+== Cambiar los beneficios del carnet ==
+
+Socios Peña > Beneficios. Escribí el texto de cada uno de los 6 recuadros y tocá "Guardar beneficios". Se aplica a los PDF que descargues desde ese momento (los ya descargados no cambian). Para marcar una palabra en dorado, ponela entre asteriscos: Sorteo los días *12* de cada mes.
 
 == Si ya tenías socios cargados ==
 
@@ -62,6 +66,10 @@ Después de editar template.html, regenerá template.pdf y layout.json con:
 y reemplazá esos dos archivos en carnet-pena-bvp/assets/.
 
 == Cambios ==
+
+= 1.3.4 =
+* NUEVO: Socios Peña > Beneficios. Permite editar los 6 textos de la página 2 del PDF ("Beneficios") sin tocar archivos. Lo pueden usar el Administrador y el rol "Gestor/a de carnets". Los carnets descargados desde ese momento salen con el texto nuevo.
+* Con *asteriscos* una palabra sale en dorado (ej.: Sorteo los días *12* de cada mes). Si el texto es largo la letra se achica sola (hasta 3 renglones). Hay un botón para volver a los textos originales.
 
 = 1.3.3 =
 * Subida de fotos: si el permiso de seguridad de la página venció (error 403 "-1"), se pide uno nuevo y se reintenta solo.

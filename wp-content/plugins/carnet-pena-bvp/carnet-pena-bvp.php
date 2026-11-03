@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       Carnet Peña Boca Viedma | Patagones
  * Description:       Carga de socios/as de la peña (nombre, Nº, DNI, fecha de ingreso y foto) y generación del carnet de bienvenida en PDF de 2 páginas A4.
- * Version:           1.3.3
+ * Version:           1.3.4
  * Requires at least: 5.8
  * Requires PHP:      7.4
  * Author:            Peña Boca Viedma | Patagones
@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 final class CPBVP_Plugin {
 
-	const VERSION = '1.3.3';
+	const VERSION = '1.3.4';
 	const CPT     = 'cpbvp_socio';
 	const CAP     = 'cpbvp_gestionar';  // permiso para cargar socios y generar carnets
 	const ROL     = 'cpbvp_gestor';     // rol "Gestor/a de carnets"
@@ -52,6 +52,10 @@ final class CPBVP_Plugin {
 		add_action( 'before_delete_post', array( __CLASS__, 'borrar_foto_al_borrar' ) );
 		add_action( 'admin_menu', array( __CLASS__, 'menu_proteger' ) );
 		add_action( 'admin_post_cpbvp_proteger', array( __CLASS__, 'proteger_existentes' ) );
+
+		// Beneficios que se imprimen en la página 2 del PDF.
+		add_action( 'admin_menu', array( __CLASS__, 'menu_beneficios' ) );
+		add_action( 'admin_post_cpbvp_beneficios', array( __CLASS__, 'guardar_beneficios' ) );
 
 		// Rol "Gestor/a de carnets": ve solo los carnets, no el resto del panel.
 		add_action( 'init', array( __CLASS__, 'crear_rol' ) );
@@ -594,6 +598,7 @@ final class CPBVP_Plugin {
 			'templateUrl'  => $url . 'template.pdf?v=' . filemtime( $dir . 'template.pdf' ),
 			'fontsUrl'     => $url . 'fonts/',
 			'layout'       => $layout,
+			'beneficios'   => self::beneficios(),
 			'fotoUrl'      => $foto_url ? $foto_url : '',
 			'ajaxUrl'      => admin_url( 'admin-ajax.php' ),
 			'nonce'        => wp_create_nonce( 'cpbvp_foto' ),
@@ -831,6 +836,91 @@ final class CPBVP_Plugin {
 		header( 'X-Content-Type-Options: nosniff' );
 		header( 'X-Robots-Tag: noindex, nofollow' );
 		readfile( $ruta ); // phpcs:ignore WordPress.WP.AlternativeFunctions
+		exit;
+	}
+
+	/* ------------------------------------------------------------------ */
+	/* Beneficios (página 2 del PDF)                                       */
+	/* ------------------------------------------------------------------ */
+
+	const OPT_BENEFICIOS = 'cpbvp_beneficios';
+
+	/** Textos originales de los 6 recuadros. Con *asteriscos* una parte sale en dorado. */
+	public static function beneficios_originales() {
+		return array(
+			'Grupo exclusivo de socios/as peña',
+			'Carnet digital de socio/a peña con número asignado',
+			'Sorteo los días *12* de cada mes',
+			'Sorteo de una entrada por partido',
+			'Descuentos en las propuestas de la peña',
+			'Información e invitaciones exclusivas a las actividades',
+		);
+	}
+
+	/** Los 6 textos vigentes (los guardados, o los originales si nunca se editaron). */
+	public static function beneficios() {
+		$orig  = self::beneficios_originales();
+		$saved = get_option( self::OPT_BENEFICIOS, null );
+		if ( ! is_array( $saved ) ) {
+			return $orig;
+		}
+		$out = array();
+		for ( $i = 0; $i < 6; $i++ ) {
+			$out[] = isset( $saved[ $i ] ) ? (string) $saved[ $i ] : $orig[ $i ];
+		}
+		return $out;
+	}
+
+	public static function menu_beneficios() {
+		add_submenu_page( 'edit.php?post_type=' . self::CPT, 'Beneficios del carnet', 'Beneficios', self::CAP, 'cpbvp-beneficios', array( __CLASS__, 'pagina_beneficios' ) );
+	}
+
+	public static function pagina_beneficios() {
+		if ( ! current_user_can( self::CAP ) ) {
+			return;
+		}
+		echo '<div class="wrap"><h1>Beneficios del carnet</h1>';
+		if ( isset( $_GET['cpbvp_ok'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification
+			echo '<div class="notice notice-success is-dismissible"><p>Listo: los beneficios quedaron guardados. Se usan en los carnets que descargues desde ahora.</p></div>';
+		}
+		echo '<p>Estos son los 6 recuadros de la <strong>página 2</strong> del PDF ("Beneficios"). Cambiá el texto y guardá: los carnets que descargues a partir de ahora salen con lo nuevo. Los PDF ya descargados no cambian.</p>';
+		echo '<p class="description">Se escriben solos en mayúsculas. Entran hasta 3 renglones por recuadro (si el texto es largo, la letra se achica sola). Para pintar una palabra en <span style="color:#b98700;font-weight:700">dorado</span>, ponela entre asteriscos: <code>Sorteo los días *12* de cada mes</code>.</p>';
+		echo '<form method="post" action="' . esc_url( admin_url( 'admin-post.php' ) ) . '">';
+		echo '<input type="hidden" name="action" value="cpbvp_beneficios">';
+		wp_nonce_field( 'cpbvp_beneficios' );
+		echo '<table class="form-table" role="presentation"><tbody>';
+		foreach ( self::beneficios() as $i => $texto ) {
+			printf(
+				'<tr><th scope="row"><label for="cpbvp_ben_%1$d">Recuadro %2$02d</label></th><td><input type="text" id="cpbvp_ben_%1$d" name="beneficios[]" value="%3$s" maxlength="120" class="large-text"></td></tr>',
+				(int) $i,
+				(int) $i + 1,
+				esc_attr( $texto )
+			);
+		}
+		echo '</tbody></table>';
+		echo '<p class="submit"><button type="submit" name="cpbvp_accion" value="guardar" class="button button-primary">Guardar beneficios</button> ';
+		echo '<button type="submit" name="cpbvp_accion" value="restaurar" class="button" onclick="return confirm(\'Se vuelven a poner los 6 textos originales. ¿Seguimos?\');">Volver a los textos originales</button></p>';
+		echo '</form></div>';
+	}
+
+	public static function guardar_beneficios() {
+		if ( ! current_user_can( self::CAP ) ) {
+			wp_die( 'No tenés permiso.', '', array( 'response' => 403 ) );
+		}
+		check_admin_referer( 'cpbvp_beneficios' );
+		if ( isset( $_POST['cpbvp_accion'] ) && 'restaurar' === $_POST['cpbvp_accion'] ) {
+			delete_option( self::OPT_BENEFICIOS );
+		} else {
+			$orig = self::beneficios_originales();
+			$raw  = isset( $_POST['beneficios'] ) && is_array( $_POST['beneficios'] ) ? wp_unslash( $_POST['beneficios'] ) : array(); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput
+			$out  = array();
+			for ( $i = 0; $i < 6; $i++ ) {
+				$t     = isset( $raw[ $i ] ) && is_string( $raw[ $i ] ) ? sanitize_text_field( $raw[ $i ] ) : $orig[ $i ];
+				$out[] = mb_substr( trim( $t ), 0, 120 );
+			}
+			update_option( self::OPT_BENEFICIOS, $out, false );
+		}
+		wp_safe_redirect( add_query_arg( array( 'post_type' => self::CPT, 'page' => 'cpbvp-beneficios', 'cpbvp_ok' => 1 ), admin_url( 'edit.php' ) ) );
 		exit;
 	}
 
