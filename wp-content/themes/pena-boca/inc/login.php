@@ -82,3 +82,6 @@ add_filter( 'login_headerurl', function () {
 add_filter( 'login_headertext', function () {
     return get_bloginfo( 'name' );
 } );
+
+// Sin selector de idioma en la pantalla de ingreso.
+add_filter( 'login_display_language_dropdown', '__return_false' );
